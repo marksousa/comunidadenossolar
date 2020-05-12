@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/17553444/81733864-0be11a00-9469-11ea-88b7-e8eb7ae3a8c1.png" width="20%">
+<p align="center"><img src="https://user-images.githubusercontent.com/17553444/81733864-0be11a00-9469-11ea-88b7-e8eb7ae3a8c1.png" width="20%"></p>
 
 ## Sobre o Nosso Lar
 
