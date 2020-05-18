@@ -25,7 +25,6 @@ class CreateUsuariosTable extends Migration
             $table->string('telefone_residencial', 9)->nullable()->comment('Telefone residencial');
             $table->string('telefone_celular_ddd', 2)->nullable()->comment('DDD do telefone celular');
             $table->string('telefone_celular', 9)->nullable()->comment('Telefone celular');
-            $table->boolean('whatsapp')->comment('se true numero de celular possui whatsapp');
             $table->timestamps();
         });
     }
