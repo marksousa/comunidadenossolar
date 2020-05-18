@@ -29,17 +29,17 @@
                             <div class="form-row">
                                 {{-- cpf --}}
                                 <div class="form-group col-md-2">
-                                    <label id="lbl_cpf" for="cpf">CPF <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" placeholder="CPF" data-mask="000.000.000-00" value="{{ old('cpf') }}" name="cpf">
+                                    <label id="lbl_cpf" for="cpf">CPF</label>
+                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" data-mask="000.000.000-00" value="{{ old('cpf') }}" name="cpf">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('cpf')}}
+                                        {{$errors->first('cpf')}}
                                     </div>
                                 </div>
 
                                 {{-- nome --}}
                                 <div class="form-group col-md-10">
                                     <label for="nome">Nome Completo<span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" placeholder="Nome Completo" maxlength="60" value="{{ old('nome') }}" name="nome">
+                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="60" value="{{ old('nome') }}" name="nome">
                                     <div class="invalid-feedback">
                                         {{$errors->first('nome')}}
                                     </div>
@@ -49,7 +49,7 @@
                             <div class="form-row">
                                 {{-- genero --}}
                                 <div class="form-group col-md-5">
-                                    <label for="genero_id">Gênero <span class="text-danger"><strong>*</strong></span></label>
+                                    <label for="genero_id">Gênero</label>
                                     <select class="custom-select {{ $errors->has('genero_id') ? 'is-invalid' : '' }}" name="genero_id">
                                         <option selected value="">Selecione</option>
                                         @foreach ($generos as $genero)
@@ -63,10 +63,10 @@
 
                                 {{-- data_nascimento --}}
                                 <div class="form-group col-md-4">
-                                    <label for="data_nascimento">Data de Nascimento <span class="text-danger"><strong>*</strong></span></label>
+                                    <label for="data_nascimento">Data de Nascimento</label>
                                     <input type="date" class="form-control {{ $errors->has('data_nascimento') ? 'is-invalid' : '' }}" id="data_nascimento" placeholder="data_nascimento" name="data_nascimento" value="{{old('data_nascimento')}}">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('data_nascimento')}}
+                                        {{$errors->first('data_nascimento')}}
                                     </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
@@ -86,68 +86,67 @@
                             <div class="form-row">
                                 {{-- logradouro --}}
                                 <div class="form-group col-md-8">
-                                    <label for="endereco">Endereço <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('endereco') ? 'is-invalid' : '' }}" id="endereco" placeholder="Rua/Avenida ... " maxlength="60" value="{{ old('endereco') }}" name="endereco">
+                                    <label for="endereco">Endereço (Rua, Avenida, etc.)</label>
+                                    <input type="text" class="form-control {{ $errors->has('endereco') ? 'is-invalid' : '' }}" id="endereco" maxlength="60" value="{{ old('endereco') }}" name="endereco">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('endereco')}}
+                                        {{$errors->first('endereco')}}
                                     </div>
                                 </div>
 
                                 {{-- numero --}}
                                 <div class="form-group col-md-1">
-                                    <label for="numero">Número <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" id="numero" placeholder="Número" maxlength="10" value="{{ old('numero') }}" name="numero">
+                                    <label for="numero">Número</label>
+                                    <input type="text" class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" id="numero" maxlength="10" value="{{ old('numero') }}" name="numero">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('numero')}}
+                                        {{$errors->first('numero')}}
                                     </div>
                                 </div>
 
                                 {{-- complemento --}}
                                 <div class="form-group col-md-3">
                                     <label for="complemento">Complemento</label>
-                                    <input type="text" class="form-control {{ $errors->has('complemento') ? 'is-invalid' : '' }}" id="complemento" placeholder="Complemento" maxlength="40" value="{{ old('complemento') }}" name="complemento">
+                                    <input type="text" class="form-control {{ $errors->has('complemento') ? 'is-invalid' : '' }}" id="complemento" maxlength="40" value="{{ old('complemento') }}" name="complemento">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('complemento')}}
+                                        {{$errors->first('complemento')}}
                                     </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
                             <div class="form-row">
                                 {{-- cep --}}
                                 <div class="form-group col-md-2">
-                                    <label for="cep">CEP <span class="text-danger"><strong>*</strong></span></label>
+                                    <label for="cep">CEP</label>
                                     <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep" placeholder="CEP" maxlength="10" value="{{ old('cep') }}" name="cep">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('cep')}}
+                                        {{$errors->first('cep')}}
                                     </div>
                                 </div>
 
                                 {{-- bairro --}}
                                 <div class="form-group col-md-3">
-                                    <label for="bairro">Bairro <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('bairro') ? 'is-invalid' : '' }}" id="bairro" placeholder="Bairro" maxlength="60" value="{{ old('bairro') }}" name="bairro">
+                                    <label for="bairro">Bairro</label>
+                                    <input type="text" class="form-control {{ $errors->has('bairro') ? 'is-invalid' : '' }}" id="bairro" maxlength="60" value="{{ old('bairro') }}" name="bairro">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('bairro')}}
+                                        {{$errors->first('bairro')}}
                                     </div>
                                 </div>
 
                                 {{-- municipio --}}
                                 <div class="form-group col-md-3">
-                                    <label for="municipio">Município <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('municipio') ? 'is-invalid' : '' }}" id="municipio" placeholder="Municipio" maxlength="60" value="{{ old('municipio') }}" name="municipio">
+                                    <label for="municipio">Município</label>
+                                    <input type="text" class="form-control {{ $errors->has('municipio') ? 'is-invalid' : '' }}" id="municipio" maxlength="60" value="{{ old('municipio') }}" name="municipio">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('municipio')}}
+                                        {{$errors->first('municipio')}}
                                     </div>
                                 </div>
 
                                 {{-- uf --}}
                                 <div class="form-group col-md-2">
-                                    <label for="uf">UF <span class="text-danger"><strong>*</strong></span></label>
+                                    <label for="uf">Estado</label>
                                     <select class="custom-select {{ $errors->has('uf') ? 'is-invalid' : '' }}" name="uf">
                                         <option selected value="">Selecione</option>
                                         @foreach($estados as $estado)
                                             <option value="{{ $estado->sigla }}" 
-                                                {{ old('uf') == $estado->sigla ? 'selected' : '' }}
-                                                >{{ $estado->sigla }}</option>
+                                                {{ old('uf') == $estado->sigla ? 'selected' : '' }}>{{ $estado->sigla }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">
@@ -157,13 +156,12 @@
 
                                 {{-- pais --}}
                                 <div class="form-group col-md-2">
-                                    <label for="pais">Pais <span class="text-danger"><strong>*</strong></span></label>
+                                    <label for="pais">Pais</label>
                                     <select class="custom-select {{ $errors->has('pais') ? 'is-invalid' : '' }}" name="pais">
                                         <option selected value="">Selecione</option>
                                         @foreach($paises as $pais)
                                             <option value="{{ $pais->nome }}" 
-                                                {{ (old('pais', 'Brasil') == $pais->nome) ? 'selected' : '' }}
-                                                >{{ $pais->nome}}</option>
+                                                {{ (old('pais', 'Brasil') == $pais->nome) ? 'selected' : '' }}>{{ $pais->nome}}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">
@@ -185,45 +183,26 @@
                     <div class="container">
                         <div class="form-group">
                             <div class="form-row">
-                                {{-- telefone_residencial_ddd --}}
-                                <div class="form-group col-md-1">
-                                    <label for="telefone_residencial_ddd">DDD</label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial_ddd') ? 'is-invalid' : '' }}" id="telefone_residencial_ddd" placeholder="DDD" maxlength="2" name="telefone_residencial_ddd" value="{{old('telefone_residencial_ddd')}}">
-                                    <div class="invalid-feedback">
-                                    {{$errors->first('telefone_residencial_ddd')}}
-                                    </div>
-                                </div>
-
-                                {{-- telefone_residencial --}}
-                                <div class="form-group col-md-2">
-                                    <label for="telefone_residencial">Tel Residencial</label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial') ? 'is-invalid' : '' }}" id="telefone_residencial" placeholder="Número" maxlength="60" data-mask="0000-0000" name="telefone_residencial" value="{{old('telefone_residencial')}}">
-                                    <div class="invalid-feedback">
-                                    {{$errors->first('telefone_residencial')}}
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-md-1">
-                                </div>
-
                                 {{-- telefone_celular_ddd --}}
                                 <div class="form-group col-md-1">
                                     <label for="telefone_celular_ddd">DDD <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_celular_ddd') ? 'is-invalid' : '' }}" id="DDD" placeholder="DDD" maxlength="2" name="telefone_celular_ddd" value="{{old('telefone_celular_ddd')}}">
+                                    <input type="text" class="form-control {{ $errors->has('telefone_celular_ddd') ? 'is-invalid' : '' }}" id="DDD" maxlength="2" name="telefone_celular_ddd" value="{{old('telefone_celular_ddd')}}">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('telefone_celular_ddd')}}
+                                        {{$errors->first('telefone_celular_ddd')}}
                                     </div>
                                 </div>
 
                                 {{-- telefone_celular --}}
-                                <div class="form-group col-md-2">
-                                    <label for="telefone_celular">Tel Celular <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_celular') ? 'is-invalid' : '' }}" id="telefone_celular" placeholder="Número" maxlength="60" data-mask="00000-0000" name="telefone_celular" value="{{old('telefone_celular')}}">
+                                <div class="form-group col-md-7">
+                                    <label for="telefone_celular">Telefone Celular <span class="text-danger"><strong>*</strong></span>(Se não possuir, coloque o número de um parente ou vizinho)</label>
+                                    <input type="text" class="form-control {{ $errors->has('telefone_celular') ? 'is-invalid' : '' }}" id="telefone_celular" maxlength="9" data-mask="00000-0000" name="telefone_celular" value="{{old('telefone_celular')}}">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('telefone_celular')}}
+                                        {{$errors->first('telefone_celular')}}
                                     </div>
                                 </div>
-
+                            </div>
+                                <?php
+                                /*
                                 {{-- whatsapp --}}
                                 <div class="form-group col-md-2">
                                     <div class="custom-control custom-checkbox mb-3">
@@ -235,6 +214,27 @@
                                         <label class="custom-control-label" for="whatsapp"><strong>Celular com Whatsapp?</strong></label>
                                     </div>
                                 </div>
+                                */
+                                ?>
+                            <div class="form-row">
+                                {{-- telefone_residencial_ddd --}}
+                                <div class="form-group col-md-1">
+                                    <label for="telefone_residencial_ddd">DDD</label>
+                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial_ddd') ? 'is-invalid' : '' }}" id="telefone_residencial_ddd" maxlength="2" name="telefone_residencial_ddd" value="{{old('telefone_residencial_ddd')}}">
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('telefone_residencial_ddd')}}
+                                    </div>
+                                </div>
+
+                                {{-- telefone_residencial --}}
+                                <div class="form-group col-md-2">
+                                    <label for="telefone_residencial">Telefone Residencial</label>
+                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial') ? 'is-invalid' : '' }}" id="telefone_residencial" maxlength="60" data-mask="0000-0000" name="telefone_residencial" value="{{old('telefone_residencial')}}">
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('telefone_residencial')}}
+                                    </div>
+                                </div>
+
                             </div>  {{-- fecha form-row --}}
                                 
                             <div class="form-row">
@@ -243,7 +243,7 @@
                                     <label for="email">Email <span class="text-danger"></span></label>
                                     <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" placeholder="email" maxlength="60" value="{{ old('email') }}" name="email">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('email')}}
+                                        {{$errors->first('email')}}
                                     </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
@@ -268,8 +268,7 @@
                                         <option selected value="">Selecione</option>
                                         @foreach($motivos as $motivo)
                                         <option value="{{ $motivo->id }}" 
-                                            {{ (old('motivo_id') == $motivo->id) ? 'selected' : '' }}
-                                            >{{ $motivo->nome}}
+                                            {{ (old('motivo_id') == $motivo->id) ? 'selected' : '' }}>{{ $motivo->nome}}
                                         </option>
                                         @endforeach
                                     </select>
@@ -285,7 +284,7 @@
                                     <label for="data_inicio_nl">Data de Início no Nosso Lar <span class="text-danger"><strong>*</strong></span></label>
                                     <input type="date" class="form-control {{ $errors->has('data_inicio_nl') ? 'is-invalid' : '' }}" id="data_inicio_nl" placeholder="data_inicio_nl" name="data_inicio_nl" value="{{old('data_inicio_nl')}}">
                                     <div class="invalid-feedback">
-                                    {{$errors->first('data_inicio_nl')}}
+                                        {{$errors->first('data_inicio_nl')}}
                                     </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
