@@ -43,7 +43,6 @@ class UsuarioSanitizedRequest extends FormRequest
             'telefone_residencial' => 'nullable|string|max:9',
             'telefone_celular_ddd' => 'required|string|max:2',
             'telefone_celular' => 'required|string|max:9',
-            'whatsapp' => 'nullable',
             'email' => 'string|max:255',
             'motivo_id' => 'required|string',
             'data_inicio_nl' => 'required|date',
