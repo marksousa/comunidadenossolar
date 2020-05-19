@@ -84,8 +84,6 @@ class UsuarioController extends Controller
         $usuario->telefone_residencial = $validated["telefone_residencial"];
         $usuario->telefone_celular_ddd = $validated["telefone_celular_ddd"];
         $usuario->telefone_celular = $validated["telefone_celular"];
-        // Se marcou que o celular tem whatsapp
-        isset($validated['whatsapp']) ? $usuario->whatsapp = true : $usuario->whatsapp = false;
         $usuario->email = $validated["email"];
 
         // Entrevista
