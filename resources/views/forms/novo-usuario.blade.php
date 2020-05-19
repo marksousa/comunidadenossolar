@@ -30,7 +30,7 @@
                                 {{-- cpf --}}
                                 <div class="form-group col-md-2">
                                     <label id="lbl_cpf" for="cpf">CPF</label>
-                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" data-mask="000.000.000-00" value="{{ old('cpf') }}" name="cpf">
+                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" data-mask="000.000.000-00" maxlength="14" value="{{ old('cpf') }}" name="cpf">
                                     <div class="invalid-feedback">
                                         {{$errors->first('cpf')}}
                                     </div>
@@ -39,7 +39,7 @@
                                 {{-- nome --}}
                                 <div class="form-group col-md-10">
                                     <label for="nome">Nome Completo<span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="60" value="{{ old('nome') }}" name="nome">
+                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="80" value="{{ old('nome') }}" name="nome">
                                     <div class="invalid-feedback">
                                         {{$errors->first('nome')}}
                                     </div>
@@ -177,7 +177,7 @@
             <!-- Contato -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Contato</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Contato (Se não possuir telefone celular, coloque o número de um parente ou vizinho)</h6>
                 </div>
                 <div class="card-body">
                     <div class="container">
@@ -193,8 +193,8 @@
                                 </div>
 
                                 {{-- telefone_celular --}}
-                                <div class="form-group col-md-7">
-                                    <label for="telefone_celular">Telefone Celular <span class="text-danger"><strong>*</strong></span>(Se não possuir, coloque o número de um parente ou vizinho)</label>
+                                <div class="form-group col-md-2">
+                                    <label for="telefone_celular">Telefone Celular <span class="text-danger"><strong>*</strong></span></label>
                                     <input type="text" class="form-control {{ $errors->has('telefone_celular') ? 'is-invalid' : '' }}" id="telefone_celular" maxlength="9" data-mask="00000-0000" name="telefone_celular" value="{{old('telefone_celular')}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first('telefone_celular')}}
@@ -229,7 +229,7 @@
                                 {{-- telefone_residencial --}}
                                 <div class="form-group col-md-2">
                                     <label for="telefone_residencial">Telefone Residencial</label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial') ? 'is-invalid' : '' }}" id="telefone_residencial" maxlength="60" data-mask="0000-0000" name="telefone_residencial" value="{{old('telefone_residencial')}}">
+                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial') ? 'is-invalid' : '' }}" id="telefone_residencial" maxlength="8" data-mask="0000-0000" name="telefone_residencial" value="{{old('telefone_residencial')}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first('telefone_residencial')}}
                                     </div>
