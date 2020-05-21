@@ -22,6 +22,17 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function () {
     return view('admin.modelo-pagina');
   });
 
+  // Tentativa upload fotos
+  Route::get('/tentativa/crop', function(){
+    return view('admin.tentativa-crop');
+  });
+
+  Route::get('/upload/avatar', 'AvatarController@create')->name('AvatarCreate');
+  Route::post('/upload/avatar', 'AvatarController@store')->name('AvatarStore');
+  
+  Route::get('/profile/{id}', 'ProfileController@show')->name('ProfileShow');
+
+
   Route::get('/usuario/novo', 'UsuarioController@create')->name('UsuarioCreate');
   Route::post('/usuario/novo', 'UsuarioController@store')->name('UsuarioStore');
   Route::get('/usuarios', 'UsuarioController@index')->name('UsuarioList');

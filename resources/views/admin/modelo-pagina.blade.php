@@ -1,5 +1,9 @@
 @extends('admin.layouts.principal')
 
+@section('page-level-css')
+
+@endsection;
+
 @section('conteudo')
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -22,4 +26,7 @@
             A simple primary alert—check it out!
           </div>
         </div>
+@endsection
+
+@section('page-level-scripts')
 @endsection

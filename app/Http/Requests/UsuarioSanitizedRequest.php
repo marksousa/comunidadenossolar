@@ -76,7 +76,8 @@ class UsuarioSanitizedRequest extends FormRequest
     {
         return [
             'cpf' => 'digit',
-            'nome' => 'trim|capitalize',
+            'nome' => 'trim|uppercase',
+            'endereco' => 'trim|uppercase',
             'email' => 'trim|lowercase',
             'telefone-celular' =>'digit'
         ];

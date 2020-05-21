@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   <title>{{ config('app.name', 'Laravel') }} - Dashboard</title>
 
@@ -330,11 +331,15 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/random/60x60">
+                @if(is_null(Auth::user()->avatar))
+                <img class="img-profile rounded-circle" id = "top-img-profile" src="https://ui-avatars.com/api/?size=160&rounded=true&name={{ Str::replaceFirst(' ','+', Auth::user()->name) }}" alt="avatar">
+                @else
+                <img class="img-profile rounded-circle" id = "top-img-profile" src="{{ asset('storage')."/".Auth::user()->avatar }}" alt="avatar">
+                @endif
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('ProfileShow', ['id' => Auth::user()->id]) }}">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
