@@ -32,9 +32,11 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function () {
   
   Route::get('/profile/{id}', 'ProfileController@show')->name('ProfileShow');
 
-
   Route::get('/usuario/novo', 'UsuarioController@create')->name('UsuarioCreate');
   Route::post('/usuario/novo', 'UsuarioController@store')->name('UsuarioStore');
   Route::get('/usuarios', 'UsuarioController@index')->name('UsuarioList');
   Route::get('/usuarios/{id}', 'UsuarioController@show')->name('UsuarioShow');
+
+  Route::get('/usuario/foto/upload', 'FotoController@create')->name('FotoCreate');
+  Route::post('/usuario/foto/store', 'FotoController@store')->name('FotoStore');
 });

@@ -104,7 +104,7 @@ class UsuarioController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('admin-home');
+        return redirect()->route('FotoCreate');
     }
 
     /**

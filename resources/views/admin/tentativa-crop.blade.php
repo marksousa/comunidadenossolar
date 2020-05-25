@@ -124,17 +124,22 @@
             height: 160,
           });
           initialAvatarURL = avatar.src;
+          console.log(initialAvatarURL);
 
           avatar.src = canvas.toDataURL();
           $progress.show();
           $alert.removeClass('alert-success alert-warning');
+          // console.log(blob);
           canvas.toBlob(function (blob) {
             var formData = new FormData();
             var _token = $('meta[name="csrf-token"]').attr('content');
-
+            
             // formData.append('avatar', blob, 'avatar.jpg');
+            console.log(blob);
             formData.append('avatar', blob, file["name"]);
+            // formData.append('avatar', blob);
 
+            
             $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': _token
