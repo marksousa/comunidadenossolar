@@ -37,6 +37,6 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function () {
   Route::get('/usuarios', 'UsuarioController@index')->name('UsuarioList');
   Route::get('/usuarios/{id}', 'UsuarioController@show')->name('UsuarioShow');
 
-  Route::get('/usuario/foto/upload', 'FotoController@create')->name('FotoCreate');
+  Route::get('/usuario/{id}/foto/upload/', 'FotoController@create')->name('FotoCreate');
   Route::post('/usuario/foto/store', 'FotoController@store')->name('FotoStore');
 });

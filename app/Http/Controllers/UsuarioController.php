@@ -104,7 +104,7 @@ class UsuarioController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('FotoCreate');
+        return redirect()->route('FotoCreate', ['id' => $usuario->id]);
     }
 
     /**

@@ -9,7 +9,7 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Upload de Foto</h1>
+            <h1 class="h3 mb-0 text-gray-800">Upload de Foto - {{ $usuario->nome }}</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Teste</a>
           </div>
 
@@ -28,162 +28,173 @@
             </button>
           </div>
 
-          <div class="row">
-            <div class="col-md-12 col-sm-12">
-              <label class="btn btn-primary btn-upload btn-block" for="inputImage" title="Upload image file" id="botao-upload">
-                <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
-                    <span class="fa fa-upload"></span>
-                  </span>
-                  Clique aqui para enviar a imagem
-              </label>
-            </div>
-            <div class="col-md-9 col-sm-12">
-              <div class="img-container align-middle d-none">
-                <img src="{{ asset('img/preview.png') }}" alt="Picture" id="img-inicial">
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-12">
-              <div class="docs-preview clearfix invisible">
-                <h5>Previsão:</h5>
-                <div class="img-preview preview-lg"></div>
-              </div>
-            </div>
+          <div class="alert text-center font-weight-bolder alert-dismissible alert-primary alert-danger fade show d-none" id="alerta" role="alert" data-dismiss="alert">
           </div>
-          <div class="row d-none text-center" id="actions">
-            <div class="col-md-12 docs-buttons">
 
-              {{--  Botões Mover e Crop --}}
-              {{-- <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;move&quot;)">
-                    <span class="fa fa-arrows-alt"></span>
-                  </span>
-                </button>
-                <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;crop&quot;)">
-                    <span class="fa fa-crop-alt"></span>
-                  </span>
-                </button>
-              </div> --}}
-
-              {{--  Botões de Zoom In e Zoom Out --}}
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Zoom In {{-- cropper.zoom(0.1) --}}">
-                    <span class="fa fa-search-plus"></span>
-                  </span>
-                </button>
-                <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Zoom Out {{-- cropper.zoom(-0.1) --}}">
-                    <span class="fa fa-search-minus"></span>
-                  </span>
-                </button>
-              </div>
-
-              {{-- Botões para mover a imagem --}}
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Esquerda{{-- cropper.move(-10,0) --}}">
-                    <span class="fa fa-arrow-left"></span>
-                  </span>
-                </button>
-                <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Direita{{-- cropper.move(10,0) --}}">
-                    <span class="fa fa-arrow-right"></span>
-                  </span>
-                </button>
-                <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Cima{{-- cropper.move(0,-10) --}}">
-                    <span class="fa fa-arrow-up"></span>
-                  </span>
-                </button>
-                <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Baixo{{-- cropper.move(0,10) --}}">
-                    <span class="fa fa-arrow-down"></span>
-                  </span>
-                </button>
-              </div>
-
-              {{-- Girar 90 graus --}}
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-method="rotate" data-option="-90" title="Rotate Left">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Girar no Sentido Anti-Horário{{-- cropper.rotate(-90) --}}">
-                    <span class="fa fa-undo-alt"></span>
-                  </span>
-                </button>
-                <button type="button" class="btn btn-primary" data-method="rotate" data-option="90" title="Rotate Right">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Girar no Sentido Horário{{-- cropper.rotate(90) --}}">
-                    <span class="fa fa-redo-alt"></span>
-                  </span>
-                </button>
-              </div>
-
-              {{--  Girar Horizontalmente e Verticalmente --}}
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Inverter Horizontalmente{{-- cropper.scaleX(-1) --}}">
-                    <span class="fa fa-arrows-alt-h"></span>
-                  </span>
-                </button>
-                <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Inverter Verticalmente{{-- cropper.scaleY(-1) --}}">
-                    <span class="fa fa-arrows-alt-v"></span>
-                  </span>
-                </button>
-              </div>
-
-              {{--  Refresh e Upload --}}
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Resetar{{-- cropper.reset() --}}">
-                    <span class="fa fa-sync-alt"></span>
-                  </span>
-                </button>
-                <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+          <div id="recurso-upload">
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <label class="btn btn-primary btn-upload btn-block" for="inputImage" title="Upload image file" id="botao-upload">
                   <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-                  <span class="docs-tooltip" data-toggle="tooltip" title="Enviar outra imagem{{-- ImportimagewithBlobURLs --}}">
-                    <span class="fa fa-upload"></span>
-                  </span>
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Clique aqui para enviar a imagem">
+                      <span class="fa fa-upload"></span>
+                    </span>
+                    Clique aqui para enviar a imagem
                 </label>
               </div>
+              <div class="col-md-9 col-sm-12">
+                <div class="img-container align-middle d-none">
+                  <img src="{{ asset('img/preview.png') }}" alt="Picture" id="img-inicial">
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <div class="docs-preview clearfix invisible">
+                  <h5>Previsão:</h5>
+                  <div class="img-preview preview-lg"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row d-none text-center" id="actions">
+              <div class="col-md-12 docs-buttons">
 
-              <div class="row py-2">
-                {{-- Confirmar e Corta a Imagem --}}
-                <div class="btn-group btn-group-crop btn-block">
-                  <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 472, &quot;height&quot;: 472 }">
-                    <span class="docs-tooltip" data-toggle="tooltip" title="Salvar a imagem">
-                      Salvar Imagem
+                {{--  Botões Mover e Crop --}}
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Mover a imagem apenas{{-- cropper.setDragMode(&quot;move&quot;) --}}">
+                      <span class="fa fa-arrows-alt"></span>
+                    </span>
+                  </button>
+                  {{-- <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="crop" title="Crop">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;crop&quot;)">
+                      <span class="fa fa-crop-alt"></span>
+                    </span>
+                  </button> --}}
+                </div>
+
+                {{--  Botões de Zoom In e Zoom Out --}}
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Zoom In {{-- cropper.zoom(0.1) --}}">
+                      <span class="fa fa-search-plus"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Zoom Out {{-- cropper.zoom(-0.1) --}}">
+                      <span class="fa fa-search-minus"></span>
                     </span>
                   </button>
                 </div>
-              <!-- Mostra a imagem cropada num modal -->
-              <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="getCroppedCanvasTitle">Deseja salvar essa imagem?</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body"></div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                      {{-- <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a> --}}
-                      <a class="btn btn-primary" href="#" id="salvar-imagem">Salvar</a>
+
+                {{-- Botões para mover a imagem --}}
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Esquerda{{-- cropper.move(-10,0) --}}">
+                      <span class="fa fa-arrow-left"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Direita{{-- cropper.move(10,0) --}}">
+                      <span class="fa fa-arrow-right"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Cima{{-- cropper.move(0,-10) --}}">
+                      <span class="fa fa-arrow-up"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Mover para Baixo{{-- cropper.move(0,10) --}}">
+                      <span class="fa fa-arrow-down"></span>
+                    </span>
+                  </button>
+                </div>
+
+                {{-- Girar 90 graus --}}
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="rotate" data-option="-90" title="Rotate Left">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Girar no Sentido Anti-Horário{{-- cropper.rotate(-90) --}}">
+                      <span class="fa fa-undo-alt"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="rotate" data-option="90" title="Rotate Right">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Girar no Sentido Horário{{-- cropper.rotate(90) --}}">
+                      <span class="fa fa-redo-alt"></span>
+                    </span>
+                  </button>
+                </div>
+
+                {{--  Girar Horizontalmente e Verticalmente --}}
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Inverter Horizontalmente{{-- cropper.scaleX(-1) --}}">
+                      <span class="fa fa-arrows-alt-h"></span>
+                    </span>
+                  </button>
+                  <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Inverter Verticalmente{{-- cropper.scaleY(-1) --}}">
+                      <span class="fa fa-arrows-alt-v"></span>
+                    </span>
+                  </button>
+                </div>
+
+                {{--  Refresh e Upload --}}
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Resetar{{-- cropper.reset() --}}">
+                      <span class="fa fa-sync-alt"></span>
+                    </span>
+                  </button>
+                  <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                    <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                    <span class="docs-tooltip" data-toggle="tooltip" title="Enviar outra imagem{{-- ImportimagewithBlobURLs --}}">
+                      <span class="fa fa-upload"></span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="row py-2">
+                  {{-- Confirmar e Corta a Imagem --}}
+                  <div class="btn-group btn-group-crop btn-block">
+                    <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 472, &quot;height&quot;: 472 }">
+                      <span class="docs-tooltip" data-toggle="tooltip" title="Salvar a imagem">
+                        Salvar Imagem
+                      </span>
+                    </button>
+                  </div>
+                <!-- Mostra a imagem cropada num modal -->
+                <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="getCroppedCanvasTitle">Deseja salvar essa imagem?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body"></div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                        {{-- <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a> --}}
+                        <a class="btn btn-primary" href="#" id="salvar-imagem">Salvar</a>
+                      </div>
                     </div>
                   </div>
+                </div><!-- /.modal -->
                 </div>
-              </div><!-- /.modal -->
-              </div>
-            </div><!-- /.docs-buttons -->
+              </div><!-- /.docs-buttons -->
+            </div>
           </div>
-
-          
 @endsection
 
 @section('page-level-scripts')
+
+<script>
+  function createAutoClosingAlert(selector, delay) {
+    var alert = $(selector).alert();
+    window.setTimeout(function() { alert.alert('close') }, delay);
+  }
+</script>
+
   <script src="{{ asset('vendor/cropperjs/cropper.min.js') }}"></script>
   <script>
     // prettier-ignore
@@ -358,6 +369,7 @@
                             var _token = $('meta[name="csrf-token"]').attr('content');
 
                             formData.append('foto', blob, uploadedImageName);
+                            formData.append('usuarioId', {{ $usuario->id }});
                             
                             $.ajaxSetup({
                               headers: {
@@ -373,13 +385,21 @@
                               contentType: false,
 
                               success: function () {
-                                alert("OK");
+                                var sucesso = document.querySelector("#alerta");
+                                sucesso.textContent = "Foto salva com sucesso!";
+                                sucesso.classList.remove('alert-danger');
+                                sucesso.classList.remove('d-none');
+                                createAutoClosingAlert("#alerta", 2000);
+                                cropper.destroy();
+                                var principal = document.getElementById("recurso-upload");
+                                principal.classList.add("d-none");
                               },
                 
                               error: function () {
-                                alert("NOTOK");
-                                // avatar.src = initialAvatarURL;
-                                // $alert.show().addClass('alert-warning').text('Erro no Envio. Tente novamente.');
+                                var insucesso = document.querySelector("#alerta");
+                                insucesso.textContent = "Houve um erro no envio da foto! Tente novamente.";
+                                insucesso.classList.remove('alert-primary');
+                                insucesso.classList.remove('d-none');
                               },
                 
                               complete: function () {
@@ -391,16 +411,16 @@
                       };
                   break;
                   
-                  case "destroy":
-                      cropper = null;
+                  // case "destroy":
+                  //     cropper = null;
 
-                      if (uploadedImageURL) {
-                          URL.revokeObjectURL(uploadedImageURL);
-                          uploadedImageURL = "";
-                          image.src = originalImageURL;
-                      }
+                  //     if (uploadedImageURL) {
+                  //         URL.revokeObjectURL(uploadedImageURL);
+                  //         uploadedImageURL = "";
+                  //         image.src = originalImageURL;
+                  //     }
 
-                      break;
+                  //     break;
               }
 
               if (typeof result === "object" && result !== cropper && input) {
@@ -466,19 +486,23 @@
                       cropper.destroy();
                       cropper = new Cropper(image, options);
                       inputImage.value = null;
+                      var imgContainer = document.querySelector(".img-container");
+                      imgContainer.classList.remove('d-none');
+                      var actions = document.querySelector("#actions");
+                      actions.classList.remove('d-none');
+                      var botaoUpload = document.querySelector("#botao-upload");
+                      botaoUpload.classList.add('d-none');
+                      var docsPreview = document.querySelector(".docs-preview");
+                      docsPreview.classList.remove('invisible');
                   } else {
-                      window.alert("Please choose an image file.");
+                      var erro = document.querySelector("#alerta");
+                      erro.textContent = "Por favor, escolha um arquivo de imagem.";
+                      erro.classList.remove('alert-primary');
+                      erro.classList.remove('d-none');
+                      // window.alert("Por favor, escolha um arquivo de imagem.");
+                      
                   }
               }
-              var imgContainer = document.querySelector(".img-container");
-              imgContainer.classList.remove('d-none');
-              var actions = document.querySelector("#actions");
-              actions.classList.remove('d-none');
-              var botaoUpload = document.querySelector("#botao-upload");
-              botaoUpload.classList.add('d-none');
-              var docsPreview = document.querySelector(".docs-preview");
-              docsPreview.classList.remove('invisible');
-              
           };
       } else {
           inputImage.disabled = true;

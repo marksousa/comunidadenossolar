@@ -27,9 +27,10 @@ class FotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('admin.upload-foto');
+        $usuario = Usuario::findOrFail($id);
+        return view('admin.upload-foto', compact('usuario'));
     }
 
     /**
@@ -50,7 +51,7 @@ class FotoController extends Controller
         abort(500, 'Imagem não permitida.');
       }
 
-      $usuario = Usuario::find(2);
+      $usuario = Usuario::find($request->usuarioId);
 
       // // se não for nulo (entao tem avatar) e precisa excluir
       if(!is_null($usuario->perfil->foto_path)){
