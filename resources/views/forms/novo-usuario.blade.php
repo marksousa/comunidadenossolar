@@ -30,7 +30,7 @@
                                 {{-- cpf --}}
                                 <div class="form-group col-md-2">
                                     <label id="lbl_cpf" for="cpf">CPF</label>
-                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" data-mask="000.000.000-00" maxlength="14" value="{{ old('cpf') }}" name="cpf">
+                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" maxlength="14" value="{{ old('cpf') }}" name="cpf">
                                     <div class="invalid-feedback">
                                         {{$errors->first('cpf')}}
                                     </div>
@@ -64,7 +64,7 @@
                                 {{-- data_nascimento --}}
                                 <div class="form-group col-md-4">
                                     <label for="data_nascimento">Data de Nascimento</label>
-                                    <input type="date" class="form-control {{ $errors->has('data_nascimento') ? 'is-invalid' : '' }}" id="data_nascimento" placeholder="data_nascimento" name="data_nascimento" value="{{old('data_nascimento')}}">
+                                    <input type="date" class="form-control {{ $errors->has('data_nascimento') ? 'is-invalid' : '' }}" id="data_nascimento"  name="data_nascimento" value="{{old('data_nascimento')}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first('data_nascimento')}}
                                     </div>
@@ -115,7 +115,7 @@
                                 {{-- cep --}}
                                 <div class="form-group col-md-2">
                                     <label for="cep">CEP</label>
-                                    <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep" placeholder="CEP" maxlength="10" value="{{ old('cep') }}" name="cep">
+                                    <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep" maxlength="10" value="{{ old('cep') }}" name="cep">
                                     <div class="invalid-feedback">
                                         {{$errors->first('cep')}}
                                     </div>
@@ -195,7 +195,7 @@
                                 {{-- telefone_celular --}}
                                 <div class="form-group col-md-2">
                                     <label for="telefone_celular">Telefone Celular <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_celular') ? 'is-invalid' : '' }}" id="telefone_celular" maxlength="9" data-mask="00000-0000" name="telefone_celular" value="{{old('telefone_celular')}}">
+                                    <input type="text" class="form-control {{ $errors->has('telefone_celular') ? 'is-invalid' : '' }}" id="telefone_celular" maxlength="10" name="telefone_celular" value="{{old('telefone_celular')}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first('telefone_celular')}}
                                     </div>
@@ -229,7 +229,7 @@
                                 {{-- telefone_residencial --}}
                                 <div class="form-group col-md-2">
                                     <label for="telefone_residencial">Telefone Residencial</label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial') ? 'is-invalid' : '' }}" id="telefone_residencial" maxlength="8" data-mask="0000-0000" name="telefone_residencial" value="{{old('telefone_residencial')}}">
+                                    <input type="text" class="form-control {{ $errors->has('telefone_residencial') ? 'is-invalid' : '' }}" id="telefone_residencial" maxlength="9" name="telefone_residencial" value="{{old('telefone_residencial')}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first('telefone_residencial')}}
                                     </div>
@@ -241,7 +241,7 @@
                                 {{-- email --}}
                                 <div class="form-group col-md-7">
                                     <label for="email">Email <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" placeholder="email" maxlength="60" value="{{ old('email') }}" name="email">
+                                    <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" maxlength="60" value="{{ old('email') }}" name="email">
                                     <div class="invalid-feedback">
                                         {{$errors->first('email')}}
                                     </div>
@@ -318,5 +318,19 @@
         
         </form>
     </div> {{-- fecha container-fluid (End Page Content)--}}
+@endsection
 
+
+@section('page-level-scripts')
+    <!-- JavaScript para Mask Input -->
+    <script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#cpf').mask('000.000.000-00');
+            $('#cep').mask('00000-000');
+            $('#telefone_celular').mask('00000-0000');
+            $('#telefone_residencial').mask('0000-0000');
+        });
+    </script>
 @endsection
