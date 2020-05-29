@@ -15,7 +15,7 @@ class CreateUsuariosTable extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->increments('id')->start_from(10000);
-            $table->string('cpf',11)->nullable();
+            $table->string('cpf',11)->nullable()->unique();
             $table->string('nome',80);
             $table->integer('genero_id')->unsigned();
             $table->foreign('genero_id')->references('id')->on('generos');
@@ -27,6 +27,8 @@ class CreateUsuariosTable extends Migration
             $table->string('telefone_celular', 9)->nullable()->comment('Telefone celular');
             $table->timestamps();
         });
+
+        \DB::statement('ALTER TABLE usuarios AUTO_INCREMENT = 10000;');
     }
 
     /**

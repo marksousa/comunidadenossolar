@@ -12,7 +12,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Cadastro de novo assistido</h1>
+        <h1 class="h3 mb-2 text-gray-800">Cadastro de novo usuário</h1>
         <p class="mb-4">Informações</p>
 
         <form method="POST" action="{{ route('UsuarioStore') }}" id="formCadastroUsuario" novalidate>

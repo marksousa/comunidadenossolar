@@ -101,7 +101,7 @@ class UsuarioController extends Controller
         } catch (\Exception $e){
             info($e);
             Session::flash('alert-danger', 'Ocorreu um erro ao salvar o novo usuário. Tente Novamente.');
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
 
         return redirect()->route('FotoCreate', ['id' => $usuario->id]);

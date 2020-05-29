@@ -40,7 +40,7 @@ class UsuarioSanitizedRequest extends FormRequest
             'uf' => 'string|size:2',
             'pais' => 'string|max:80',
             'telefone_residencial_ddd' => 'nullable|string|max:2',
-            'telefone_residencial' => 'nullable|string|max:9',
+            'telefone_residencial' => 'nullable|string|max:8',
             'telefone_celular_ddd' => 'required|string|max:2',
             'telefone_celular' => 'required|string|max:9',
             'email' => 'string|nullable|max:255',
@@ -76,10 +76,19 @@ class UsuarioSanitizedRequest extends FormRequest
     {
         return [
             'cpf' => 'digit',
-            'nome' => 'trim|uppercase',
-            'endereco' => 'trim|uppercase',
+            'nome' => 'trim|capitalize',
+            'endereco' => 'trim|capitalize',
+            'numero' => 'trim|capitalize',
+            'complemento' => 'trim|capitalize',
+            'cep' => 'trim|digit',
+            'bairro' => 'trim|capitalize',
+            'municipio' => 'trim|capitalize',
+            'telefone_residencial_ddd' => 'trim|digit',
+            'telefone_residencial' => 'trim|digit',
+            'telefone_celular_ddd' => 'trim|digit',
+            'telefone_celular' => 'trim|digit',
             'email' => 'trim|lowercase',
-            'telefone-celular' =>'digit'
+            
         ];
     }
 }

@@ -4,15 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Route::get('/', function () {
-//     return view('home');
-// });
-
-// rota pagina institucional
+// rota home página institucional
 Route::get('/', 'HomeController@index')->name('home');
 
 // grupo de rotas para as paginas do admin
-Route::group(['middleware' => 'auth','prefix' => 'admin'],function () {
+Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
   
   // dashboard
   Route::get('/', "Admin\AdminController@index")->name('admin-home');
@@ -34,9 +30,8 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'],function () {
 
   Route::get('/usuario/novo', 'UsuarioController@create')->name('UsuarioCreate');
   Route::post('/usuario/novo', 'UsuarioController@store')->name('UsuarioStore');
-  Route::get('/usuarios', 'UsuarioController@index')->name('UsuarioList');
-  Route::get('/usuarios/{id}', 'UsuarioController@show')->name('UsuarioShow');
-
+  Route::get('/usuario', 'UsuarioController@index')->name('UsuarioList');
+  Route::get('/usuario/{id}', 'UsuarioController@show')->name('UsuarioShow');
   Route::get('/usuario/{id}/foto/upload/', 'FotoController@create')->name('FotoCreate');
   Route::post('/usuario/foto/store', 'FotoController@store')->name('FotoStore');
 });

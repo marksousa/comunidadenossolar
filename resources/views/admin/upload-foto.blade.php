@@ -7,10 +7,15 @@
 @section('conteudo')
         <!-- Begin Page Content -->
         <div class="container-fluid">
+
+          <kbd>Lembrete: Adicionar component para exibir msg de sucesso no envio das infos do cadastro</kbd>
+
+          <hr class="py-1">
+
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Upload de Foto - {{ $usuario->nome }}</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Teste</a>
+            {{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Teste</a> --}}
           </div>
 
           <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -22,7 +27,7 @@
               <li>Clique no botão Salvar Imagem.</li>
             </ul>
             <hr>
-            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+            <p class="mb-0">Você pode enviar a foto depois. Se não que enviar agora clique no botão ao lado <a href="{{ route('UsuarioShow', ['id' => $usuario->id ]) }}" class="btn btn-sm btn-light">Enviar Depois</a></p>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -393,6 +398,8 @@
                                 cropper.destroy();
                                 var principal = document.getElementById("recurso-upload");
                                 principal.classList.add("d-none");
+                                var url = "{{ route('UsuarioShow', ['id' => $usuario->id]) }}";
+                                window.location.replace(url);
                               },
                 
                               error: function () {

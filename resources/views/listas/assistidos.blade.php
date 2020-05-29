@@ -22,22 +22,24 @@
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
+                    <tr class="text-center">
                       <th>Id</th>
                       <th>Nome</th>
                       <th>CPF</th>
                       <th>Data de Nascimento</th>
                       <th>Idade</th>
+                      <th>+ info</span></th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach($assistidos as $assistido)
-                      <tr>
+                      <tr class="text-center">
                         <td>{{ $assistido->id }}</td>
-                        <td>{{ $assistido->nome }}</td>
+                        <td class="text-justify">{{ $assistido->nome }}</td>
                         <td>{{ $assistido->cpf }}</td>
                         <td>{{ Carbon::parse($assistido->data_nascimento)->format('d/m/Y') }}</td>
                         <td>{{ Carbon::parse($assistido->data_nascimento)->age }}</td>
+                        <td><a class="btn btn-info" href="{{ route('UsuarioShow', ['id' => $assistido->id]) }}"><span class="fas fa-user-edit"></span></a></td>
                       </tr>
                     @endforeach
                   </tbody>

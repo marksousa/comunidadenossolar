@@ -60,7 +60,8 @@ class StoreUsuarioRequest extends BaseFormRequest
             'max' => 'máximo :max caracteres',
             'min' => 'mínimo :min caracteres',
             'size' => 'Preencha com :size caracteres.',
-            'cpf' => 'CPF incorreto'
+            'cpf' => 'CPF incorreto',
+            'unique' => 'campo unico'
         ];
     }
 
