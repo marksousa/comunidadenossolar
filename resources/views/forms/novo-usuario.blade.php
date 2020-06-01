@@ -78,44 +78,16 @@
             <!-- Endereço -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Endereço</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Endereço (Preencha o CEP, número e complemento se necessário. As outras informações serão completadas automaticamente)</h6>
                 </div>
                 <div class="card-body">
                     <div class="container">
                         <div class="form-group">
                             <div class="form-row">
-                                {{-- logradouro --}}
-                                <div class="form-group col-md-8">
-                                    <label for="endereco">Endereço (Rua, Avenida, etc.)</label>
-                                    <input type="text" class="form-control {{ $errors->has('endereco') ? 'is-invalid' : '' }}" id="endereco" maxlength="60" value="{{ old('endereco') }}" name="endereco">
-                                    <div class="invalid-feedback">
-                                        {{$errors->first('endereco')}}
-                                    </div>
-                                </div>
-
-                                {{-- numero --}}
-                                <div class="form-group col-md-1">
-                                    <label for="numero">Número</label>
-                                    <input type="text" class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" id="numero" maxlength="10" value="{{ old('numero') }}" name="numero">
-                                    <div class="invalid-feedback">
-                                        {{$errors->first('numero')}}
-                                    </div>
-                                </div>
-
-                                {{-- complemento --}}
-                                <div class="form-group col-md-3">
-                                    <label for="complemento">Complemento</label>
-                                    <input type="text" class="form-control {{ $errors->has('complemento') ? 'is-invalid' : '' }}" id="complemento" maxlength="40" value="{{ old('complemento') }}" name="complemento">
-                                    <div class="invalid-feedback">
-                                        {{$errors->first('complemento')}}
-                                    </div>
-                                </div>
-                            </div>  {{-- fecha form-row --}}
-                            <div class="form-row">
                                 {{-- cep --}}
                                 <div class="form-group col-md-2">
                                     <label for="cep">CEP</label>
-                                    <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep" maxlength="10" value="{{ old('cep') }}" name="cep">
+                                    <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep" maxlength="10" value="{{ old('cep') }}" name="cep" onblur="pesquisacep(this.value);">
                                     <div class="invalid-feedback">
                                         {{$errors->first('cep')}}
                                     </div>
@@ -142,7 +114,7 @@
                                 {{-- uf --}}
                                 <div class="form-group col-md-2">
                                     <label for="uf">Estado</label>
-                                    <select class="custom-select {{ $errors->has('uf') ? 'is-invalid' : '' }}" name="uf">
+                                    <select class="custom-select {{ $errors->has('uf') ? 'is-invalid' : '' }}" name="uf" id="uf">
                                         <option selected value="">Selecione</option>
                                         @foreach($estados as $estado)
                                             <option value="{{ $estado->sigla }}" 
@@ -157,7 +129,7 @@
                                 {{-- pais --}}
                                 <div class="form-group col-md-2">
                                     <label for="pais">Pais</label>
-                                    <select class="custom-select {{ $errors->has('pais') ? 'is-invalid' : '' }}" name="pais">
+                                    <select class="custom-select {{ $errors->has('pais') ? 'is-invalid' : '' }}" name="pais" id="pais">
                                         <option selected value="">Selecione</option>
                                         @foreach($paises as $pais)
                                             <option value="{{ $pais->nome }}" 
@@ -166,6 +138,34 @@
                                     </select>
                                     <div class="invalid-feedback">
                                         {{$errors->first('pais')}}
+                                    </div>
+                                </div>
+                            </div>  {{-- fecha form-row --}}
+                            <div class="form-row">
+                                {{-- logradouro --}}
+                                <div class="form-group col-md-8">
+                                    <label for="endereco">Endereço (Rua, Avenida, etc.)</label>
+                                    <input type="text" class="form-control {{ $errors->has('endereco') ? 'is-invalid' : '' }}" id="endereco" maxlength="60" value="{{ old('endereco') }}" name="endereco">
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('endereco')}}
+                                    </div>
+                                </div>
+
+                                {{-- numero --}}
+                                <div class="form-group col-md-1">
+                                    <label for="numero">Número</label>
+                                    <input type="text" class="form-control {{ $errors->has('numero') ? 'is-invalid' : '' }}" id="numero" maxlength="10" value="{{ old('numero') }}" name="numero">
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('numero')}}
+                                    </div>
+                                </div>
+
+                                {{-- complemento --}}
+                                <div class="form-group col-md-3">
+                                    <label for="complemento">Complemento</label>
+                                    <input type="text" class="form-control {{ $errors->has('complemento') ? 'is-invalid' : '' }}" id="complemento" maxlength="40" value="{{ old('complemento') }}" name="complemento">
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('complemento')}}
                                     </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
@@ -332,5 +332,73 @@
             $('#telefone_celular').mask('00000-0000');
             $('#telefone_residencial').mask('0000-0000');
         });
+    </script>
+
+     <!-- Javascript para buscar os dados do endereço após preencher o CEP -->
+    <script type="text/javascript" >
+        function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep
+            document.getElementById('endereco').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('municipio').value=("");
+            document.getElementById('uf').value=("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('endereco').value=(conteudo.logradouro);
+                document.getElementById('bairro').value=(conteudo.bairro);
+                document.getElementById('municipio').value=(conteudo.localidade);
+                document.getElementById('uf').value=(conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+            
+        function pesquisacep(valor) {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('endereco').value="...";
+                    document.getElementById('bairro').value="...";
+                    document.getElementById('municipio').value="...";
+                    document.getElementById('uf').value="...";
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
     </script>
 @endsection
