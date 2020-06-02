@@ -87,7 +87,7 @@
                                 {{-- cep --}}
                                 <div class="form-group col-md-2">
                                     <label for="cep">CEP</label>
-                                    <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep" maxlength="10" value="{{ old('cep') }}" name="cep" onblur="pesquisacep(this.value);">
+                                    <input type="text" class="form-control {{ $errors->has('cep') ? 'is-invalid' : '' }}" id="cep" maxlength="9" value="{{ old('cep') }}" name="cep" onblur="pesquisacep(this.value);">
                                     <div class="invalid-feedback">
                                         {{$errors->first('cep')}}
                                     </div>
