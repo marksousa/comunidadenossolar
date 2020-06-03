@@ -18,8 +18,8 @@ class CreatePerfilsTable extends Migration
             $table->foreign('usuario_id')->references('id')->on('usuarios');
             $table->integer('motivo_id')->unsigned();
             $table->foreign('motivo_id')->references('id')->on('motivos');
-            $table->date('data_inicio_nl')->nullable()->comment('Data de Inicio no Nosso Lar');
-            $table->string('primeira_area_nl')->nullable()->comment('Primeira Área no Nosso Lar');
+            $table->string('data_inicio_nl', 7)->nullable()->comment('Data de Inicio no Nosso Lar');
+            $table->string('primeiro_pilar_nl')->nullable()->comment('Primeiro Pilar no Nosso Lar');
             $table->mediumText('observacao')->nullable()->comment('Observacao');
             $table->string('foto_path')->nullable()->comment('path da foto de perfil');
             $table->timestamps();

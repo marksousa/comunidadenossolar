@@ -89,7 +89,7 @@ class UsuarioController extends Controller
         // Entrevista
         $perfil->motivo_id = $validated["motivo_id"];
         $perfil->data_inicio_nl = $validated["data_inicio_nl"];
-        $perfil->primeira_area_nl = $validated["primeira_area_nl"];
+        $perfil->primeiro_pilar_nl = $validated["primeiro_pilar_nl"];
         $perfil->observacao = $validated["observacao"];
 
         try {

@@ -12,7 +12,7 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Cadastro de novo usuário</h1>
+        <h1 class="h3 mb-2 text-gray-800">Cadastro de novo usuário (campos marcados com <span class="text-danger"><strong>*</strong></span> são obrigatórios)</h1>
         <p class="mb-4">Informações</p>
 
         <form method="POST" action="{{ route('UsuarioStore') }}" id="formCadastroUsuario" novalidate>
@@ -263,7 +263,7 @@
                             <div class="form-row">
                                 {{-- Motivos Para Vir ao Nosso lar --}}
                                 <div class="form-group col-md-4">
-                                    <label for="motivo_id">O que o motivou a procurar o Nosso Lar?<span class="text-danger"><strong>*</strong></span></label>
+                                    <label for="motivo_id">O que o(a) motivou a procurar o Nosso Lar? <span class="text-danger"><strong>*</strong></span></label>
                                     <select class="custom-select {{ $errors->has('motivo_id') ? 'is-invalid' : '' }}" name="motivo_id">
                                         <option selected value="">Selecione</option>
                                         @foreach($motivos as $motivo)
@@ -281,8 +281,8 @@
                             <div class="form-row">
                                 {{-- data_inicio_nl --}}
                                 <div class="form-group col-md-4">
-                                    <label for="data_inicio_nl">Data de Início no Nosso Lar <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="date" class="form-control {{ $errors->has('data_inicio_nl') ? 'is-invalid' : '' }}" id="data_inicio_nl" placeholder="data_inicio_nl" name="data_inicio_nl" value="{{old('data_inicio_nl')}}">
+                                    <label for="data_inicio_nl">Data de Início no Nosso Lar (Mês e ano)</label>
+                                    <input type="text" class="form-control {{ $errors->has('data_inicio_nl') ? 'is-invalid' : '' }}" id="data_inicio_nl" maxlength="7" placeholder="mm/aaaa" name="data_inicio_nl" value="{{old('data_inicio_nl')}}">
                                     <div class="invalid-feedback">
                                         {{$errors->first('data_inicio_nl')}}
                                     </div>
@@ -290,13 +290,13 @@
                             </div>  {{-- fecha form-row --}}
 
                             <div class="form-row">
-                                {{-- Primeira Área --}}
+                                {{-- Primeiro Pilar --}}
                                 {{-- SUGIRO QUE SEJA UM SELECT DEPOIS QUE OS PILARES ESTIVEREM DEFINIDOS  --}}
                                 <div class="form-group col-md-4">
-                                    <label for="primeira_area_nl">Qual a 1a. área do Nosso Lar?</label>
-                                    <input type="text" class="form-control {{ $errors->has('primeira_area_nl') ? 'is-invalid' : '' }}" id="primeira_area_nl" placeholder="Primeira Área" maxlength="20" name="primeira_area_nl" value="{{ old('primeira_area_nl') }}">
+                                    <label for="primeiro_pilar_nl">Qual o 1º. pilar do Nosso Lar?</label>
+                                    <input type="text" class="form-control {{ $errors->has('primeiro_pilar_nl') ? 'is-invalid' : '' }}" id="primeiro_pilar_nl" placeholder="Primeira Área" maxlength="20" name="primeiro_pilar_nl" value="{{ old('primeiro_pilar_nl') }}">
                                     <div class="invalid-feedback">
-                                        {{$errors->first('primeira_area_nl')}}
+                                        {{$errors->first('primeiro_pilar_nl')}}
                                     </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
@@ -331,6 +331,7 @@
             $('#cep').mask('00000-000');
             $('#telefone_celular').mask('00000-0000');
             $('#telefone_residencial').mask('0000-0000');
+            $('#data_inicio_nl').mask('00/0000');
         });
     </script>
 
@@ -342,6 +343,7 @@
             document.getElementById('bairro').value=("");
             document.getElementById('municipio').value=("");
             document.getElementById('uf').value=("");
+            document.getElementById('data').value=("");
         }
 
         function meu_callback(conteudo) {

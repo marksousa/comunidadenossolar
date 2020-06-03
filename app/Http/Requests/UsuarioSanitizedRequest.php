@@ -45,8 +45,8 @@ class UsuarioSanitizedRequest extends FormRequest
             'telefone_celular' => 'required|string|max:10',
             'email' => 'nullable|string|max:60',
             'motivo_id' => 'required|string',
-            'data_inicio_nl' => 'required|date',
-            'primeira_area_nl' => 'required|string',
+            'data_inicio_nl' => 'nullable|string|max:7',
+            'primeiro_pilar_nl' => 'required|string',
             'observacao' => 'nullable|string'
         ];
     }
