@@ -29,7 +29,7 @@ class UsuarioSanitizedRequest extends FormRequest
         return [
             'cpf' => 'nullable|string|max:14',
             'nome' => 'required|string|max:80',
-            'genero_id' => 'integer',
+            'genero_id' => 'required|integer',
             'data_nascimento' => 'nullable|date',
             'endereco' => 'nullable|string|max:60',
             'numero' => 'nullable|string|max:10',
@@ -80,13 +80,13 @@ class UsuarioSanitizedRequest extends FormRequest
             'endereco' => 'trim|capitalize',
             'numero' => 'trim|capitalize',
             'complemento' => 'trim|capitalize',
-            'cep' => 'trim|digit',
+            'cep' => 'trim',
             'bairro' => 'trim|capitalize',
             'municipio' => 'trim|capitalize',
             'telefone_residencial_ddd' => 'trim|digit',
-            'telefone_residencial' => 'trim|digit',
+            'telefone_residencial' => 'trim',
             'telefone_celular_ddd' => 'trim|digit',
-            'telefone_celular' => 'trim|digit',
+            'telefone_celular' => 'trim',
             'email' => 'trim|lowercase',
             
         ];

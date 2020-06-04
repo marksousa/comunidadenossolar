@@ -13,7 +13,6 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <h1 class="h3 mb-2 text-gray-800">Cadastro de novo usuário (campos marcados com <span class="text-danger"><strong>*</strong></span> são obrigatórios)</h1>
-        <p class="mb-4">Informações</p>
 
         <form method="POST" action="{{ route('UsuarioStore') }}" id="formCadastroUsuario" novalidate>
         @csrf
@@ -38,8 +37,8 @@
 
                                 {{-- nome --}}
                                 <div class="form-group col-md-10">
-                                    <label for="nome">Nome Completo<span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="80" value="{{ old('nome') }}" name="nome">
+                                    <label for="nome">Nome Completo <span class="text-danger"><strong>*</strong></span></label>
+                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="80" value="{{ old('nome') }}" name="nome" required>
                                     <div class="invalid-feedback">
                                         {{$errors->first('nome')}}
                                     </div>
@@ -49,8 +48,8 @@
                             <div class="form-row">
                                 {{-- genero --}}
                                 <div class="form-group col-md-5">
-                                    <label for="genero_id">Gênero</label>
-                                    <select class="custom-select {{ $errors->has('genero_id') ? 'is-invalid' : '' }}" name="genero_id">
+                                    <label for="genero_id">Gênero <span class="text-danger"><strong>*</strong></span></label>
+                                    <select class="custom-select {{ $errors->has('genero_id') ? 'is-invalid' : '' }}" name="genero_id" required>
                                         <option selected value="">Selecione</option>
                                         @foreach ($generos as $genero)
                                             <option value="{{ $genero->id }}" {{ old('genero_id') == "$genero->id" ? 'selected' : '' }}>{{ $genero->nome }}</option>                                    
@@ -186,7 +185,7 @@
                                 {{-- telefone_celular_ddd --}}
                                 <div class="form-group col-md-1">
                                     <label for="telefone_celular_ddd">DDD <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_celular_ddd') ? 'is-invalid' : '' }}" id="DDD" maxlength="2" name="telefone_celular_ddd" value="{{old('telefone_celular_ddd')}}">
+                                    <input type="text" class="form-control {{ $errors->has('telefone_celular_ddd') ? 'is-invalid' : '' }}" id="DDD" maxlength="2" name="telefone_celular_ddd" value="{{old('telefone_celular_ddd')}}" required>
                                     <div class="invalid-feedback">
                                         {{$errors->first('telefone_celular_ddd')}}
                                     </div>
@@ -195,7 +194,7 @@
                                 {{-- telefone_celular --}}
                                 <div class="form-group col-md-2">
                                     <label for="telefone_celular">Telefone Celular <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('telefone_celular') ? 'is-invalid' : '' }}" id="telefone_celular" maxlength="10" name="telefone_celular" value="{{old('telefone_celular')}}">
+                                    <input type="text" class="form-control {{ $errors->has('telefone_celular') ? 'is-invalid' : '' }}" id="telefone_celular" maxlength="10" name="telefone_celular" value="{{old('telefone_celular')}}" required>
                                     <div class="invalid-feedback">
                                         {{$errors->first('telefone_celular')}}
                                     </div>
@@ -264,7 +263,7 @@
                                 {{-- Motivos Para Vir ao Nosso lar --}}
                                 <div class="form-group col-md-4">
                                     <label for="motivo_id">O que o(a) motivou a procurar o Nosso Lar? <span class="text-danger"><strong>*</strong></span></label>
-                                    <select class="custom-select {{ $errors->has('motivo_id') ? 'is-invalid' : '' }}" name="motivo_id">
+                                    <select class="custom-select {{ $errors->has('motivo_id') ? 'is-invalid' : '' }}" name="motivo_id" required>
                                         <option selected value="">Selecione</option>
                                         @foreach($motivos as $motivo)
                                         <option value="{{ $motivo->id }}" 
@@ -293,8 +292,8 @@
                                 {{-- Primeiro Pilar --}}
                                 {{-- SUGIRO QUE SEJA UM SELECT DEPOIS QUE OS PILARES ESTIVEREM DEFINIDOS  --}}
                                 <div class="form-group col-md-4">
-                                    <label for="primeiro_pilar_nl">Qual o 1º. pilar do Nosso Lar?</label>
-                                    <input type="text" class="form-control {{ $errors->has('primeiro_pilar_nl') ? 'is-invalid' : '' }}" id="primeiro_pilar_nl" placeholder="Primeira Área" maxlength="20" name="primeiro_pilar_nl" value="{{ old('primeiro_pilar_nl') }}">
+                                    <label for="primeiro_pilar_nl">Qual o 1º. pilar do Nosso Lar? <span class="text-danger"><strong>*</strong></span></label>
+                                    <input type="text" class="form-control {{ $errors->has('primeiro_pilar_nl') ? 'is-invalid' : '' }}" id="primeiro_pilar_nl" placeholder="Primeira Área" maxlength="20" name="primeiro_pilar_nl" value="{{ old('primeiro_pilar_nl') }}" required>
                                     <div class="invalid-feedback">
                                         {{$errors->first('primeiro_pilar_nl')}}
                                     </div>
@@ -303,7 +302,7 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <label for="observacao">Observações <small>(preencher aqui caso o motivo a procurar o nosso lar seja outros)</small></label>
+                                    <label for="observacao">Observações (preencher aqui caso o motivo a procurar o nosso lar seja outros)</label>
                                     <textarea class="form-control" id="observacao" rows="3" name="observacao">{{ old('observacao') }}</textarea>
                                 </div>
                             </div>  {{-- fecha form-row --}}
