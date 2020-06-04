@@ -1,8 +1,7 @@
 @extends('admin.layouts.principal')
 
 @section('page-level-css')
-
-@endsection;
+@endsection
 
 @section('conteudo')
         <!-- Begin Page Content -->

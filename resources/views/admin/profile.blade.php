@@ -42,12 +42,17 @@
 
             {{--  avatar --}}
             <label class="label" data-toggle="tooltip" title="Altere seu Avatar">
-              @if(is_null(Auth::user()->avatar))
-              <img class="rounded-circle" id="avatar" src="https://ui-avatars.com/api/?size=160&rounded=true&name={{ Str::replaceFirst(' ','+', Auth::user()->name) }}" alt="avatar">
+              @if(is_null($user->avatar))
+                <img class="rounded-circle" id="avatar" src="https://ui-avatars.com/api/?size=160&rounded=true&name={{ Str::replaceFirst(' ','+', $user->name) }}" alt="avatar">
               @else
-              <img class="rounded-circle" id="avatar" src="{{ asset('storage')."/".$user->avatar }}" alt="avatar">
+                <img class="rounded-circle" id="avatar" src="{{ asset('storage')."/".$user->avatar }}" alt="avatar">
               @endif
-              <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+              {{--  abaixo impede que o user logado altere o avatar de outros users --}}
+              @if($user->id == Auth::user()->id)
+                <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+              @else
+                <input type="file" class="sr-only" id="input" name="image" disabled>
+              @endif
             </label>
           
               {{-- barra de progresso --}}

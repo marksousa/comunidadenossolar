@@ -5,7 +5,12 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // rota home página institucional
-Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');
+
+// Rota para entrada no sistema - Login
+Route::get('/', function(){
+  return redirect()->route('login');
+});
 
 // grupo de rotas para as paginas do admin
 Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
@@ -18,20 +23,30 @@ Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
     return view('admin.modelo-pagina');
   });
 
-  // Tentativa upload fotos
-  Route::get('/tentativa/crop', function(){
-    return view('admin.tentativa-crop');
-  });
-
+  // Rotas relativas a area do usuário registrado (USER) no sistema
+  Route::get('/profile/{id}', 'ProfileController@show')->name('ProfileShow');
   Route::get('/upload/avatar', 'AvatarController@create')->name('AvatarCreate');
   Route::post('/upload/avatar', 'AvatarController@store')->name('AvatarStore');
-  
-  Route::get('/profile/{id}', 'ProfileController@show')->name('ProfileShow');
 
+  // Rotas relativas às pessoas cadastradas (USUARIO) no sistema
+  Route::get('/usuarios', 'UsuarioController@index')->name('UsuarioIndex');
   Route::get('/usuario/novo', 'UsuarioController@create')->name('UsuarioCreate');
   Route::post('/usuario/novo', 'UsuarioController@store')->name('UsuarioStore');
-  Route::get('/usuario', 'UsuarioController@index')->name('UsuarioList');
   Route::get('/usuario/{id}', 'UsuarioController@show')->name('UsuarioShow');
   Route::get('/usuario/{id}/foto/upload/', 'FotoController@create')->name('FotoCreate');
   Route::post('/usuario/foto/store', 'FotoController@store')->name('FotoStore');
+
+  // Rotas Relativas aos papeis dos USERS do sistema
+  Route::get('/users', 'Admin\UserController@index')->name('UserIndex');
+  Route::get('user/papel/{id}', 'Admin\UserController@papel')->name('UserPapel');
+  Route::post('user/papel/{papel}', 'Admin\UserController@papelStore')->name('UserPapelStore');
+  Route::delete('user/papel/{user}/{papel}', 'Admin\UserController@papelDestroy')->name('UserPapelDestroy');
+
+  // Rotas do CRUD de Papéis
+  Route::resource('papeis', 'Admin\PapelController');
+
+  // Rotas relativas às permissões dos diferentes papéis do sistema
+  Route::get('papel/permissao/{id}', 'Admin\PapelController@permissao')->name('PapelPermissao');
+  Route::post('papel/permissao/{permissao}', 'Admin\PapelController@permissaoStore')->name('PapelPermissaoStore');
+  Route::delete('papel/permissao/{papel}/{permissao}', 'Admin\PapelController@permissaoDestroy')->name('PapelPermissaoDestroy');
 });

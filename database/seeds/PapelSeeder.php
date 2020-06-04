@@ -29,23 +29,13 @@ class PapelSeeder extends Seeder
   
         $p4 = Papel::firstOrCreate([
             'nome' =>'Trabalhador',
-            'descricao' =>'Trabalhadores'
+            'descricao' =>'Trabalhador'
         ]);
   
         $p5 = Papel::firstOrCreate([
-            'nome' =>'Voluntario',
-            'descricao' =>'Voluntarios'
-        ]);
-  
-        $p6 = Papel::firstOrCreate([
-            'nome' =>'Doador',
-            'descricao' =>'Doadores'
-        ]);
-  
-        $p7 = Papel::firstOrCreate([
-            'nome' =>'Assistido',
-            'descricao' =>'Assistidos'
-        ]);
+          'nome' =>'inabilitado',
+          'descricao' =>'Usuário que após o cadastro básico não preenche as demais informações'
+      ]);
   
         echo "Papeis criados com Sucesso";
         echo "\n";

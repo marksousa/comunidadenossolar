@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'cpf', 'email', 'password', 'photo_path'
+      'name', 'cpf', 'email', 'password', 'photo_path'
     ];
 
     /**
@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+      'password', 'remember_token',
     ];
 
     /**
@@ -35,11 +35,65 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+      'email_verified_at' => 'datetime',
     ];
+
+    public function eAdmin()
+    {
+      //return $this->id == 1;
+      return $this->existePapel('Admin');
+    }
 
     public function papeis()
     {
-        return $this->belongsToMany(Papel::class);
+      return $this->belongsToMany(Papel::class);
+    }
+
+    public function adicionaPapel($papel)
+    {
+      $papel = $this->converteParaPapel($papel);
+
+      // Verifica se o papel que queremos adicionar, já não existe para o user
+      if($this->existePapel($papel)){
+        return;
+      }
+
+      // Adiciona o papel ao user
+      return $this->papeis()->attach($papel);
+    }
+
+    public function converteParaPapel($papel){
+      // Se o papel vier como string ele converte para objeto do tipo Papel
+      if (is_string($papel)){
+        $papel = Papel::where('nome','=',$papel)->firstOrFail();
+      }
+      return $papel;
+    }
+
+    public function existePapel($papel)
+    {
+      $papel = $this->converteParaPapel($papel);
+      return (boolean) $this->papeis()->find($papel->id);
+    }
+
+    public function removePapel($papel)
+    {
+      $papel = $this->converteParaPapel($papel);
+      // Remove o relacionamento do User com Papel
+      return $this->papeis()->detach($papel);
+    }
+
+    /**
+     * Verifica se o usuario logado possui uma lista de papeis enviada por parametro
+     *
+     * @param  list Papeis 
+     * @return boolean
+     */
+    public function temUmPapelDestes($papeis)
+    {
+      // lista de papeis do usuario logado
+      $userPapeis = $this->papeis;
+
+      return $papeis->intersect($userPapeis)->count();
     }
 }
