@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Papel;
 use App\Permissao;
 
 class PermissaoSeeder extends Seeder
@@ -64,5 +65,9 @@ class PermissaoSeeder extends Seeder
         
         echo "Registros de Permissoes criados no sistema";
         echo "\n";
+
+        $papel = Papel::where('nome','=','Trabalhador')->firstOrFail();
+        $papel->adicionaPermissao('usuarios-create');
+        $papel->adicionaPermissao('usuarios-view');
       }
 }
