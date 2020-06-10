@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 use App\User;
 use App\Papel;
@@ -11,15 +12,24 @@ use App\Papel;
 class UserController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+      $this->middleware('verifica.cadastro');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-      // if(Gate::denies('usuario-view')){
-      //   abort(403,"Não autorizado!");
-      // }
+      if(Gate::denies('admin-resources')){
+        abort(403,"Não autorizado!");
+      }
 
         $users = User::all();
         return view('admin.user.index',compact('users'));
@@ -34,7 +44,7 @@ class UserController extends Controller
     {
       $user = User::find($id);
       $papeis = Papel::all();
-      return view('admin.papeis-usuario', compact('user', 'papeis'));
+      return view('admin.user.papeis-user', compact('user', 'papeis'));
     }
 
     /**

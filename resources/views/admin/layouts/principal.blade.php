@@ -55,6 +55,7 @@
           <span>Dashboard</span></a>
       </li>
 
+      @can('usuarios-create')
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -67,24 +68,31 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForms" aria-expanded="true" aria-controls="collapseForms">
           <i class="fas fa-fw fa-user"></i>
-          <span>Assistidos</span>
+          <span>Usuários</span>
         </a>
         <div id="collapseForms" class="collapse" aria-labelledby="headingForms" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="{{ route('UsuarioCreate') }}">Cadastrar Assistido</a>
-            <a class="collapse-item" href="{{ route('UsuarioIndex') }}">Listar Assistidos</a>
+            <h6 class="collapse-header">Recursos Trabalhador</h6>
+            @can('usuarios-create')
+              <a class="collapse-item" href="{{ route('UsuarioCreate') }}">Cadastrar Assistido</a>
+            @endcan
+            @can('usuarios-view')
+              <a class="collapse-item" href="{{ route('UsuarioIndex') }}">Listar Assistidos</a>
+            @endcan
             <a class="collapse-item" href="cards.html">Pesquisar Assistido</a>
           </div>
         </div>
       </li>
+      @endcan
+
+      @can('admin-resources')
 
       <!-- Divider -->
       <hr class="sidebar-divider">
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Configurações
+        Recursos Admin
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -95,9 +103,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="{{ route('UserIndex') }}">Lista de Users</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <h6 class="collapse-header">Users do NL</h6>
+            <a class="collapse-item" href="{{ route('UserIndex') }}">Users</a>
+            {{-- <a class="collapse-items" href="cards.html">Cards</a> --}}
           </div>
         </div>
       </li>
@@ -105,24 +113,23 @@
       <!-- Nav Item - Papeis Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePapeis" aria-expanded="true" aria-controls="collapsePapeis">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Papeis</span>
+          <i class="fas fa-user-lock"></i>
+          <span>Papéis e Permissões</span>
         </a>
         <div id="collapsePapeis" class="collapse" aria-labelledby="headingPapeis" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Papeis:</h6>
-            <a class="collapse-item" href="{{ route('papeis.index') }}">Papeis</a>
-            <a class="collapse-item" href="{{ route('UserIndex') }}">Borders</a>
-            <a class="collapse-item" href="Papeis-animation.html">Animations</a>
-            <a class="collapse-item" href="Papeis-other.html">Other</a>
+            {{-- <h6 class="collapse-header">Segurança</h6> --}}
+            <a class="collapse-item" href="{{ route('papeis.index') }}">Papéis</a>
+            <a class="collapse-item" href="{{ route('permissoes.index') }}">Permissões</a>
           </div>
         </div>
       </li>
+      @endcan
 
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <!-- Heading -->
+      {{-- <!-- Heading -->
       <div class="sidebar-heading">
         Addons
       </div>
@@ -162,7 +169,7 @@
       </li>
 
       <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+      <hr class="sidebar-divider d-none d-md-block"> --}}
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

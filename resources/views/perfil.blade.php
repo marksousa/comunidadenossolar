@@ -34,7 +34,7 @@
                         <img src="{{ asset('img/logo.png') }}" alt="Foto de Cadastro Não Enviada" width="80%" class="mx-auto d-block">
                         <hr class="py-1">
                         <div class="text-center">
-                          <p>Você ainda não enviou uma foto para o seu perfil.</p>
+                          <p>Esse usuário ainda não enviou uma foto de perfil.</p>
                           <a class="btn btn-success" href="{{ route('FotoCreate', ['id' => $assistido->id]) }}">Enviar Foto de Perfil</a>
                         </div>
                         @else

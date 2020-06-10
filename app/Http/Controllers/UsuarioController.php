@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UsuarioSanitizedRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Session;
+use Auth;
 
 use App\Pais;
 use App\Estado;
@@ -19,6 +20,33 @@ use App\Motivo;
 
 class UsuarioController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+      $this->middleware('verifica.cadastro')->except('create', 'store');
+    }
+
+    /**
+     * Verifica se o User logado possui papel inativo
+     *
+     * @return void
+     */
+    public function papelInativo()
+    {
+      $papelInativo = Auth::user()->papeis->firstWhere('nome', 'inabilitado');
+      
+      if(!empty($papelInativo)){
+        return true;
+      }
+
+      return false;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -37,11 +65,19 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $paises = Pais::all();
-        $estados = Estado::all();
-        $generos = Genero::all();
-        $motivos = Motivo::all();
-        return view('forms.novo-usuario', compact('paises', 'estados', 'generos','motivos'));
+      $usuario = new Usuario();
+      
+      if($this->papelInativo()){
+        $usuario->cpf = Auth::user()->cpf;
+        $usuario->nome = Auth::user()->name;
+        $usuario->email = Auth::user()->email;
+      }
+
+      $paises = Pais::all();
+      $estados = Estado::all();
+      $generos = Genero::all();
+      $motivos = Motivo::all();
+      return view('forms.novo-usuario', compact('paises', 'estados', 'generos','motivos', 'usuario'));
     }
 
     /**
@@ -98,6 +134,11 @@ class UsuarioController extends Controller
             $endereco->save();
             $perfil->usuario_id = $usuario->id;
             $perfil->save();
+
+            if($this->papelInativo()){
+              Auth::user()->removePapel('inabilitado');
+              Auth::user()->adicionaPapel('Trabalhador');
+            }
         } catch (\Exception $e){
             info($e);
             Session::flash('alert-danger', 'Ocorreu um erro ao salvar o novo usuário. Tente Novamente.');

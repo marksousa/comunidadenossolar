@@ -28,7 +28,8 @@
                       <th>CPF</th>
                       <th>Email</th>
                       <th>Data de Cadastro</th>
-                      <th>+ info</span></th>
+                      <th>+ info</th>
+                      <th>Papéis</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -40,6 +41,12 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ Carbon::parse($user->created_at)->format('d/m/Y H:i:s') }}</td>
                         <td><a class="btn btn-info" href="{{ route('ProfileShow',['id'=>$user->id]) }}"><span class="fas fa-id-card"></span></a></td>
+                        <td>
+                          @foreach($user->papeis as $cadaPapel)
+                            <span class="badge badge-primary">{{ $cadaPapel->nome }}</span>
+                          @endforeach
+                          <a href="{{ route('UserPapel', ['id' => $user->id]) }}" class="badge badge-pill-primary"><i class="fas fa-plus-circle"></i></a>
+                        </td>
                       </tr>
                     @endforeach
                   </tbody>

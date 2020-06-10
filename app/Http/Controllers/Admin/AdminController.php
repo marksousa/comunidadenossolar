@@ -12,13 +12,13 @@ class AdminController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+      $this->middleware('verifica.cadastro');
+    }
 
     public function index()
     {
-        return view('admin.index');
+      return view('admin.index');
     }
 }

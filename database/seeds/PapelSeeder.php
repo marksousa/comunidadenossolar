@@ -14,7 +14,7 @@ class PapelSeeder extends Seeder
     {
         $p1 = Papel::firstOrCreate([
             'nome' =>'Admin',
-            'descricao' =>'Acesso total ao sistema'
+            'descricao' =>'Acesso total ao sistema (TI)'
         ]);
   
         $p2 = Papel::firstOrCreate([
@@ -34,7 +34,7 @@ class PapelSeeder extends Seeder
   
         $p5 = Papel::firstOrCreate([
           'nome' =>'inabilitado',
-          'descricao' =>'Usuário que após o cadastro básico não preenche as demais informações'
+          'descricao' =>'Usuário que após o cadastro básico ainda não preencheu as demais informações'
       ]);
   
         echo "Papeis criados com Sucesso";

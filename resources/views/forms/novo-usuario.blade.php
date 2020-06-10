@@ -29,7 +29,7 @@
                                 {{-- cpf --}}
                                 <div class="form-group col-md-2">
                                     <label id="lbl_cpf" for="cpf">CPF</label>
-                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" maxlength="14" value="{{ old('cpf') }}" name="cpf">
+                                    <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" maxlength="14" value="{{ old('cpf', $usuario->cpf ?? '') }}" name="cpf" {{ isset($usuario->cpf) ? 'readonly' : '' }} >
                                     <div class="invalid-feedback">
                                         {{$errors->first('cpf')}}
                                     </div>
@@ -38,7 +38,7 @@
                                 {{-- nome --}}
                                 <div class="form-group col-md-10">
                                     <label for="nome">Nome Completo <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="80" value="{{ old('nome') }}" name="nome" required>
+                                    <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="80" value="{{ old('nome', $usuario->nome ?? '') }}" name="nome" required {{ isset($usuario->nome) ? 'readonly' : '' }}>
                                     <div class="invalid-feedback">
                                         {{$errors->first('nome')}}
                                     </div>
@@ -240,7 +240,7 @@
                                 {{-- email --}}
                                 <div class="form-group col-md-7">
                                     <label for="email">Email <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" maxlength="60" value="{{ old('email') }}" name="email">
+                                    <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" id="email" maxlength="60" value="{{ old('email', $usuario->email ?? '') }}" name="email" {{ isset($usuario->email) ? 'readonly' : '' }}>
                                     <div class="invalid-feedback">
                                         {{$errors->first('email')}}
                                     </div>

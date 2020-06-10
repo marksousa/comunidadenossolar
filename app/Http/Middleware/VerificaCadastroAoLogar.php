@@ -27,13 +27,12 @@ class VerificaCadastroAoLogar
     {
         Log::debug("Passei pelo middleware VerificaCadastroAoLogar");
         Log::debug(Auth::user()->cpf);
-        $usuario = Usuario::firstWhere('cpf', Auth::user()->cpf);
-        if(empty($usuario)){
+        $papelInativo = Auth::user()->papeis->firstWhere('nome', 'inabilitado');
+
+        if(!empty($papelInativo)){
           return redirect()->route('UsuarioCreate');
-        }
-        else{
+        } else {
           return $next($request);
         }
-
     }
 }

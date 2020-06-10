@@ -13,20 +13,20 @@ class PermissaoSeeder extends Seeder
     public function run()
     {
         $usuarios1 = Permissao::firstOrCreate([
-            'nome' =>'usuario-view',
-            'descricao' =>'Acesso a lista de Usuários'
+            'nome' =>'user-view',
+            'descricao' =>'Acesso a lista de Users'
         ]);
         $usuarios2 = Permissao::firstOrCreate([
-            'nome' =>'usuario-create',
-            'descricao' =>'Adicionar Usuários'
+            'nome' =>'user-create',
+            'descricao' =>'Adicionar User'
         ]);
         $usuarios2 = Permissao::firstOrCreate([
-            'nome' =>'usuario-edit',
-            'descricao' =>'Editar Usuários'
+            'nome' =>'user-edit',
+            'descricao' =>'Editar User'
         ]);
         $usuarios3 = Permissao::firstOrCreate([
-            'nome' =>'usuario-delete',
-            'descricao' =>'Deletar Usuários'
+            'nome' =>'user-delete',
+            'descricao' =>'Deletar User'
         ]);
   
         $papeis1 = Permissao::firstOrCreate([
@@ -46,7 +46,22 @@ class PermissaoSeeder extends Seeder
             'nome' =>'papel-delete',
             'descricao' =>'Deletar Papéis'
         ]);
-  
+
+        $papeis5 = Permissao::firstOrCreate([
+          'nome' =>'usuarios-create',
+          'descricao' =>'Criar Usuários para alimentar o sistema'
+        ]);
+
+        $papeis6 = Permissao::firstOrCreate([
+          'nome' =>'usuarios-view',
+          'descricao' =>'Ver as informações dos usuários cadastrados'
+        ]);
+
+        $papeis7 = Permissao::firstOrCreate([
+          'nome' =>'admin-resources',
+          'descricao' =>'Acesso a lista de recursos exclusivas aos administradores e outras lideranças'
+        ]);
+        
         echo "Registros de Permissoes criados no sistema";
         echo "\n";
       }

@@ -49,4 +49,7 @@ Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
   Route::get('papel/permissao/{id}', 'Admin\PapelController@permissao')->name('PapelPermissao');
   Route::post('papel/permissao/{permissao}', 'Admin\PapelController@permissaoStore')->name('PapelPermissaoStore');
   Route::delete('papel/permissao/{papel}/{permissao}', 'Admin\PapelController@permissaoDestroy')->name('PapelPermissaoDestroy');
+
+  // Rotas do CRUD de Permissões
+  Route::resource('permissoes', 'Admin\PermissaoController');
 });
