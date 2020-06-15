@@ -101,8 +101,63 @@
                           </div>  {{-- fecha container --}}
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-infocontato" role="tabpanel" aria-labelledby="nav-infocontato-tab">Contato</div>
-                    <div class="tab-pane fade" id="nav-infoendereco" role="tabpanel" aria-labelledby="nav-infoendereco-tab">Endereço</div>
+                    <div class="tab-pane fade" id="nav-infocontato" role="tabpanel" aria-labelledby="nav-infocontato-tab">
+                      <div class="row py-3">
+                        <div class="container">
+                          <div class="form-group">
+                            <div class="form-row">
+                              {{-- telefone residencial --}}
+                              @if (!empty($assistido->telefone_residencial))
+                                <div class="form-group col-md-3">
+                                  <label id="lbl_tel_residencial_ddd" for="telefone_residencial_ddd"><small>DDD</small></label>
+                                  <input type="text" class="form-control" id="telefone_residencial_ddd" maxlength="2" value="{{ $assistido->telefone_residencial_ddd }}" name="telefone_residencial_ddd" readonly>
+                                </div>
+                                <div class="form-group col-md-9">
+                                  <label id="lbl_tel_residencial" for="telefone_residencial"><small>Telefone Residencial</small></label>
+                                  <input type="text" class="form-control" id="telefone_residencial" maxlength="2" value="{{ $assistido->telefone_residencial }}" name="telefone_residencial" readonly>
+                                </div>
+                              @endif
+                              {{-- telefone celular --}}
+                              @if (!empty($assistido->telefone_celular))
+                              <div class="form-group col-md-3">
+                                <label id="lbl_tel_celular_ddd" for="telefone_celular_ddd"><small>DDD</small></label>
+                                <input type="text" class="form-control" id="telefone_celular_ddd" maxlength="2" value="{{ $assistido->telefone_celular_ddd }}" name="telefone_celular_ddd" readonly>
+                              </div>
+                              <div class="form-group col-md-9">
+                                <label id="lbl_tel_celular" for="telefone_celular"><small>Telefone Celular</small></label>
+                                <input type="text" class="form-control" id="telefone_celular" maxlength="2" value="{{ $assistido->telefone_celular }}" name="telefone_celular" readonly>
+                              </div>
+                              @endif
+                              {{-- email --}}
+                              @if (!empty($assistido->email))
+                              <div class="form-group col-md-12">
+                                <label id="lbl_email" for="email"><small>Email</small></label>
+                                <input type="text" class="form-control" id="email" value="{{ $assistido->email }}" name="email" readonly>
+                              </div>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-infoendereco" role="tabpanel" aria-labelledby="nav-infoendereco-tab">
+                      <div class="row py-3">
+                        <div class="container">
+                          <div class="form-group">
+                            <div class="form-row">
+                              <div class="form-group col-md-9">
+                                <label id="lbl_endereco" for="endereco"><small>Endereço</small></label>
+                                <input type="text" class="form-control" id="endereco" value="{{ $assistido->endereco->endereco}}" name="endereco" readonly>
+                              </div>
+                              <div class="form-group col-md-3">
+                                <label id="lbl_numero" for="numero"><small>Número</small></label>
+                                <input type="text" class="form-control" id="numero" value="{{ $assistido->endereco->numero}}" name="numero" readonly>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <div class="tab-pane fade" id="nav-infoperfil" role="tabpanel" aria-labelledby="nav-infoperfil-tab">Perfil</div>
                     <div class="tab-pane fade" id="nav-infohistorico" role="tabpanel" aria-labelledby="nav-infohistorico-tab">Historico</div>
                   </div>

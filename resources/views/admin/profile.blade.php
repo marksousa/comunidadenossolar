@@ -111,8 +111,40 @@
               </nav>
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  
-                </div>
+                  <div class="row py-3">
+                      <div class="container">
+                        <div class="form-group">
+                            <div class="form-row">
+                                {{-- cpf --}}
+                                <div class="form-group col-md-3">
+                                    <label id="lbl_cpf" for="cpf"><small>CPF</small></label>
+                                    <input type="text" class="form-control" id="cpf" data-mask="000.000.000-00" maxlength="14" value="{{ $user->cpf }}" name="cpf" readonly>
+                                </div>
+
+                                {{-- nome --}}
+                                <div class="form-group col-md-9">
+                                    <label for="nome"><small>Nome Completo</small></label>
+                                    <input type="text" class="form-control text-capitalize" id="nome" maxlength="80" value="{{ $user->name }}" name="nome" readonly>
+                                </div>
+                            </div> {{-- fecha form-row --}}
+
+                            <div class="form-row">
+                                {{-- genero --}}
+                                <div class="form-group col-md-6">
+                                    <label for="genero"><small>Gênero</small></label>
+                                    <input type="text" class="form-control" id="genero" maxlength="80" value="{{ $user->genero }}" name="genero" readonly>
+                                </div>
+
+                                {{-- data_nascimento --}}
+                                <div class="form-group col-md-6">
+                                    <label for="data_nascimento"><small>Data de Nascimento</small></label>
+                                    <input type="text" class="form-control" id="data_nascimento" maxlength="80" value="{{ Carbon::parse($user->data_nascimento)->format('d/m/Y') }}" name="data_nascimento" readonly>
+                                </div>
+                            </div>  {{-- fecha form-row --}}
+                        </div>  {{-- fecha form-group --}}
+                      </div>  {{-- fecha container --}}
+                  </div>
+                </div>    
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
