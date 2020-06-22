@@ -17,6 +17,7 @@ use App\Pais;
 use App\Estado;
 use App\Genero;
 use App\Motivo;
+use App\Pilar;
 
 class UsuarioController extends Controller
 {
@@ -77,7 +78,8 @@ class UsuarioController extends Controller
       $estados = Estado::all();
       $generos = Genero::all();
       $motivos = Motivo::all();
-      return view('forms.novo-usuario', compact('paises', 'estados', 'generos','motivos', 'usuario'));
+      $pilares = Pilar::all();
+      return view('forms.novo-usuario', compact('paises', 'estados', 'generos','motivos', 'usuario','pilares'));
     }
 
     /**
@@ -125,7 +127,7 @@ class UsuarioController extends Controller
         // Entrevista
         $perfil->motivo_id = $validated["motivo_id"];
         $perfil->data_inicio_nl = $validated["data_inicio_nl"];
-        $perfil->primeiro_pilar_nl = $validated["primeiro_pilar_nl"];
+        $perfil->pilar_id = $validated["pilar_id"];
         $perfil->observacao = $validated["observacao"];
 
         try {

@@ -290,12 +290,16 @@
 
                             <div class="form-row">
                                 {{-- Primeiro Pilar --}}
-                                {{-- SUGIRO QUE SEJA UM SELECT DEPOIS QUE OS PILARES ESTIVEREM DEFINIDOS  --}}
                                 <div class="form-group col-md-4">
-                                    <label for="primeiro_pilar_nl">Qual o 1º. pilar do Nosso Lar? <span class="text-danger"><strong>*</strong></span></label>
-                                    <input type="text" class="form-control {{ $errors->has('primeiro_pilar_nl') ? 'is-invalid' : '' }}" id="primeiro_pilar_nl" placeholder="Primeira Área" maxlength="20" name="primeiro_pilar_nl" value="{{ old('primeiro_pilar_nl') }}" required>
+                                    <label for="pilar_id">Qual o 1º. pilar do Nosso Lar? <span class="text-danger"><strong>*</strong></span></label>
+                                    <select class="custom-select {{ $errors->has('pilar_id') ? 'is-invalid' : '' }}" name="pilar_id" required>
+                                        <option selected value="">Selecione</option>
+                                        @foreach ($pilares as $pilar)
+                                            <option value="{{ $pilar->id }}" {{ old('pilar_id') == "$pilar->id" ? 'selected' : '' }}>{{ $pilar->nome }}</option>
+                                        @endforeach
+                                    </select>
                                     <div class="invalid-feedback">
-                                        {{$errors->first('primeiro_pilar_nl')}}
+                                        {{$errors->first('pilar_id')}}
                                     </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
