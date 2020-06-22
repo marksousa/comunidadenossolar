@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadoSeeder::class);
         $this->call(GeneroSeeder::class);
         $this->call(MotivoSeeder::class);
+        $this->call(PilarSeeder::class);
     }
 }

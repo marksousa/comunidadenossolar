@@ -16,7 +16,7 @@ class CreatePilaresTable extends Migration
         Schema::create('pilares', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome',80);
-            $table->string('areas');
+            $table->string('areas',255);
             $table->timestamps();
         });
     }
