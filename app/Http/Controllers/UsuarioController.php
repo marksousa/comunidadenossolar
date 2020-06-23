@@ -95,7 +95,7 @@ class UsuarioController extends Controller
         $validated = $request->validated();
         // Se algum dado nao foi validado, nem chega aqui. O script encaminha de volta para o formulário
         // e informa o erro através da variável $errors (na view)
-        // dd($validated);
+        //dd($validated);
 
         $usuario = new Usuario();
         $endereco = new Endereco();
@@ -106,6 +106,8 @@ class UsuarioController extends Controller
         $usuario->nome = $validated["nome"];
         $usuario->genero_id = $validated["genero_id"];
         $usuario->data_nascimento = $validated["data_nascimento"];
+        //Termo de adesão que vai para 
+        $usuario->termo_adesao = $validated["termo_adesao"];
 
         // Endereço
         $endereco->endereco = $validated["endereco"];

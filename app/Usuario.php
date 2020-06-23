@@ -8,7 +8,7 @@ class Usuario extends Model
 {
     protected $primaryKey = 'id';
     protected $table = 'usuarios';
-    protected $fillable = ['cpf', 'nome', 'genero_id', 'data_nascimento', 'email', 'ddd_residencial', 'telefone_residencial', 'ddd_celular', 'telefone_celular', 'whatsapp'];
+    protected $fillable = ['cpf', 'nome', 'genero_id', 'data_nascimento', 'email', 'ddd_residencial', 'telefone_residencial', 'ddd_celular', 'telefone_celular', 'termo_adesao'];
     protected $dates = ['created_at', 'updated_at'];
     public $timestamps = true;
 
