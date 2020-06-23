@@ -56,8 +56,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $assistidos = Usuario::all();
-        return view('listas.assistidos', compact('assistidos'));
+        $usuarios = Usuario::all();
+        return view('admin.usuario.index', compact('usuarios'));
     }
 
     /**
@@ -82,7 +82,6 @@ class UsuarioController extends Controller
       $generos = Genero::all();
       $motivos = Motivo::all();
       $pilares = Pilar::all();
-      // return view('forms.novo-usuario', compact('paises', 'estados', 'generos','motivos', 'usuario','pilares'));
       return view('admin.usuario.adicionar', compact('bloquearEdicao','paises', 'estados', 'generos','motivos', 'usuario','pilares'));
     }
 
@@ -164,8 +163,8 @@ class UsuarioController extends Controller
     public function show(int $id)
     {
         try {
-            $assistido = Usuario::findOrFail($id);
-            return view('perfil', compact('assistido'));
+            $usuario = Usuario::findOrFail($id);
+            return view('admin.usuario.perfil', compact('usuario'));
         } catch (ModelNotFoundException $exception) {
             abort(404, 'Usuário Não Encontrado!');
         }
