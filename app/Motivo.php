@@ -13,8 +13,8 @@ class Motivo extends Model
     protected $dates = ['created_at', 'updated_at'];
     public $timestamps = true;
 
-    public function usuarios()
+    public function perfil()
     {
-        return $this->belongsToMany('App\Usuario', 'motivo_usuario');
+        return $this->hasMany('App\Perfil');
     }
 }

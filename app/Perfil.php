@@ -19,5 +19,10 @@ class Perfil extends Model
         return $this->belongsTo('App\Pilar');
     }
 
+    public function motivo()
+    {
+        return $this->belongsTo('App\Motivo');
+    }
+
 
 }
