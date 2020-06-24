@@ -31,4 +31,5 @@ class Usuario extends Model
     {
         return $this->belongsToMany('App\Motivo', 'motivo_usuario');
     }
+
 }

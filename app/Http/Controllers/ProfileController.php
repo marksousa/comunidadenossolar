@@ -48,6 +48,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    
     {
         $user = User::findOrFail($id);
         $generos = Genero::all();
