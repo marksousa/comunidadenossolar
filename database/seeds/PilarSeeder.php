@@ -11,11 +11,11 @@ class PilarSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('pilares')->insert(['nome' => 'Comunicação', 'areas' => 'Criação, Jornalismo, Redes sociais']);
-        DB::table('pilares')->insert(['nome' => 'Doutrinário', 'areas' => 'Arrecadação, Atendimento Fraterno, Biblioteca, Campanha do quilo, Coro, Estudos, Evangelização infantil, Mocidade Espírita, Palestras, Passes, Recepção, Sopa']);
-        DB::table('pilares')->insert(['nome' => 'Formação Pedagógica', 'areas' => 'Alfabetização de Adultos, Assistência Escolar, Ballet, Curso Jovem Aprendiz, Cursos Profissionalizantes, Esportes, Informática, Línguas, Música, Preparatório ENEM']);
-        DB::table('pilares')->insert(['nome' => 'Saúde', 'areas' => 'Clínicos/Exames, Enfermagem, Farmácia, Fisioterapia, Horta Medicinal, Odontologia, Oftalmologia, Meditação, Psicologia, Puericultura/Pré-Natal, Veterinária, Yoga']);
-        DB::table('pilares')->insert(['nome' => 'Valorização do Ser', 'areas' => 'Abrigo, Acolha-me, Casa de Passagem, Doações, Gestantes, Oficinas, Inserção no Mercado de Trabalho, Jovem aprendiz, Jurídico, Lavanderia, Sopa, Visitas (abrigos e hospitais)']);
+        DB::table('pilares')->insert(['nome' => 'Comunicação', 'areas' => 'Jornalismo, Mídias, Redes Sociais, Site']);
+        DB::table('pilares')->insert(['nome' => 'Doutrinário', 'areas' => 'Atendimento Fraterno, Biblioteca, Estudos, Evanelho no Lar, Evangelização infantil, Eventos, Mediúnica, Mocidade, Palestras, Recepção, Trabalhos de Caridade, Tratamento Espiritual']);
+        DB::table('pilares')->insert(['nome' => 'Educação', 'areas' => 'Artes, Assistência Escolar, Educação Física / Esporte, Escola Integral, Formaçao Profissional, Informática, Línguas Estrangeiras, Música']);
+        DB::table('pilares')->insert(['nome' => 'Saúde', 'areas' => 'Acupuntura, Farmácia, Fisioterapia, Fonoaudiologia, Odontologia, Medicina (Atendimento Clínico e Exames), Meditação, Nutrição, Odontologia, Psicologia, Psiquiatria, Terapia Ocupacional, Veterinária, Yoga']);
+        DB::table('pilares')->insert(['nome' => 'Valorização do Ser', 'areas' => 'Abrigo, Acolha-me, Casa de Passagem, Cozinha, Doações, Gestantes, Oficinas, Jurídico, Lavanderia, Serviços']);
     }
 }
 
