@@ -16,7 +16,8 @@
           </div>
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <kbd>Lembrete: Espaço para incluir um componente de breadcrumb </kbd>
+            <p></p>
+            {{-- <kbd>Lembrete: Espaço para incluir um componente de breadcrumb </kbd> --}}
             <a href="{{ route('UsuarioEdit', ['id' => $usuario->id]) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-user-edit fa-sm text-white-50"></i> Editar</a>
           </div>
 
@@ -62,7 +63,7 @@
                       <a class="nav-item nav-link" id="nav-infocontato-tab" data-toggle="tab" href="#nav-infocontato" role="tab" aria-controls="nav-infocontato" aria-selected="false">Contato</a>
                       <a class="nav-item nav-link" id="nav-infoendereco-tab" data-toggle="tab" href="#nav-infoendereco" role="tab" aria-controls="nav-infoendereco" aria-selected="false">Endereço</a>
                       <a class="nav-item nav-link" id="nav-infoperfil-tab" data-toggle="tab" href="#nav-infoperfil" role="tab" aria-controls="nav-infoperfil" aria-selected="false">Perfil</a>
-                      <a class="nav-item nav-link" id="nav-infohistorico-tab" data-toggle="tab" href="#nav-infohistorico" role="tab" aria-controls="nav-infohistorico" aria-selected="false">Histórico</a>
+                      {{--<a class="nav-item nav-link" id="nav-infohistorico-tab" data-toggle="tab" href="#nav-infohistorico" role="tab" aria-controls="nav-infohistorico" aria-selected="false">Histórico</a>--}}
                     </div>
                   </nav>
                   <div class="tab-content" id="nav-tabContent">
@@ -72,11 +73,12 @@
                             <div class="form-group">
                                 <div class="form-row">
                                     {{-- cpf --}}
-                                    <div class="form-group col-md-3">
-                                        <label id="lbl_cpf" for="cpf"><small>CPF</small></label>
-                                        <input type="text" class="form-control" id="cpf" data-mask="000.000.000-00" maxlength="14" value="{{ $usuario->cpf }}" name="cpf" readonly>
-                                    </div>
-
+                                    @if (!empty($usuario->cpf))
+                                      <div class="form-group col-md-3">
+                                          <label id="lbl_cpf" for="cpf"><small>CPF</small></label>
+                                          <input type="text" class="form-control" id="cpf" data-mask="000.000.000-00" maxlength="14" value="{{ $usuario->cpf }}" name="cpf" readonly>
+                                      </div>
+                                    @endif
                                     {{-- nome --}}
                                     <div class="form-group col-md-9">
                                         <label for="nome"><small>Nome Completo</small></label>
@@ -90,12 +92,13 @@
                                         <label for="genero"><small>Gênero</small></label>
                                         <input type="text" class="form-control" id="genero" maxlength="80" value="{{ $usuario->genero->nome }}" name="genero" readonly>
                                     </div>
-
                                     {{-- data_nascimento --}}
-                                    <div class="form-group col-md-6">
-                                        <label for="data_nascimento"><small>Data de Nascimento</small></label>
-                                        <input type="text" class="form-control" id="data_nascimento" maxlength="80" value="{{ Carbon::parse($usuario->data_nascimento)->format('d/m/Y') }}" name="data_nascimento" readonly>
-                                    </div>
+                                    @if (!empty($usuario->data_nascimento))
+                                      <div class="form-group col-md-6">
+                                          <label for="data_nascimento"><small>Data de Nascimento</small></label>
+                                          <input type="text" class="form-control" id="data_nascimento" maxlength="80" value="{{ Carbon::parse($usuario->data_nascimento)->format('d/m/Y') }}" name="data_nascimento" readonly>
+                                      </div>
+                                    @endif
                                 </div>  {{-- fecha form-row --}}
                             </div>  {{-- fecha form-group --}}
                           </div>  {{-- fecha container --}}
@@ -117,49 +120,142 @@
                                   <input type="text" class="form-control" id="telefone_residencial" maxlength="2" value="{{ $usuario->telefone_residencial }}" name="telefone_residencial" readonly>
                                 </div>
                               @endif
+                            </div> {{--fecha form row--}}
+                            <div class="form-row">
                               {{-- telefone celular --}}
                               @if (!empty($usuario->telefone_celular))
-                              <div class="form-group col-md-3">
-                                <label id="lbl_tel_celular_ddd" for="telefone_celular_ddd"><small>DDD</small></label>
-                                <input type="text" class="form-control" id="telefone_celular_ddd" maxlength="2" value="{{ $usuario->telefone_celular_ddd }}" name="telefone_celular_ddd" readonly>
-                              </div>
-                              <div class="form-group col-md-9">
-                                <label id="lbl_tel_celular" for="telefone_celular"><small>Telefone Celular</small></label>
-                                <input type="text" class="form-control" id="telefone_celular" maxlength="2" value="{{ $usuario->telefone_celular }}" name="telefone_celular" readonly>
-                              </div>
+                                <div class="form-group col-md-3">
+                                  <label id="lbl_tel_celular_ddd" for="telefone_celular_ddd"><small>DDD</small></label>
+                                  <input type="text" class="form-control" id="telefone_celular_ddd" maxlength="2" value="{{ $usuario->telefone_celular_ddd }}" name="telefone_celular_ddd" readonly>
+                                </div>
+                                <div class="form-group col-md-9">
+                                  <label id="lbl_tel_celular" for="telefone_celular"><small>Telefone Celular</small></label>
+                                  <input type="text" class="form-control" id="telefone_celular" maxlength="2" value="{{ $usuario->telefone_celular }}" name="telefone_celular" readonly>
+                                </div>
                               @endif
+                            </div> {{--fecha form row--}}
+                            <div class="form-row">
                               {{-- email --}}
                               @if (!empty($usuario->email))
-                              <div class="form-group col-md-12">
-                                <label id="lbl_email" for="email"><small>Email</small></label>
-                                <input type="text" class="form-control" id="email" value="{{ $usuario->email }}" name="email" readonly>
-                              </div>
+                                <div class="form-group col-md-12">
+                                  <label id="lbl_email" for="email"><small>Email</small></label>
+                                  <input type="text" class="form-control" id="email" value="{{ $usuario->email }}" name="email" readonly>
+                                </div>
                               @endif
-                            </div>
-                          </div>
-                        </div>
+                            </div>  {{-- fecha form-row --}}
+                          </div>  {{-- fecha form-group --}}
+                        </div>  {{-- fecha container --}}
                       </div>
                     </div>
                     <div class="tab-pane fade" id="nav-infoendereco" role="tabpanel" aria-labelledby="nav-infoendereco-tab">
                       <div class="row py-3">
                         <div class="container">
                           <div class="form-group">
-                            <div class="form-row">
-                              <div class="form-group col-md-9">
-                                <label id="lbl_endereco" for="endereco"><small>Endereço</small></label>
-                                <input type="text" class="form-control" id="endereco" value="{{ $usuario->endereco->endereco}}" name="endereco" readonly>
-                              </div>
-                              <div class="form-group col-md-3">
-                                <label id="lbl_numero" for="numero"><small>Número</small></label>
-                                <input type="text" class="form-control" id="numero" value="{{ $usuario->endereco->numero}}" name="numero" readonly>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                            @if(!empty($usuario->endereco->endereco && $usuario->endereco->bairro && $usuario->endereco->municipio && $usuario->endereco->uf && $usuario->endereco->pais && $usuario->endereco->cep ))
+
+                              <div class="form-row">
+                                {{--Endereço--}}
+                                @if (!empty($usuario->endereco->endereco))
+                                  <div class="form-group col-md-9">
+                                    <label id="lbl_endereco" for="endereco"><small>Endereço</small></label>
+                                    <input type="text" class="form-control" id="endereco" value="{{ $usuario->endereco->endereco}}" name="endereco" readonly>
+                                  </div>
+                                  {{--Numero--}}
+                                  <div class="form-group col-md-3">
+                                    <label id="lbl_numero" for="numero"><small>Número</small></label>
+                                    <input type="text" class="form-control" id="numero" value="{{ $usuario->endereco->numero}}" name="numero" readonly>
+                                  </div>
+                                @endif
+                              </div> {{--fecha form row--}}
+                              <div class="form-row">
+                                {{--complemento--}}
+                                @if (!empty($usuario->endereco->complemento))
+                                  <div class="form-group col-md-6">
+                                    <label id="lbl_complemento" for="complemento"><small>Complemento</small></label>
+                                    <input type="text" class="form-control" id="complemento" value="{{ $usuario->endereco->complemento}}" name="complemento" readonly>
+                                  </div>
+                                @endif
+                                {{--cep--}}
+                                @if (!empty($usuario->endereco->cep))
+                                  <div class="form-group col-md-6">
+                                    <label id="lbl_cep" for="cep"><small>Cep</small></label>
+                                    <input type="text" class="form-control" id="cep" value="{{ $usuario->endereco->cep}}" name="cep" readonly>
+                                  </div>
+                                @endif
+                              </div> {{--fecha form row--}}
+                              {{--forçar quebra--}}
+                              {{-- <div class="w-100"></div> --}}
+                              <div class="form-row">
+                                {{--municipio--}}
+                                @if (!empty($usuario->endereco->municipio))
+                                  <div class="form-group col-md-5">
+                                    <label id="lbl_municipio" for="municipio"><small>Município</small></label>
+                                    <input type="text" class="form-control" id="municipio" value="{{ $usuario->endereco->municipio}}" name="municipio" readonly>
+                                  </div>
+                                @endif
+                                {{--uf--}}
+                                @if (!empty($usuario->endereco->uf))
+                                  <div class="form-group col-md-3">
+                                    <label id="lbl_uf" for="uf"><small>Estado</small></label>
+                                    <input type="text" class="form-control" id="uf" value="{{ $usuario->endereco->uf}}" name="uf" readonly>
+                                  </div>
+                                @endif
+                                {{--pais--}}
+                                @if (!empty($usuario->endereco->pais))
+                                  <div class="form-group col-md-4">
+                                    <label id="lbl_pais" for="pais"><small>País</small></label>
+                                    <input type="text" class="form-control" id="pais" value="{{ $usuario->endereco->pais}}" name="pais" readonly>
+                                  </div>
+                                @endif
+                              </div>  {{-- fecha form-row --}}
+                            @else
+                              <p><h4>Não há informações cadastradas.</h4></p>
+                            @endif
+                          </div>  {{-- fecha form-group --}}
+                        </div>  {{-- fecha container --}}
                       </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-infoperfil" role="tabpanel" aria-labelledby="nav-infoperfil-tab">Perfil</div>
-                    <div class="tab-pane fade" id="nav-infohistorico" role="tabpanel" aria-labelledby="nav-infohistorico-tab">Historico</div>
+                    <div class="tab-pane fade" id="nav-infoperfil" role="tabpanel" aria-labelledby="nav-infoperfil-tab">
+                      <div class="row py-3">
+                        <div class="container">
+                          <div class="form-group">
+                            <div class="form-row">
+                              {{-- data de inicio --}}
+                              @if (!empty($usuario->perfil->data_inicio_nl))
+                                <div class="form-group col-md-6">
+                                    <label id="lbl_data_inicio_nl" for="data_inicio_nl"><small>Data de Início</small></label>
+                                    <input type="text" class="form-control" id="data_inicio_nl" value="{{ $usuario->perfil->data_inicio_nl }}" name="data_inicio_nl" readonly>
+                                </div>
+                              @endif
+                            </div>
+                            <div class = "form-row">
+                              {{-- motivo --}}
+                              <div class="form-group col-md-12">
+                                <label for="motivo"><small>Motivo para procura do Nosso Lar</small></label>
+                                <input type="text" class="form-control" id="motivo" value="{{ $usuario->perfil->motivo->nome }}" name="motivo" readonly>
+                              </div>
+                            </div> {{-- fecha form-row --}}
+                            <div class="form-row">
+                              {{-- Pilar --}}
+                              <div class="form-group col-md-12">
+                                <label for="pilar"><small>Primeiro Pilar</small></label>
+                                <input type="text" class="form-control text-capitalize" id="pilar" value="{{ $usuario->perfil->pilar->nome }}" name="pilar" readonly>
+                              </div> 
+                            </div>  {{-- fecha form-row --}}
+                            <div class="form-row">
+                              {{-- Observacao --}}
+                              @if (!empty($usuario->perfil->observacao))
+                                <div class="form-group col-md-12">
+                                  <label for="observacao"><small>Observação</small></label>
+                                  <input type="text" class="form-control text-capitalize" id="observacao" value="{{ $usuario->perfil->observacao }}" name="observacao" readonly>
+                                </div> 
+                              @endif
+                            </div>  {{-- fecha form-row --}}
+                          </div>  {{-- fecha form-group --}}
+                        </div>  {{-- fecha container --}}
+                      </div>  
+                    </div>
+                    {{--<div class="tab-pane fade" id="nav-infohistorico" role="tabpanel" aria-labelledby="nav-infohistorico-tab">Historico</div>--}}
                   </div>
                 </div>
               </div>
