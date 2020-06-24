@@ -291,7 +291,7 @@
                             <div class="form-row">
                                 {{-- Primeiro Pilar --}}
                                 <div class="form-group col-md-4">
-                                    <label for="pilar_id">Qual o 1º. pilar do Nosso Lar? <span class="text-danger"><strong>*</strong></span></label>
+                                    <label for="pilar_id">Qual o 1º. pilar do Nosso Lar? Se foi mais de um, coloque o que teve mais relevância<span class="text-danger"><strong>*</strong></span></label>
                                     <select class="custom-select {{ $errors->has('pilar_id') ? 'is-invalid' : '' }}" name="pilar_id" required>
                                         <option selected value="">Selecione</option>
                                         @foreach ($pilares as $pilar)
@@ -304,10 +304,68 @@
                                 </div>
                             </div>  {{-- fecha form-row --}}
 
-                            <div class="form-row">
+                            <p>Caso tenha dúvida, clique em cada Pilar abaixo para ver as suas respectivas áreas</p>
+                            @foreach ($pilares as $pilar)
+                                <?php
+                                //Tira o espaço em branco para o nome do id (que não aceita espaço em branco)
+                                $pilar_nome = str_replace(' ', '', $pilar->nome);
+                                ?>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#{{$pilar_nome}}">{{$pilar->nome}}</button>
+                                        <div id="{{$pilar_nome}}" class="collapse">
+                                            {{$pilar->areas}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                           <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="observacao">Observações (preencher aqui caso o motivo a procurar o nosso lar seja outros)</label>
                                     <textarea class="form-control" id="observacao" rows="3" name="observacao">{{ old('observacao') }}</textarea>
+                                </div>
+                            </div>  {{-- fecha form-row --}}
+                        </div>  {{-- fecha form-group --}}
+                    </div>  {{-- fecha container --}}
+                </div>{{-- fecha card-body --}}
+            </div>{{-- fecha card --}}
+
+            <!-- Termo de Adesão -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Termo de Adesão Ao Serviço Voluntário</h6>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="form-group">
+                            <div class="form-row">
+                                {{-- termo de adesão --}}
+                                <div class="form-group col-md-12">
+                                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#termo_adesao_contrato">Clique para ler o Termo de Adesão</button>
+                                    <div id="termo_adesao_contrato" class="collapse">
+                                        <p><strong>DO OBJETO</strong></p>
+                                        <p class="text-justify"><strong>Cláusula 1a.</strong> O presente contrato tem como objeto a prestação de serviço voluntário, a ser prestado à Associação Espirita Nosso Lar, de acordo com as necessidades da Casa, com trabalhos internos e externos realizados pela mesma, a exemplo de atendimento psicológico, jurídico, de saúde, visitas em hospitais, asilos, orfanatos, reforço escolar, confecção e distribuição de alimentos, realização de passes na Associação e em domicílio, serviço de limpeza, cozinha, manutenção, informática, entre outros.</p>
+                                        <p><strong>DAS CONDIÇÕES DO EXERCÍCIO </strong></p>
+                                        <p class="text-justify"><strong>Cláusula 2a.</strong> O voluntário (a) fica comprometido (a) a prestar ao Nosso Lar os serviços voluntários de acordo com sua conveniência e necessidade da Associação.</p>
+                                        <p class="text-justify"><strong>Cláusula 3a.</strong> A associação Espírita Nosso Lar garantirá ao voluntário (a), na medida do possível, todas as condições para o desenvolvimento das atividades para ele designadas.</p>
+                                        <p><strong>DA RESCISÃO</strong></p>
+                                        <p class="text-justify"><strong>Cláusula 4a.</strong> O presente instrumento poderá ser rescindido a qualquer tempo, por inciativa de qualquer uma das partes, o que não irá acarretar em qualquer tipo de indenização entre o voluntário (a) e a associação Espírita Nosso Lar.</p>
+                                        <p><strong>DO PRAZO</strong></p>
+                                        <p class="text-justify"><strong>Cláusula 5a.</strong> O presente Termo terá o prazo de 1 (um) ano, renovável automaticamente, caso seja de interesse de ambas as partes.</p>
+                                        <p><strong>DO FORO</strong></p>
+                                        <p class="text-justify"><strong>Cláusula 6a.</strong> Para dirimir quaisquer controvérsias oriundas do Termo de Adesão de Serviço Voluntário, as partes alegam o foro da comarca de Maceió/AL.</p>
+                                        <p class="text-justify"><strong>Pelo presente Termo de Adesão, decido espontaneamente realizar atividade voluntária nesta Associação, ciente da Lei no 9.608, de 18/02/1998, que declara que o mesmo não é atividade remunerada, não representa vínculo empregatício nem gera obrigações de natureza trabalhista, previdenciária ou afim.</strong></p>
+                                    </div>
+
+                                    <p>&nbsp;</p>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input {{ $errors->has('termo_adesao') ? 'is-invalid' : '' }}" id="termo_adesao" name="termo_adesao" value="S" required {{ old('termo_adesao') == "S" ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="termo_adesao"><strong>Aceito os termos para finalizar meu cadastro</strong></label>
+                                        <div class="invalid-feedback">
+                                            {{$errors->first('termo_adesao')}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>  {{-- fecha form-row --}}
                         </div>  {{-- fecha form-group --}}

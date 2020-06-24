@@ -47,7 +47,8 @@ class UsuarioSanitizedRequest extends FormRequest
             'motivo_id' => 'required|string',
             'data_inicio_nl' => 'nullable|string|max:7',
             'pilar_id' => 'required|integer',
-            'observacao' => 'nullable|string'
+            'observacao' => 'nullable|string',
+            'termo_adesao' => 'required|string|max:1'
         ];
     }
 
@@ -88,7 +89,7 @@ class UsuarioSanitizedRequest extends FormRequest
             'telefone_celular_ddd' => 'trim|digit',
             'telefone_celular' => 'trim',
             'email' => 'trim|lowercase',
-            
+            'termo_adesao' => 'trim'
         ];
     }
 }

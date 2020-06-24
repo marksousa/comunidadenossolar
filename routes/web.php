@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
   Route::get('/usuarios', 'UsuarioController@index')->name('UsuarioIndex');
   Route::get('/usuario/novo', 'UsuarioController@create')->name('UsuarioCreate');
   Route::post('/usuario/novo', 'UsuarioController@store')->name('UsuarioStore');
+  Route::get('/usuario/{id}/editar', 'UsuarioController@edit')->name('UsuarioEdit');
+  Route::match(['put', 'patch'],'/usuario/{id}/editar', 'UsuarioController@update')->name('UsuarioUpdate');
   Route::get('/usuario/{id}', 'UsuarioController@show')->name('UsuarioShow');
   Route::get('/usuario/{id}/foto/upload/', 'FotoController@create')->name('FotoCreate');
   Route::post('/usuario/foto/store', 'FotoController@store')->name('FotoStore');

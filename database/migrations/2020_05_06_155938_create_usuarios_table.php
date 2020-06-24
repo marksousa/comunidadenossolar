@@ -25,6 +25,7 @@ class CreateUsuariosTable extends Migration
             $table->string('telefone_residencial', 9)->nullable()->comment('Telefone residencial');
             $table->string('telefone_celular_ddd', 2)->nullable()->comment('DDD do telefone celular');
             $table->string('telefone_celular', 10)->nullable()->comment('Telefone celular');
+            $table->string('termo_adesao', 1)->comment('Termo de adesão do voluntário');
             $table->timestamps();
         });
 
