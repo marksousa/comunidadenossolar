@@ -347,7 +347,11 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{ route('UsuarioShow', ['id' => Auth::user()->usuario_id]) }}">
+                @isset(Auth::user()->usuario_id)
+                  <a class="dropdown-item" href="{{ route('UsuarioShow', ['id' => Auth::user()->usuario_id]) }}">
+                @else 
+                  <a class="dropdown-item" href="{{ route('admin-home') }}">
+                @endisset
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
