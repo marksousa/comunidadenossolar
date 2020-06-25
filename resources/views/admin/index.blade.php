@@ -10,7 +10,7 @@
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
-
+{{--
           <!-- Content Row -->
           <div class="row">
 
@@ -92,6 +92,7 @@
             </div>
           </div>
 
+
           <!-- Content Row -->
 
           <div class="row">
@@ -163,10 +164,10 @@
               </div>
             </div>
           </div>
-
+--}}
           <!-- Content Row -->
           <div class="row">
-
+{{--
             <!-- Content Column -->
             <div class="col-lg-6 mb-4">
 
@@ -262,7 +263,7 @@
             </div>
 
             <div class="col-lg-6 mb-4">
-
+--}}
               <!-- Illustrations -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -276,7 +277,7 @@
                   <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
                 </div>
               </div>
-
+{{--
               <!-- Approach -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -289,6 +290,7 @@
               </div>
 
             </div>
+--}}
           </div>
 
         </div>
