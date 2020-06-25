@@ -25,8 +25,8 @@ class VerificaCadastroAoLogar
      */
     public function handle($request, Closure $next)
     {
-        Log::debug("Passei pelo middleware VerificaCadastroAoLogar");
-        Log::debug(Auth::user()->cpf);
+        // Log::debug("Passei pelo middleware VerificaCadastroAoLogar");
+        // Log::debug(Auth::user()->cpf);
         $papelInativo = Auth::user()->papeis->firstWhere('nome', 'inabilitado');
 
         if(!empty($papelInativo)){

@@ -134,12 +134,17 @@ class UsuarioController extends Controller
         $perfil->pilar_id = $validated["pilar_id"];
         $perfil->observacao = $validated["observacao"];
 
+        // verifica se o usuario possui um user associado para atualiza na tabela users tb
+        $user = User::where('cpf', $usuario->cpf)->first();
+
         try {
             $usuario->save();
             $endereco->usuario_id = $usuario->id;
             $endereco->save();
             $perfil->usuario_id = $usuario->id;
             $perfil->save();
+            $user->usuario_id = $usuario->id;
+            $user->save();
 
             if($this->papelInativo()){
               Auth::user()->removePapel('inabilitado');
@@ -211,6 +216,7 @@ class UsuarioController extends Controller
         // dd($validated);
 
         $usuario = Usuario::findOrFail($id);
+        $cpfAux = $usuario->cpf; // cpf antigo (caso o usuario altere)
 
         // Dados Pessoais
         $usuario->cpf = $validated["cpf"];
@@ -241,8 +247,8 @@ class UsuarioController extends Controller
         $usuario->perfil->pilar_id = $validated["pilar_id"];
         $usuario->perfil->observacao = $validated["observacao"];
 
-        // verifica se o usuerio possui um user associado para atualiza na tabela users tb
-        $user = User::where('cpf', $usuario->cpf)->first();
+        // verifica se o usuario possui um user associado para atualiza na tabela users tb
+        $user = User::where('cpf', $cpfAux)->first();
 
         try {
           $usuario->save();
