@@ -373,7 +373,7 @@
               </div>
               <p>&nbsp;</p>
               <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input {{ $errors->has('termo_adesao') ? 'is-invalid' : '' }}" id="termo_adesao" name="termo_adesao" value="S" required {{ old('termo_adesao') == "S" ? 'checked' : '' }}>
+                  <input type="checkbox" class="custom-control-input {{ $errors->has('termo_adesao') ? 'is-invalid' : '' }}" id="termo_adesao" name="termo_adesao" value="S" required {{ old('termo_adesao') == "S" ? 'checked' : '' }} {{ $usuario->termo_adesao == "S" ? 'checked' : '' }}>
                   <label class="custom-control-label" for="termo_adesao"><strong>Aceito os termos para finalizar meu cadastro</strong></label>
                   <div class="invalid-feedback">
                       {{$errors->first('termo_adesao')}}

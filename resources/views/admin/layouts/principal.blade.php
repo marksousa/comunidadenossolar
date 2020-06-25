@@ -48,12 +48,16 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
+      <?php
+      /*
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{route('admin-home')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
+      */
+      ?>
 
       @can('usuarios-create')
       <!-- Divider -->
@@ -193,6 +197,8 @@
             <i class="fa fa-bars"></i>
           </button>
 
+          <?php
+          /*
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -204,10 +210,13 @@
               </div>
             </div>
           </form>
-
+          */
+          ?>
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
+            <?php
+            /*
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
               <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -227,7 +236,10 @@
                 </form>
               </div>
             </li>
-
+            */
+            ?>
+            <?php
+            /*
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -276,7 +288,11 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
             </li>
+            */
+            ?>
 
+            <?php
+            /*
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -332,7 +348,8 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
               </div>
             </li>
-
+            */
+            ?>
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
@@ -353,8 +370,10 @@
                   <a class="dropdown-item" href="{{ route('admin-home') }}">
                 @endisset
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
+                  Perfil
                 </a>
+                <?php
+                /*
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
@@ -363,6 +382,8 @@
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
                 </a>
+                */
+                ?>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -414,12 +435,12 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Clique em "Logout" abaixo se deseja encerrar sua sessão atual.</div>
+        <div class="modal-body">Clique em "Sair" abaixo se deseja encerrar sua sessão atual.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
           <form id="logout-form" action="{{ route('logout') }}" method="POST">
           @csrf
-          <button class="btn btn-primary" type="submit">Logout</button>
+          <button class="btn btn-primary" type="submit">Sair</button>
           </form>
         </div>
       </div>
