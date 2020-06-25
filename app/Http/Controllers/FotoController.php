@@ -9,6 +9,7 @@ use Auth;
 use Storage;
 
 use App\Usuario;
+use App\User;
 
 class FotoController extends Controller
 {
@@ -67,6 +68,12 @@ class FotoController extends Controller
       // grava o path no banco
       $usuario->perfil->foto_path = $path;
       $usuario->perfil->save();
+      
+      $user = User::where('usuario_id', $usuario->id)->first();
+      if(!empty($user)){
+        $user->avatar = $path;
+        $user->save();
+      }
     }
 
     /**
