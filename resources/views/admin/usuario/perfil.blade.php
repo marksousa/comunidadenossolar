@@ -156,7 +156,7 @@
                 <div class="row py-3">
                   <div class="container">
                     <div class="form-group">
-                      @if(!empty($usuario->endereco->endereco || $usuario->endereco->cep || $usuario->endereco->bairro || $usuario->endereco->municipio || $usuario->endereco->uf || $usuario->endereco->pais ))
+                      @if(!empty($usuario->endereco->endereco || $usuario->endereco->cep || $usuario->endereco->bairro || $usuario->endereco->municipio || $usuario->endereco->uf ))
 
                         <div class="form-row">
                           {{--Endereço--}}
