@@ -138,24 +138,29 @@ class UsuarioController extends Controller
         $user = User::where('cpf', $usuario->cpf)->first();
 
         try {
-            $usuario->save();
-            $endereco->usuario_id = $usuario->id;
-            $endereco->save();
-            $perfil->usuario_id = $usuario->id;
-            $perfil->save();
-            if(!empty($user)){
-              $user->usuario_id = $usuario->id;
-              $user->save();
-            }
+          $usuario->save();
+          $endereco->usuario_id = $usuario->id;
+          $endereco->save();
+          $perfil->usuario_id = $usuario->id;
+          $perfil->save();
+          if(!empty($user)){
+            $user->usuario_id = $usuario->id;
+            $user->save();
+          }
 
-            if($this->papelInativo()){
-              Auth::user()->removePapel('inabilitado');
-              Auth::user()->adicionaPapel('Trabalhador');
-            }
+          if($this->papelInativo()){
+            Auth::user()->removePapel('inabilitado');
+            Auth::user()->adicionaPapel('Trabalhador');
+          }
+
+          Session::flash('tipo', 'success');
+          Session::flash('mensagem', 'Cadastro realizado com Sucesso!');
+
         } catch (\Exception $e){
-            info($e);
-            Session::flash('alert-danger', 'Ocorreu um erro ao salvar o novo usuário. Tente Novamente.');
-            return redirect()->back()->withInput();
+          info($e);
+          Session::flash('tipo', 'danger');
+          Session::flash('mensagem', 'Ocorreu um erro ao salvar o novo usuário. Tente Novamente.');
+          return redirect()->back()->withInput();
         }
 
         return redirect()->route('FotoCreate', ['id' => $usuario->id]);
@@ -211,64 +216,66 @@ class UsuarioController extends Controller
      */
     public function update(UsuarioSanitizedRequest $request, int $id)
     {
-        // Esse vetor $validated possui todos os dados que foram validados pela classe UsuarioSanitizedRequest.
-        $validated = $request->validated();
-        // Se algum dado nao foi validado, nem chega aqui. O script encaminha de volta para o formulário
-        // e informa o erro através da variável $errors (na view)
-        // dd($validated);
+      // Esse vetor $validated possui todos os dados que foram validados pela classe UsuarioSanitizedRequest.
+      $validated = $request->validated();
+      // Se algum dado nao foi validado, nem chega aqui. O script encaminha de volta para o formulário
+      // e informa o erro através da variável $errors (na view)
+      // dd($validated);
 
-        $usuario = Usuario::findOrFail($id);
-        $cpfAux = $usuario->cpf; // cpf antigo (caso o usuario altere)
+      $usuario = Usuario::findOrFail($id);
+      $cpfAux = $usuario->cpf; // cpf antigo (caso o usuario altere)
 
-        // Dados Pessoais
-        $usuario->cpf = $validated["cpf"];
-        $usuario->nome = $validated["nome"];
-        $usuario->genero_id = $validated["genero_id"];
-        $usuario->data_nascimento = $validated["data_nascimento"];
+      // Dados Pessoais
+      $usuario->cpf = $validated["cpf"];
+      $usuario->nome = $validated["nome"];
+      $usuario->genero_id = $validated["genero_id"];
+      $usuario->data_nascimento = $validated["data_nascimento"];
 
-        // Endereço
-        $usuario->endereco->endereco = $validated["endereco"];
-        $usuario->endereco->numero = $validated["numero"];
-        $usuario->endereco->complemento = $validated["complemento"];
-        $usuario->endereco->cep = $validated["cep"];
-        $usuario->endereco->bairro = $validated["bairro"];
-        $usuario->endereco->municipio = $validated["municipio"];
-        $usuario->endereco->uf = $validated["uf"];
-        $usuario->endereco->pais = $validated["pais"];
+      // Endereço
+      $usuario->endereco->endereco = $validated["endereco"];
+      $usuario->endereco->numero = $validated["numero"];
+      $usuario->endereco->complemento = $validated["complemento"];
+      $usuario->endereco->cep = $validated["cep"];
+      $usuario->endereco->bairro = $validated["bairro"];
+      $usuario->endereco->municipio = $validated["municipio"];
+      $usuario->endereco->uf = $validated["uf"];
+      $usuario->endereco->pais = $validated["pais"];
 
-        // Dados de Contato
-        $usuario->telefone_residencial_ddd = $validated["telefone_residencial_ddd"];
-        $usuario->telefone_residencial = $validated["telefone_residencial"];
-        $usuario->telefone_celular_ddd = $validated["telefone_celular_ddd"];
-        $usuario->telefone_celular = $validated["telefone_celular"];
-        $usuario->email = $validated["email"];
+      // Dados de Contato
+      $usuario->telefone_residencial_ddd = $validated["telefone_residencial_ddd"];
+      $usuario->telefone_residencial = $validated["telefone_residencial"];
+      $usuario->telefone_celular_ddd = $validated["telefone_celular_ddd"];
+      $usuario->telefone_celular = $validated["telefone_celular"];
+      $usuario->email = $validated["email"];
 
-        // Entrevista
-        $usuario->perfil->motivo_id = $validated["motivo_id"];
-        $usuario->perfil->data_inicio_nl = $validated["data_inicio_nl"];
-        $usuario->perfil->pilar_id = $validated["pilar_id"];
-        $usuario->perfil->observacao = $validated["observacao"];
+      // Entrevista
+      $usuario->perfil->motivo_id = $validated["motivo_id"];
+      $usuario->perfil->data_inicio_nl = $validated["data_inicio_nl"];
+      $usuario->perfil->pilar_id = $validated["pilar_id"];
+      $usuario->perfil->observacao = $validated["observacao"];
 
-        // verifica se o usuario possui um user associado para atualiza na tabela users tb
-        $user = User::where('cpf', $cpfAux)->first();
+      // verifica se o usuario possui um user associado para atualiza na tabela users tb
+      $user = User::where('cpf', $cpfAux)->first();
 
-        try {
-          $usuario->save();
-          $usuario->endereco->save();
-          $usuario->perfil->save();
-          if(!empty($user)){
-            $user->cpf = $usuario->cpf;
-            $user->name = $usuario->nome;
-            $user->email = $usuario->email;
-            $user->save();
-          }
-        } catch (\Exception $e){
-          info($e);
-          Session::flash('alert-danger', 'Ocorreu um erro ao salvar as mudanças do usuário. Tente Novamente.');
-          return redirect()->back()->withInput();
+      try {
+        $usuario->save();
+        $usuario->endereco->save();
+        $usuario->perfil->save();
+        if(!empty($user)){
+          $user->cpf = $usuario->cpf;
+          $user->name = $usuario->nome;
+          $user->email = $usuario->email;
+          $user->save();
         }
-
-        return redirect()->route('UsuarioShow', ['id' => $usuario->id]);
+        Session::flash('tipo', 'success');
+        Session::flash('mensagem', 'Cadastro Atualizado com Sucesso!');
+      } catch (\Exception $e){
+        info($e);
+        Session::flash('tipo', 'danger');
+        Session::flash('mensagem', 'Ocorreu um erro na atualização do Cadastro. Tente novamente!');
+        return redirect()->back()->withInput();
+      }
+      return redirect()->route('UsuarioShow', ['id' => $usuario->id]);
     }
 
     /**

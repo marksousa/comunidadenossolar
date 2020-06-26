@@ -48,12 +48,12 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
+      {{-- <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{route('admin-home')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Página Inicial</span></a>
-      </li>
+          <span>Dashboard</span></a>
+      </li> --}}
 
       @can('usuarios-create')
       <!-- Divider -->
@@ -79,7 +79,7 @@
             @can('usuarios-view')
               <a class="collapse-item" href="{{ route('UsuarioIndex') }}">Listar Assistidos</a>
             @endcan
-            <a class="collapse-item" href="cards.html">Pesquisar Assistido</a>
+            {{-- <a class="collapse-item" href="cards.html">Pesquisar Assistido</a> --}}
           </div>
         </div>
       </li>

@@ -6,9 +6,11 @@
 @section('conteudo')
 <!-- Begin Page Content -->
 <div class="container-fluid">
-  <kbd>Lembrete: Adicionar um modal para deletar.</kbd>
-  <br>
-  <kbd>Lembrete: Incluir msg de sucesso.</kbd>
+
+  @if(Session::has('mensagem'))
+    @component('components.alerta', ['tipo' => Session::get('tipo', 'info'), 'mensagem' => Session::get('mensagem')])
+    @endcomponent
+  @endif
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Lista de Papéis</h1>
@@ -46,9 +48,30 @@
                     <a title="Permissões" class="btn btn-info btn-sm" href="{{ route('PapelPermissao',$registro->id) }}"><i class="fas fa-lock"></i></a>
                     {{-- @endcan --}}
                     {{-- @can('papel-delete') --}}
-                      @method('DELETE')
-                      @csrf
-                      <button title="Deletar" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                    <a title="Deletar" class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#modalApagarPapel{{ $registro->id }}"><i class="fas fa-trash-alt"></i></a>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modalApagarPapel{{ $registro->id }}" tabindex="-1" role="dialog" aria-labelledby="modalApagarPapel{{ $registro->id }}Label" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="modalApagarPapel{{ $registro->id }}Label">Tem certeza que deseja apagar o papel <strong>{{ $registro->nome }}</strong>?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            O papel <strong>{{ $registro->nome }}</strong> ({{ $registro->descricao }}) será apagado. Essa ação não pode ser desfeita.
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                            @method('DELETE')
+                            @csrf
+                            <button title="Deletar" class="btn btn-danger">Sim, Apagar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     {{-- @endcan --}}
                   </form>
                 </td>

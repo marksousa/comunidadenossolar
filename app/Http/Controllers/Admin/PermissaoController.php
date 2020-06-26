@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Papel;
 use App\Permissao;
 
+use Session;
+
 class PermissaoController extends Controller
 {
     /**
@@ -63,7 +65,8 @@ class PermissaoController extends Controller
     {
       if(!$this->jaExistePermissao($request)){
         Permissao::create($request->all());
-
+        Session::flash('tipo', 'success');
+        Session::flash('mensagem', 'Permissão Adicionada com Sucesso!');
         return redirect()->route('permissoes.index');
       }
 
@@ -105,6 +108,8 @@ class PermissaoController extends Controller
     {
       if(!$this->jaExistePermissao($request)){
         Permissao::find($id)->update($request->all());
+        Session::flash('tipo', 'success');
+        Session::flash('mensagem', 'Permissão Atualizada com Sucesso!');
       }
 
       return redirect()->route('permissoes.index');
@@ -119,6 +124,8 @@ class PermissaoController extends Controller
     public function destroy($id)
     {
       Permissao::find($id)->delete();
+      Session::flash('tipo', 'warning');
+      Session::flash('mensagem', 'Permissão Removida com Sucesso!');
       return redirect()->route('permissoes.index');
     }
 }

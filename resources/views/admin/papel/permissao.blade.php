@@ -6,6 +6,11 @@
 @section('conteudo')
 <!-- Begin Page Content -->
 <div class="container-fluid">
+
+  @if(Session::has('mensagem'))
+    @component('components.alerta', ['tipo' => Session::get('tipo', 'info'), 'mensagem' => Session::get('mensagem')])
+    @endcomponent
+  @endif
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Lista de Permissões para o papel de {{ $papel->nome }}</h1>
@@ -59,7 +64,7 @@
                   <form method="POST" action="{{route('PapelPermissaoDestroy',[$papel->id,$permissao->id])}}">
                     @method('DELETE')
                     @csrf
-                    <button title="Deletar" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    <button title="Deletar" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash"></i></button>
                   </form>
                 </td>
               </tr>

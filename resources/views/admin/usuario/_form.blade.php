@@ -256,7 +256,7 @@
           <div class="form-group">
               <div class="form-row">
                   {{-- Motivos Para Vir ao Nosso lar --}}
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-5">
                       <label for="motivo_id">O que o(a) motivou a procurar o Nosso Lar? <span class="text-danger"><strong>*</strong></span></label>
                       <select class="custom-select {{ $errors->has('motivo_id') ? 'is-invalid' : '' }}" name="motivo_id" required>
                           <option selected value="">Selecione</option>

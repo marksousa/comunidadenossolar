@@ -9,6 +9,11 @@
   <!-- Begin Page Content -->
   <div class="container-fluid">
 
+    @if(Session::has('mensagem'))
+      @component('components.alerta', ['tipo' => Session::get('tipo', 'info'), 'mensagem' => Session::get('mensagem')])
+      @endcomponent
+    @endif
+
     <!-- Page Heading -->
     <div class="jumbotron">
       <h1 class="display-5">Usuário <span class="text-primary">{{ $usuario->nome }}</span></h1>

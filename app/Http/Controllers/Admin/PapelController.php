@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Papel;
 use App\Permissao;
+use Session;
 
 class PapelController extends Controller
 {
@@ -52,6 +53,8 @@ class PapelController extends Controller
       if($request['nome'] && $request['nome'] != "Admin" && $request['nome'] != "ADMIN" && $request['nome'] != "admin"){
         Papel::create($request->all());
 
+        Session::flash('tipo', 'success');
+        Session::flash('mensagem', 'Papel Adicionado com Sucesso!');
         return redirect()->route('papeis.index');
       }
 
@@ -115,6 +118,8 @@ class PapelController extends Controller
 
       if($request['nome'] && $request['nome'] != "Admin" && $request['nome'] != "ADMIN" && $request['nome'] != "admin"){
         Papel::find($id)->update($request->all());
+        Session::flash('tipo', 'success');
+        Session::flash('mensagem', 'Papel Atualizado com Sucesso!');
       }
 
       return redirect()->route('papeis.index');
@@ -134,6 +139,8 @@ class PapelController extends Controller
       }
 
       Papel::find($id)->delete();
+      Session::flash('tipo', 'warning');
+      Session::flash('mensagem', 'Papel Removido com Sucesso!');
       return redirect()->route('papeis.index');
     }
 
@@ -170,6 +177,8 @@ class PapelController extends Controller
         $dados = $request->all();
         $permissao = Permissao::find($dados['permissao_id']);
         $papel->adicionaPermissao($permissao);
+        Session::flash('tipo', 'success');
+        Session::flash('mensagem', 'Permissão Adicionada ao Papel com Sucesso!');
         return redirect()->back();
     }
 
@@ -188,6 +197,8 @@ class PapelController extends Controller
       $papel = Papel::find($id);
       $permissao = Permissao::find($permissao_id);
       $papel->removePermissao($permissao);
+      Session::flash('tipo', 'warning');
+      Session::flash('mensagem', 'Permissão Removida do Papel com Sucesso!');
       return redirect()->back();
     }
 }

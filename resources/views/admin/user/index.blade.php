@@ -40,7 +40,7 @@
                         <td>{{ $user->cpf }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ Carbon::parse($user->created_at)->format('d/m/Y H:i:s') }}</td>
-                        <td><a class="btn btn-info" href="{{ route('ProfileShow',['id'=>$user->id]) }}"><span class="fas fa-id-card"></span></a></td>
+                        <td><a class="btn btn-info" href="{{ route('UsuarioShow',['id'=>$user->usuario_id]) }}"><span class="fas fa-id-card"></span></a></td>
                         <td>
                           @foreach($user->papeis as $cadaPapel)
                             <span class="badge badge-primary">{{ $cadaPapel->nome }}</span>

@@ -8,7 +8,10 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <kbd>Lembrete: Adicionar component para exibir msg de sucesso no envio das infos do cadastro</kbd>
+          @if(Session::has('mensagem'))
+            @component('components.alerta', ['tipo' => Session::get('tipo', 'info'), 'mensagem' => Session::get('mensagem')])
+            @endcomponent
+          @endif
 
           <hr class="py-1">
 
