@@ -10,6 +10,17 @@
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
+
+          <div class = "row">
+            <div class="text-center">
+              <img class="img-fluid " style="max-width: 100%" src="{{asset('images/hero-bg.jpg')}}" alt="">
+            </div>
+          </div>
+          <div class = "row">
+            <div>
+              <p><h2> Olá {{Auth::user()->name}}!</h2></p>
+            </div>
+          </div>
 {{--
           <!-- Content Row -->
           <div class="row">
@@ -164,10 +175,10 @@
               </div>
             </div>
           </div>
---}}
+
           <!-- Content Row -->
           <div class="row">
-{{--
+
             <!-- Content Column -->
             <div class="col-lg-6 mb-4">
 
@@ -263,7 +274,7 @@
             </div>
 
             <div class="col-lg-6 mb-4">
---}}
+
               <!-- Illustrations -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -271,11 +282,11 @@
                 </div>
                 <div class="card-body">
                   <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{asset('images/hero-bg.jpg')}}" alt="">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 70rem;" src="{{asset('images/hero-bg.jpg')}}" alt="">
                   </div>
                 </div>
               </div>
-{{--
+
               <!-- Approach -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -288,9 +299,8 @@
               </div>
 
             </div>
---}}
           </div>
-
+--}}
         </div>
         <!-- /.container-fluid -->
   @endsection
