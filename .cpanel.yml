@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home3/nossolaralorg/public_html/comunidadenossolar/
-    - /bin/cp * $DEPLOYPATH
+    - /bin/cp /public/* $DEPLOYPATH
