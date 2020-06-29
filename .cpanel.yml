@@ -4,5 +4,6 @@ deployment:
     - export DEPLOYPATH=/home3/nossolaralorg/public_html/comunidadenossolar/
     #- /bin/cp * $DEPLOYPATH essa linha dá certo
     - /bin/cp public/* $DEPLOYPATH #copia todos os arquivos da pasta public (sem as pastas)
-    - /bin/cp 'public/css/' * $DEPLOYPATH #copia todos os arquivos da pasta public (sem as pastas)
+    #- /bin/cp public/css/* $DEPLOYPATH #assim náo vai
+    - /bin/cp /public/css/* $DEPLOYPATH #assim náo vai
     #- /bin/cp public/ -r * $DEPLOYPATH copia todas as pastas do root
