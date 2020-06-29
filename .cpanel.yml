@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home3/nossolarorg/public_html/comunidadenossolar/
+    - export DEPLOYPATH=/home3/nossolaralorg/public_html/comunidadenossolar/
     - /public index.php $DEPLOYPATH
