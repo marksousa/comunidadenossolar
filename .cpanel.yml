@@ -5,11 +5,11 @@ deployment:
     #- /bin/cp * $DEPLOYPATH essa linha dá certo
     #- /bin/cp public/* $DEPLOYPATH essa tb
     #- /bin/cp public/ -r * $DEPLOYPATH copia todas as pastas do root
-    - /bin/cp public/* $DEPLOYPATH essa tb #arquivos do root
-    - /bin/cp public/css/* $DEPLOYPATH essa tb
-    - /bin/cp public/fonts/* $DEPLOYPATH essa tb
-    - /bin/cp public/images/* $DEPLOYPATH essa tb
-    - /bin/cp public/img/* $DEPLOYPATH essa tb
-    - /bin/cp public/js/* $DEPLOYPATH essa tb
-    - /bin/cp public/storage/* $DEPLOYPATH essa tb
-    - /bin/cp public/vendor/* $DEPLOYPATH essa tb
+    - /bin/cp public/* $DEPLOYPATH 
+    - /bin/cp public/css/* $DEPLOYPATH
+    - /bin/cp public/fonts/* $DEPLOYPATH
+    - /bin/cp public/images/* $DEPLOYPATH
+    - /bin/cp public/img/* $DEPLOYPATH
+    - /bin/cp public/js/* $DEPLOYPATH
+    - /bin/cp public/storage/* $DEPLOYPATH
+    - /bin/cp public/vendor/* $DEPLOYPATH
