@@ -6,10 +6,10 @@ deployment:
     #- /bin/cp public/* $DEPLOYPATH essa tb
     #- /bin/cp public/ -r * $DEPLOYPATH copia todas as pastas do root
     - /bin/cp public/* $DEPLOYPATH 
-    - /bin/cp public/css/* $DEPLOYPATH
-    - /bin/cp public/fonts/* $DEPLOYPATH
-    - /bin/cp public/images/* $DEPLOYPATH
-    - /bin/cp public/img/* $DEPLOYPATH
-    - /bin/cp public/js/* $DEPLOYPATH
-    - /bin/cp public/storage/* $DEPLOYPATH
-    - /bin/cp public/vendor/* $DEPLOYPATH
+    - /bin cp /public/css/* $DEPLOYPATH
+    #- /bin cp /public/fonts/* $DEPLOYPATH
+    #- /bin cp /public/images/* $DEPLOYPATH
+    #- /bin cp /public/img/* $DEPLOYPATH
+    #- /bin cp /public/js/* $DEPLOYPATH
+    #- /bin cp /public/storage/* $DEPLOYPATH
+    #- /bin cp /public/vendor/* $DEPLOYPATH
