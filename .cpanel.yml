@@ -6,4 +6,5 @@ deployment:
     #- /bin/cp public/* $DEPLOYPATH #copia todos os arquivos da pasta public (sem as pastas)
     #- /bin/cp public/css/* $DEPLOYPATH #copia todos os arquivos da pasta css
     #- /bin/cp public/-r * $DEPLOYPATH copia todos os arquivos do root
-    - /bin/cp public/ -r * $DEPLOYPATH
+    #- /bin/cp public/ -r * $DEPLOYPATH copia todas as pastas e arquivos do root 
+    - /bin/cp public/ -r  $DEPLOYPATH
