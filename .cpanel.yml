@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home3/nossolaralorg/public_html/comunidadenossolar/
+    - export DEPLOYPATH=/home3/nossolaralorg/comunidadenossolar/
     #só pega a primeira linha de comando!!!!
     #- /bin/cp public/* $DEPLOYPATH #copia todos os arquivos da pasta public (sem as pastas)
     #- /bin/cp public/css/* $DEPLOYPATH #copia todos os arquivos da pasta css
