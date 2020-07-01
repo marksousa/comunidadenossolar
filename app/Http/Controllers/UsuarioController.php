@@ -174,6 +174,12 @@ class UsuarioController extends Controller
      */
     public function show(int $id)
     {
+      if($id != Auth::user()->usuario_id){
+        if(Gate::denies('usuarios-view')){
+          abort(403,"Não autorizado!");
+        }
+      }
+
         try {
             $usuario = Usuario::findOrFail($id);
             return view('admin.usuario.perfil', compact('usuario'));
