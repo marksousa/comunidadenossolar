@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\UsuarioSanitizedRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Gate;
 use Session;
 use Auth;
 
