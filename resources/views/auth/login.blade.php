@@ -67,6 +67,15 @@
                     </form>
                 </div>
             </div>
+            <hr>
+            <div class="card">
+            @if (Route::has('register'))
+                <div class="card-header">Se esta é a primeira vez que acessa esse sistema, clique no botão abaixo.</div>
+                <div class="card-body text-center">
+                    <a class="btn btn-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </div>
+            @endif
+            </div>
         </div>
     </div>
 </div>
