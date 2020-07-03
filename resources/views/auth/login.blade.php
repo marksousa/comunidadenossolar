@@ -72,7 +72,7 @@
             @if (Route::has('register'))
                 <div class="card-header">Se esta é a primeira vez que acessa esse sistema, clique no botão abaixo.</div>
                 <div class="card-body text-center">
-                    <a class="btn btn-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="btn btn-warning" href="{{ route('register') }}">Quero me Cadastrar</a>
                 </div>
             @endif
             </div>
