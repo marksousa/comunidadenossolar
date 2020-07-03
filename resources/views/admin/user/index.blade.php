@@ -40,12 +40,18 @@
                         <td>{{ $user->cpf }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ Carbon::parse($user->created_at)->format('d/m/Y H:i:s') }}</td>
-                        <td><a class="btn btn-info" href="{{ route('UsuarioShow',['id'=>$user->usuario_id]) }}"><span class="fas fa-id-card"></span></a></td>
+                        @isset($user->usuario_id)
+                          <td><a class="btn btn-info" href="{{ route('UsuarioShow',['id'=>$user->usuario_id]) }}"><span class="fas fa-id-card"></span></a></td>
+                        @else
+                          <td><button class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="User ainda não preencheu o Formulário" disabled><span class="fas fa-ban"></span></button></td>
+                        @endisset
                         <td>
                           @foreach($user->papeis as $cadaPapel)
                             <span class="badge badge-primary">{{ $cadaPapel->nome }}</span>
                           @endforeach
+                          @isset($user->usuario_id)
                           <a href="{{ route('UserPapel', ['id' => $user->id]) }}" class="badge badge-pill-primary"><i class="fas fa-plus-circle"></i></a>
+                          @endisset
                         </td>
                       </tr>
                     @endforeach
