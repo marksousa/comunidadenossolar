@@ -289,7 +289,7 @@
               <div class="form-row">
                   {{-- Primeiro Pilar --}}
                   <div class="form-group col-md-8">
-                      <label for="pilar_id">Qual o 1º. pilar do Nosso Lar? Se foi mais de um, coloque o que teve mais relevância<span class="text-danger"><strong>*</strong></span></label>
+                      <label for="pilar_id">A área de sua primeira atividade no Nosso Lar está relacionada a qual Pilar? Se foi mais de uma, coloque a que teve mais relevância<span class="text-danger"><strong>*</strong></span></label>
                       <select class="custom-select {{ $errors->has('pilar_id') ? 'is-invalid' : '' }}" name="pilar_id" required>
                           <option selected value="">Selecione</option>
                           @foreach ($pilares as $pilar)
