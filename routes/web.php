@@ -5,10 +5,14 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/clear-cache', function() {
-  $exitCode = Artisan::call('cache:clear');
-  // return what you want
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
 });
 
+Route::get('/clear-config', function() {
+  Artisan::call('config:clear');
+  return "Config is cleared";
+});
 
 // rota home página institucional
 // Route::get('/', 'HomeController@index')->name('home');
