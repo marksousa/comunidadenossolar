@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'mail.nossolar-al.org.br'),
+            'host' => env('MAIL_HOST', ''),
             'port' => env('MAIL_PORT', 465),
-            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
-            'username' => env('MAIL_USERNAME', 'noreply@nossolar-al.org.br'),
-            'password' => env('MAIL_PASSWORD', 'g@cHvgry3h=m'),
+            'encryption' => env('MAIL_ENCRYPTION', ''),
+            'username' => env('MAIL_USERNAME', ''),
+            'password' => env('MAIL_PASSWORD', ''),
             'timeout' => null,
         ],
 
