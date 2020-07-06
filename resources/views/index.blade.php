@@ -1,3 +1,8 @@
+{{ -- 
+Projeto para possível Página Institucional
+Não implementando 
+--}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 

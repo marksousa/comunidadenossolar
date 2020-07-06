@@ -36,7 +36,7 @@
                     @foreach($users as $user)
                       <tr class="text-center">
                         <td>{{ $user->id }}</td>
-                        <td class="text-justify">{{ $user->name }}</td>
+                        <td class="text-justify">{{ ucfirst(trans($user->name)) }}</td>
                         <td>{{ $user->cpf }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ Carbon::parse($user->created_at)->format('d/m/Y H:i:s') }}</td>
