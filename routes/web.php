@@ -65,3 +65,11 @@ Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
   // Rotas do CRUD de Permissões
   Route::resource('permissoes', 'Admin\PermissaoController');
 });
+
+// grupo de rotas para as paginas do pilar da saúde
+Route::group(['middleware' => ['auth'],'prefix'=>'saude'], function(){
+  
+  // Prontuários
+  Route::get('/prontuario', "Saude\ProntuarioController@index")->name('ProntuarioIndex');
+  Route::get('/prontuario/novo/{usuario_id}', "Saude\ProntuarioController@create")->name('ProntuarioCreate');
+});

@@ -6,5 +6,6 @@
             "savePath": "/public/css"
         }
     ],
-    "liveSassCompile.settings.generateMap": false
+    "liveSassCompile.settings.generateMap": false,
+    "editor.formatOnSave": true
 }

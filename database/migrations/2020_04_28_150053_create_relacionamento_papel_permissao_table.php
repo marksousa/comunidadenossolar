@@ -31,6 +31,6 @@ class CreateRelacionamentoPapelPermissaoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('papel_user');
+        Schema::dropIfExists('papel_permissao');
     }
 }

@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
   /**
    * Retorna todas as permissões presentes no banco
    *
-   * @return void
+   * @return object
    */
   public function listaPermissoes(){
     // o método with traz os papeis junto com as pemissões
