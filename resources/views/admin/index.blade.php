@@ -13,7 +13,7 @@
 
           <div class = "row">
             <div class="text-center">
-              <img class="img-fluid " style="max-width: 100%" src="{{asset('images/hero-bg.jpg')}}" alt="">
+              <img class="img-fluid " style="max-width: 100%" src="{{asset('images/fundo.png')}}" alt="">
             </div>
           </div>
           <div class = "row">
