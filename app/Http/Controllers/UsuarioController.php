@@ -15,284 +15,266 @@ use Illuminate\Support\Facades\Gate;
 use Session;
 use Auth;
 
-use App\Pais;
-use App\Estado;
-use App\Genero;
-use App\Motivo;
-use App\Pilar;
-
 class UsuarioController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-      $this->middleware('verifica.cadastro')->except('create', 'store');
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('verifica.cadastro')->except('create', 'store');
+  }
+
+  /**
+   * Verifica se o User logado possui papel inativo
+   *
+   * @return void
+   */
+  public function papelInativo()
+  {
+    $papelInativo = Auth::user()->papeis->firstWhere('nome', 'inabilitado');
+
+    if (!empty($papelInativo)) {
+      return true;
     }
 
-    /**
-     * Verifica se o User logado possui papel inativo
-     *
-     * @return void
-     */
-    public function papelInativo()
-    {
-      $papelInativo = Auth::user()->papeis->firstWhere('nome', 'inabilitado');
-      
-      if(!empty($papelInativo)){
-        return true;
+    return false;
+  }
+
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    $usuarios = Usuario::all();
+    return view('admin.usuario.index', compact('usuarios'));
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    $usuario = new Usuario();
+    $bloquearEdicao = '';
+
+    if ($this->papelInativo()) {
+      $usuario->cpf = Auth::user()->cpf;
+      $usuario->nome = Auth::user()->name;
+      $usuario->email = Auth::user()->email;
+      $bloquearEdicao = 'readonly';
+    }
+
+    return view('admin.usuario.adicionar', compact('bloquearEdicao', 'usuario'));
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(UsuarioSanitizedRequest $request)
+  {
+    // Esse vetor $validated possui todos os dados que foram validados pela classe UsuarioSanitizedRequest.
+    $validated = $request->validated();
+    // Se algum dado nao foi validado, nem chega aqui. O script encaminha de volta para o formulário
+    // e informa o erro através da variável $errors (na view)
+    //dd($validated);
+
+    $usuario = new Usuario();
+    $endereco = new Endereco();
+    $perfil = new Perfil();
+
+    // Dados Pessoais
+    $usuario->cpf = $validated["cpf"];
+    $usuario->nome = $validated["nome"];
+    $usuario->genero_id = $validated["genero_id"];
+    $usuario->data_nascimento = $validated["data_nascimento"];
+    //Termo de adesão que vai para 
+    $usuario->termo_adesao = $validated["termo_adesao"];
+
+    // Endereço
+    $endereco->endereco = $validated["endereco"];
+    $endereco->numero = $validated["numero"];
+    $endereco->complemento = $validated["complemento"];
+    $endereco->cep = $validated["cep"];
+    $endereco->bairro = $validated["bairro"];
+    $endereco->municipio = $validated["municipio"];
+    $endereco->uf = $validated["uf"];
+    $endereco->pais = $validated["pais"];
+
+    // Dados de Contato
+    $usuario->telefone_residencial_ddd = $validated["telefone_residencial_ddd"];
+    $usuario->telefone_residencial = $validated["telefone_residencial"];
+    $usuario->telefone_celular_ddd = $validated["telefone_celular_ddd"];
+    $usuario->telefone_celular = $validated["telefone_celular"];
+    $usuario->email = $validated["email"];
+
+    // Entrevista
+    $perfil->motivo_id = $validated["motivo_id"];
+    $perfil->data_inicio_nl = $validated["data_inicio_nl"];
+    $perfil->pilar_id = $validated["pilar_id"];
+    $perfil->observacao = $validated["observacao"];
+
+    // verifica se o usuario possui um user associado para atualizar o id de usuario na tabela users tb
+    $user = User::where('cpf', $usuario->cpf)->first();
+
+    try {
+      $usuario->save();
+      $endereco->usuario_id = $usuario->id;
+      $endereco->save();
+      $perfil->usuario_id = $usuario->id;
+      $perfil->save();
+      if (!empty($user)) {
+        $user->usuario_id = $usuario->id;
+        $user->save();
       }
 
-      return false;
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $usuarios = Usuario::all();
-        return view('admin.usuario.index', compact('usuarios'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      $usuario = new Usuario();
-      $bloquearEdicao = '';
-
-      if($this->papelInativo()){
-        $usuario->cpf = Auth::user()->cpf;
-        $usuario->nome = Auth::user()->name;
-        $usuario->email = Auth::user()->email;
-        $bloquearEdicao = 'readonly';
+      if ($this->papelInativo()) {
+        Auth::user()->removePapel('inabilitado');
+        Auth::user()->adicionaPapel('Trabalhador');
       }
 
-      $paises = Pais::all();
-      $estados = Estado::all();
-      $generos = Genero::all();
-      $motivos = Motivo::all();
-      $pilares = Pilar::all();
-      return view('admin.usuario.adicionar', compact('bloquearEdicao','paises', 'estados', 'generos','motivos', 'usuario','pilares'));
+      Session::flash('tipo', 'success');
+      Session::flash('mensagem', 'Cadastro realizado com Sucesso!');
+    } catch (\Exception $e) {
+      info($e);
+      Session::flash('tipo', 'danger');
+      Session::flash('mensagem', 'Ocorreu um erro ao salvar o novo usuário. Tente Novamente.');
+      return redirect()->back()->withInput();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UsuarioSanitizedRequest $request)
-    {
-        // Esse vetor $validated possui todos os dados que foram validados pela classe UsuarioSanitizedRequest.
-        $validated = $request->validated();
-        // Se algum dado nao foi validado, nem chega aqui. O script encaminha de volta para o formulário
-        // e informa o erro através da variável $errors (na view)
-        //dd($validated);
+    return redirect()->route('FotoCreate', ['id' => $usuario->id]);
+  }
 
-        $usuario = new Usuario();
-        $endereco = new Endereco();
-        $perfil = new Perfil();
-
-        // Dados Pessoais
-        $usuario->cpf = $validated["cpf"];
-        $usuario->nome = $validated["nome"];
-        $usuario->genero_id = $validated["genero_id"];
-        $usuario->data_nascimento = $validated["data_nascimento"];
-        //Termo de adesão que vai para 
-        $usuario->termo_adesao = $validated["termo_adesao"];
-
-        // Endereço
-        $endereco->endereco = $validated["endereco"];
-        $endereco->numero = $validated["numero"];
-        $endereco->complemento = $validated["complemento"];
-        $endereco->cep = $validated["cep"];
-        $endereco->bairro = $validated["bairro"];
-        $endereco->municipio = $validated["municipio"];
-        $endereco->uf = $validated["uf"];
-        $endereco->pais = $validated["pais"];
-
-        // Dados de Contato
-        $usuario->telefone_residencial_ddd = $validated["telefone_residencial_ddd"];
-        $usuario->telefone_residencial = $validated["telefone_residencial"];
-        $usuario->telefone_celular_ddd = $validated["telefone_celular_ddd"];
-        $usuario->telefone_celular = $validated["telefone_celular"];
-        $usuario->email = $validated["email"];
-
-        // Entrevista
-        $perfil->motivo_id = $validated["motivo_id"];
-        $perfil->data_inicio_nl = $validated["data_inicio_nl"];
-        $perfil->pilar_id = $validated["pilar_id"];
-        $perfil->observacao = $validated["observacao"];
-
-        // verifica se o usuario possui um user associado para atualizar o id de usuario na tabela users tb
-        $user = User::where('cpf', $usuario->cpf)->first();
-
-        try {
-          $usuario->save();
-          $endereco->usuario_id = $usuario->id;
-          $endereco->save();
-          $perfil->usuario_id = $usuario->id;
-          $perfil->save();
-          if(!empty($user)){
-            $user->usuario_id = $usuario->id;
-            $user->save();
-          }
-
-          if($this->papelInativo()){
-            Auth::user()->removePapel('inabilitado');
-            Auth::user()->adicionaPapel('Trabalhador');
-          }
-
-          Session::flash('tipo', 'success');
-          Session::flash('mensagem', 'Cadastro realizado com Sucesso!');
-
-        } catch (\Exception $e){
-          info($e);
-          Session::flash('tipo', 'danger');
-          Session::flash('mensagem', 'Ocorreu um erro ao salvar o novo usuário. Tente Novamente.');
-          return redirect()->back()->withInput();
-        }
-
-        return redirect()->route('FotoCreate', ['id' => $usuario->id]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function show(int $id)
-    {
-      if($id != Auth::user()->usuario_id){
-        if(Gate::denies('usuarios-view')){
-          abort(403,"Não autorizado!");
-        }
+  /**
+   * Display the specified resource.
+   *
+   * @param  int $id usuario
+   * @return \Illuminate\Http\Response
+   */
+  public function show(int $id)
+  {
+    if ($id != Auth::user()->usuario_id) {
+      if (Gate::denies('usuarios-view')) {
+        abort(403, "Não autorizado!");
       }
-
-        try {
-            $usuario = Usuario::findOrFail($id);
-            return view('admin.usuario.perfil', compact('usuario'));
-        } catch (ModelNotFoundException $exception) {
-            abort(404, 'Usuário Não Encontrado!');
-        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(int $id)
-    {
+    try {
       $usuario = Usuario::findOrFail($id);
+    } catch (ModelNotFoundException $exception) {
+      abort(404, 'Usuário Não Encontrado!');
+    }
+    return view('admin.usuario.perfil', compact('usuario'));
+  }
 
-      $bloquearEdicao = '';
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int $id usuario
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(int $id)
+  {
+    $usuario = Usuario::findOrFail($id);
 
-      if($this->papelInativo()){
-        $bloquearEdicao = 'readonly';
+    $bloquearEdicao = '';
+
+    if ($this->papelInativo()) {
+      $bloquearEdicao = 'readonly';
+    }
+
+    return view('admin.usuario.editar', compact('bloquearEdicao', 'usuario'));
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  int $id usuario
+   * @return \Illuminate\Http\Response
+   */
+  public function update(UsuarioSanitizedRequest $request, int $id)
+  {
+    // Esse vetor $validated possui todos os dados que foram validados pela classe UsuarioSanitizedRequest.
+    $validated = $request->validated();
+    // Se algum dado nao foi validado, nem chega aqui. O script encaminha de volta para o formulário
+    // e informa o erro através da variável $errors (na view)
+    // dd($validated);
+
+    $usuario = Usuario::findOrFail($id);
+    $cpfAux = $usuario->cpf; // cpf antigo (caso o usuario altere)
+
+    // Dados Pessoais
+    $usuario->cpf = $validated["cpf"];
+    $usuario->nome = $validated["nome"];
+    $usuario->genero_id = $validated["genero_id"];
+    $usuario->data_nascimento = $validated["data_nascimento"];
+
+    // Endereço
+    $usuario->endereco->endereco = $validated["endereco"];
+    $usuario->endereco->numero = $validated["numero"];
+    $usuario->endereco->complemento = $validated["complemento"];
+    $usuario->endereco->cep = $validated["cep"];
+    $usuario->endereco->bairro = $validated["bairro"];
+    $usuario->endereco->municipio = $validated["municipio"];
+    $usuario->endereco->uf = $validated["uf"];
+    $usuario->endereco->pais = $validated["pais"];
+
+    // Dados de Contato
+    $usuario->telefone_residencial_ddd = $validated["telefone_residencial_ddd"];
+    $usuario->telefone_residencial = $validated["telefone_residencial"];
+    $usuario->telefone_celular_ddd = $validated["telefone_celular_ddd"];
+    $usuario->telefone_celular = $validated["telefone_celular"];
+    $usuario->email = $validated["email"];
+
+    // Entrevista
+    $usuario->perfil->motivo_id = $validated["motivo_id"];
+    $usuario->perfil->data_inicio_nl = $validated["data_inicio_nl"];
+    $usuario->perfil->pilar_id = $validated["pilar_id"];
+    $usuario->perfil->observacao = $validated["observacao"];
+
+    // verifica se o usuario possui um user associado para atualiza na tabela users tb
+    $user = User::where('cpf', $cpfAux)->first();
+
+    try {
+      $usuario->save();
+      $usuario->endereco->save();
+      $usuario->perfil->save();
+      if (!empty($user)) {
+        $user->cpf = $usuario->cpf;
+        $user->name = $usuario->nome;
+        $user->email = $usuario->email;
+        $user->save();
       }
-
-      $paises = Pais::all();
-      $estados = Estado::all();
-      $generos = Genero::all();
-      $motivos = Motivo::all();
-      $pilares = Pilar::all();
-
-      return view('admin.usuario.editar', compact('bloquearEdicao', 'paises', 'estados', 'generos','motivos', 'usuario','pilares'));
+      Session::flash('tipo', 'success');
+      Session::flash('mensagem', 'Cadastro Atualizado com Sucesso!');
+    } catch (\Exception $e) {
+      info($e);
+      Session::flash('tipo', 'danger');
+      Session::flash('mensagem', 'Ocorreu um erro na atualização do Cadastro. Tente novamente!');
+      return redirect()->back()->withInput();
     }
+    return redirect()->route('UsuarioShow', ['id' => $usuario->id]);
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int $id usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UsuarioSanitizedRequest $request, int $id)
-    {
-      // Esse vetor $validated possui todos os dados que foram validados pela classe UsuarioSanitizedRequest.
-      $validated = $request->validated();
-      // Se algum dado nao foi validado, nem chega aqui. O script encaminha de volta para o formulário
-      // e informa o erro através da variável $errors (na view)
-      // dd($validated);
-
-      $usuario = Usuario::findOrFail($id);
-      $cpfAux = $usuario->cpf; // cpf antigo (caso o usuario altere)
-
-      // Dados Pessoais
-      $usuario->cpf = $validated["cpf"];
-      $usuario->nome = $validated["nome"];
-      $usuario->genero_id = $validated["genero_id"];
-      $usuario->data_nascimento = $validated["data_nascimento"];
-
-      // Endereço
-      $usuario->endereco->endereco = $validated["endereco"];
-      $usuario->endereco->numero = $validated["numero"];
-      $usuario->endereco->complemento = $validated["complemento"];
-      $usuario->endereco->cep = $validated["cep"];
-      $usuario->endereco->bairro = $validated["bairro"];
-      $usuario->endereco->municipio = $validated["municipio"];
-      $usuario->endereco->uf = $validated["uf"];
-      $usuario->endereco->pais = $validated["pais"];
-
-      // Dados de Contato
-      $usuario->telefone_residencial_ddd = $validated["telefone_residencial_ddd"];
-      $usuario->telefone_residencial = $validated["telefone_residencial"];
-      $usuario->telefone_celular_ddd = $validated["telefone_celular_ddd"];
-      $usuario->telefone_celular = $validated["telefone_celular"];
-      $usuario->email = $validated["email"];
-
-      // Entrevista
-      $usuario->perfil->motivo_id = $validated["motivo_id"];
-      $usuario->perfil->data_inicio_nl = $validated["data_inicio_nl"];
-      $usuario->perfil->pilar_id = $validated["pilar_id"];
-      $usuario->perfil->observacao = $validated["observacao"];
-
-      // verifica se o usuario possui um user associado para atualiza na tabela users tb
-      $user = User::where('cpf', $cpfAux)->first();
-
-      try {
-        $usuario->save();
-        $usuario->endereco->save();
-        $usuario->perfil->save();
-        if(!empty($user)){
-          $user->cpf = $usuario->cpf;
-          $user->name = $usuario->nome;
-          $user->email = $usuario->email;
-          $user->save();
-        }
-        Session::flash('tipo', 'success');
-        Session::flash('mensagem', 'Cadastro Atualizado com Sucesso!');
-      } catch (\Exception $e){
-        info($e);
-        Session::flash('tipo', 'danger');
-        Session::flash('mensagem', 'Ocorreu um erro na atualização do Cadastro. Tente novamente!');
-        return redirect()->back()->withInput();
-      }
-      return redirect()->route('UsuarioShow', ['id' => $usuario->id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Usuario  $usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Usuario $usuario)
-    {
-        //
-    }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Usuario  $usuario
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Usuario $usuario)
+  {
+    //
+  }
 }
