@@ -144,7 +144,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Recursos Saúde:</h6>
             <a class="collapse-item" href="{{ route('especialidades.index') }}">Especialidades</a>
-            <a class="collapse-item" href="#">Consultórios</a>
+            <a class="collapse-item" href="{{ route('consultorios.index') }}">Consultórios</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
             <a class="collapse-item" href="404.html">404 Page</a>

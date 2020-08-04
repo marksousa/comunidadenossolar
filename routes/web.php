@@ -66,4 +66,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
 
   // Rotas do CRUD de Especialidades
   Route::resource('especialidades', 'PSaude\EspecialidadeController');
+
+  // Rotas do CRUD de Consultórios
+  Route::resource('consultorios', 'PSaude\ConsultorioController');
 });
