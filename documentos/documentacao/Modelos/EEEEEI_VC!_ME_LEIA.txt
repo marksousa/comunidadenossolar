@@ -1,0 +1,4 @@
+Para abrir os arquivos extensão .dia baixar o software Dia para edição de diagramas
+
+http://dia-installer.de/
+

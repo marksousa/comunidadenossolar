@@ -7,8 +7,6 @@ use App\User;
 use App\Endereco;
 use App\Perfil;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests\UsuarioSanitizedRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Gate;
@@ -185,7 +183,11 @@ class UsuarioController extends Controller
    */
   public function edit(int $id)
   {
-    $usuario = Usuario::findOrFail($id);
+    try {
+      $usuario = Usuario::findOrFail($id);
+    } catch (ModelNotFoundException $exception) {
+      abort(404, 'Usuário Não Encontrado!');
+    }
 
     $bloquearEdicao = '';
 
@@ -211,7 +213,12 @@ class UsuarioController extends Controller
     // e informa o erro através da variável $errors (na view)
     // dd($validated);
 
-    $usuario = Usuario::findOrFail($id);
+    try {
+      $usuario = Usuario::findOrFail($id);
+    } catch (ModelNotFoundException $exception) {
+      abort(404, 'Usuário Não Encontrado!');
+    }
+
     $cpfAux = $usuario->cpf; // cpf antigo (caso o usuario altere)
 
     // Dados Pessoais

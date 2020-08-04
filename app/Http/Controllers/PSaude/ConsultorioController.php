@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Saude;
+namespace App\Http\Controllers\PSaude;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Usuario;
-
-class ProntuarioController extends Controller
+class ConsultorioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +14,17 @@ class ProntuarioController extends Controller
      */
     public function index()
     {
-        // Index para Listar Os Prontuários dos Pacientes
-        // Restrito aos médicos e outros profissionais do atendimento
-        return view('saude.prontuario.index');
+        //
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param  int  $usuario_id
      * @return \Illuminate\Http\Response
      */
-    public function create(int $usuario_id)
+    public function create()
     {
-        //Precisamos do Id do Usuário ao qual pertencerá o Prontuário que será criado
-        $usuario = Usuario::find($usuario_id);
-        //Enviar essas informações para um formulario de preenchimento das informações do pronturario
-        return view('saude.prontuario.adicionar', compact('usuario'));
+        //
     }
 
     /**

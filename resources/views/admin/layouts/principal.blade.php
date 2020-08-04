@@ -14,7 +14,7 @@
 
   <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-  
+
   <link href="{{ asset('css/nunito.css') }}" rel="stylesheet">
 
   <!-- Custom styles for this template-->
@@ -24,7 +24,7 @@
 
   @yield('page-level-css')
 
-  <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon"/>
+  <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon" />
 
 </head>
 
@@ -51,8 +51,8 @@
       {{-- <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{route('admin-home')}}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
       </li> --}}
 
       @can('usuarios-create')
@@ -74,10 +74,10 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Recursos Trabalhador</h6>
             @can('usuarios-create')
-              <a class="collapse-item" href="{{ route('UsuarioCreate') }}">Cadastrar Assistido</a>
+            <a class="collapse-item" href="{{ route('UsuarioCreate') }}">Cadastrar Assistido</a>
             @endcan
             @can('usuarios-view')
-              <a class="collapse-item" href="{{ route('UsuarioIndex') }}">Listar Assistidos</a>
+            <a class="collapse-item" href="{{ route('UsuarioIndex') }}">Listar Assistidos</a>
             @endcan
             {{-- <a class="collapse-item" href="cards.html">Pesquisar Assistido</a> --}}
           </div>
@@ -129,23 +129,22 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      {{-- <!-- Heading -->
+      <!-- Heading -->
       <div class="sidebar-heading">
-        Addons
+        Pilar da Saúde
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Configurações</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+            <h6 class="collapse-header">Recursos Saúde:</h6>
+            <a class="collapse-item" href="{{ route('especialidades.index') }}">Especialidades</a>
+            <a class="collapse-item" href="#">Consultórios</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
             <a class="collapse-item" href="404.html">404 Page</a>
@@ -154,7 +153,7 @@
         </div>
       </li>
 
-      <!-- Nav Item - Charts -->
+      {{-- <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
@@ -166,10 +165,10 @@
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
-      </li>
+      </li> --}}
 
       <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block"> --}}
+      <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
@@ -295,72 +294,72 @@
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="dropdown-list-image mr-3">
                     <img class="rounded-circle" src="https://avatars.dicebear.com/api/avataaars/{{ rand(1,300) }}.svg" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://avatars.dicebear.com/api/avataaars/{{ rand(1,300) }}.svg" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://avatars.dicebear.com/api/avataaars/{{ rand(1,300) }}.svg" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://avatars.dicebear.com/api/avataaars/{{ rand(1,300) }}.svg" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li>
-            --}}
+            <div class="status-indicator bg-success"></div>
+      </div>
+      <div class="font-weight-bold">
+        <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+        <div class="small text-gray-500">Emily Fowler · 58m</div>
+      </div>
+      </a>
+      <a class="dropdown-item d-flex align-items-center" href="#">
+        <div class="dropdown-list-image mr-3">
+          <img class="rounded-circle" src="https://avatars.dicebear.com/api/avataaars/{{ rand(1,300) }}.svg" alt="">
+          <div class="status-indicator"></div>
+        </div>
+        <div>
+          <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+          <div class="small text-gray-500">Jae Chun · 1d</div>
+        </div>
+      </a>
+      <a class="dropdown-item d-flex align-items-center" href="#">
+        <div class="dropdown-list-image mr-3">
+          <img class="rounded-circle" src="https://avatars.dicebear.com/api/avataaars/{{ rand(1,300) }}.svg" alt="">
+          <div class="status-indicator bg-warning"></div>
+        </div>
+        <div>
+          <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+          <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+        </div>
+      </a>
+      <a class="dropdown-item d-flex align-items-center" href="#">
+        <div class="dropdown-list-image mr-3">
+          <img class="rounded-circle" src="https://avatars.dicebear.com/api/avataaars/{{ rand(1,300) }}.svg" alt="">
+          <div class="status-indicator bg-success"></div>
+        </div>
+        <div>
+          <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+          <div class="small text-gray-500">Chicken the Dog · 2w</div>
+        </div>
+      </a>
+      <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+    </div>
+    </li>
+    --}}
 
-            <div class="topbar-divider d-none d-sm-block"></div>
+    <div class="topbar-divider d-none d-sm-block"></div>
 
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                @if(is_null(Auth::user()->avatar))
-                <img class="img-profile rounded-circle" id = "top-img-profile" src="https://ui-avatars.com/api/?size=160&rounded=true&name={{ Str::replaceFirst(' ','+', Auth::user()->name) }}" alt="avatar">
-                @else
-                <img class="img-profile rounded-circle" id = "top-img-profile" src="{{ asset('storage')."/".Auth::user()->avatar }}" alt="avatar">
-                @endif
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                @isset(Auth::user()->usuario_id)
-                  <a class="dropdown-item" href="{{ route('UsuarioShow', ['id' => Auth::user()->usuario_id]) }}">
-                @else 
-                  <a class="dropdown-item" href="{{ route('admin-home') }}">
-                @endisset
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Perfil
-                </a>
+    <!-- Nav Item - User Information -->
+    <li class="nav-item dropdown no-arrow">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+        @if(is_null(Auth::user()->avatar))
+        <img class="img-profile rounded-circle" id="top-img-profile" src="https://ui-avatars.com/api/?size=160&rounded=true&name={{ Str::replaceFirst(' ','+', Auth::user()->name) }}" alt="avatar">
+        @else
+        <img class="img-profile rounded-circle" id="top-img-profile" src="{{ asset('storage')."/".Auth::user()->avatar }}" alt="avatar">
+        @endif
+      </a>
+      <!-- Dropdown - User Information -->
+      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        @isset(Auth::user()->usuario_id)
+        <a class="dropdown-item" href="{{ route('UsuarioShow', ['id' => Auth::user()->usuario_id]) }}">
+          @else
+          <a class="dropdown-item" href="{{ route('admin-home') }}">
+            @endisset
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+            Perfil
+          </a>
 
-                {{-- <a class="dropdown-item" href="#">
+          {{-- <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
                 </a>
@@ -368,39 +367,39 @@
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                   Activity Log
                 </a> --}}
-                
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Sair
-                </a>
-              </div>
-            </li>
 
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
-        @yield('conteudo')
-      
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            Sair
+          </a>
       </div>
-      <!-- End of Main Content -->
+    </li>
 
-      <!-- Footer -->
-      <footer class="sticky-footer footer navbar-fixed-bottom bg-white">
-        <div class="pb-0">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright &copy; Tekyou Soluções {{ date("Y") }}</span>
-            </div>
-          </div>
+    </ul>
+
+    </nav>
+    <!-- End of Topbar -->
+
+    @yield('conteudo')
+
+  </div>
+  <!-- End of Main Content -->
+
+  <!-- Footer -->
+  <footer class="sticky-footer footer navbar-fixed-bottom bg-white">
+    <div class="pb-0">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Tekyou Soluções {{ date("Y") }}</span>
         </div>
-      </footer>
-      <!-- End of Footer -->
-
+      </div>
     </div>
-    <!-- End of Content Wrapper -->
+  </footer>
+  <!-- End of Footer -->
+
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->
@@ -424,8 +423,8 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
           <form id="logout-form" action="{{ route('logout') }}" method="POST">
-          @csrf
-          <button class="btn btn-primary" type="submit">Sair</button>
+            @csrf
+            <button class="btn btn-primary" type="submit">Sair</button>
           </form>
         </div>
       </div>

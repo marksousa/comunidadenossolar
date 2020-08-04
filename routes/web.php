@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/clear-cache', function() {
-    Artisan::call('cache:clear');
-    return "Cache is cleared";
+Route::get('/clear-cache', function () {
+  Artisan::call('cache:clear');
+  return "Cache is cleared";
 });
 
-Route::get('/clear-config', function() {
+Route::get('/clear-config', function () {
   Artisan::call('config:clear');
   return "Config is cleared";
 });
@@ -18,23 +18,22 @@ Route::get('/clear-config', function() {
 // Route::get('/', 'HomeController@index')->name('home');
 
 // Rota para entrada no sistema - Login
-Route::get('/', function(){
+Route::get('/', function () {
   return redirect()->route('login');
 });
 
 // grupo de rotas para as paginas do admin
-Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
-  
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function () {
+
   // dashboard
   Route::get('/', "Admin\AdminController@index")->name('admin-home');
-  
+
   // modelo pagina exemplo
-  Route::get('/exemplo', function(){
+  Route::get('/exemplo', function () {
     return view('admin.modelo-pagina');
   });
 
   // Rotas relativas a area do usuário registrado (USER) no sistema
-  Route::get('/profile/{id}', 'ProfileController@show')->name('ProfileShow');
   Route::get('/upload/avatar', 'AvatarController@create')->name('AvatarCreate');
   Route::post('/upload/avatar', 'AvatarController@store')->name('AvatarStore');
 
@@ -43,7 +42,7 @@ Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
   Route::get('/usuario/novo', 'UsuarioController@create')->name('UsuarioCreate');
   Route::post('/usuario/novo', 'UsuarioController@store')->name('UsuarioStore');
   Route::get('/usuario/{id}/editar', 'UsuarioController@edit')->name('UsuarioEdit');
-  Route::match(['put', 'patch'],'/usuario/{id}/editar', 'UsuarioController@update')->name('UsuarioUpdate');
+  Route::match(['put', 'patch'], '/usuario/{id}/editar', 'UsuarioController@update')->name('UsuarioUpdate');
   Route::get('/usuario/{id}', 'UsuarioController@show')->name('UsuarioShow');
   Route::get('/usuario/{id}/foto/upload/', 'FotoController@create')->name('FotoCreate');
   Route::post('/usuario/foto/store', 'FotoController@store')->name('FotoStore');
@@ -64,12 +63,7 @@ Route::group(['middleware' => ['auth'],'prefix' => 'admin'],function () {
 
   // Rotas do CRUD de Permissões
   Route::resource('permissoes', 'Admin\PermissaoController');
-});
 
-// grupo de rotas para as paginas do pilar da saúde
-Route::group(['middleware' => ['auth'],'prefix'=>'saude'], function(){
-  
-  // Prontuários
-  Route::get('/prontuario', "Saude\ProntuarioController@index")->name('ProntuarioIndex');
-  Route::get('/prontuario/novo/{usuario_id}', "Saude\ProntuarioController@create")->name('ProntuarioCreate');
+  // Rotas do CRUD de Especialidades
+  Route::resource('especialidades', 'PSaude\EspecialidadeController');
 });
