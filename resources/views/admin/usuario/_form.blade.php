@@ -21,18 +21,17 @@
           {{-- possui cpf? --}}
           <div class="form-group col-md-4">
             <label for="lbl_possui_cpf">Possui CPF próprio? <span class="text-danger"><strong>*</strong></span></label>
-            <select class="custom-select {{ $errors->has('possui_cpf') ? 'is-invalid' : '' }}" name="possui_cpf" id="possui_cpf">
-              <option selected value="">Selecione</option>
-              <option value ="S">Sim</option>
-              <option value ="N">Não</option>
-              {{--<option value="{{ $genero->id }}" @if(old('genero_id', $usuario->genero_id) == $genero->id)
-                selected
-                @endif>
-                {{ $genero->nome }}
-              </option>--}}
-            </select>
-            <div class="invalid-feedback">
-              {{$errors->first('possui_cpf')}}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_sim" value="S" {{ old('possui_cpf') == "S" || old('possui_cpf') == "" ? 'checked' : '' }} {{ $usuario->possui_cpf == "S" ? 'checked' : '' }} onclick="habilitaCPFNumero()">
+              <label class="form-check-label" for="sim">
+                Sim
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_nao" value="N" {{ old('possui_cpf') == "N" ? 'checked' : '' }} {{ $usuario->possui_cpf == "N" ? 'checked' : '' }} onclick="desabilitaCPFNumero()">
+              <label class="form-check-label" for="nao">
+                Não
+              </label>
             </div>
           </div>
 
@@ -50,17 +49,17 @@
           {{-- possui RG? --}}
           <div class="form-group col-md-4">
             <label for="lbl_possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
-            <select class="custom-select {{ $errors->has('possui_rg') ? 'is-invalid' : '' }}" name="possui_rg" id="possui_rg">
-              <option selected value="">Selecione</option>
-              {{--<option value="{{ $estado->sigla }}" @if(old('uf', $usuario->endereco->uf ?? '') == $estado->sigla)
-                selected
-                @endif>
-              </option>--}}
-              <option value ="S">Sim</option>
-              <option value ="N">Não</option>
-            </select>
-            <div class="invalid-feedback">
-              {{$errors->first('possui_rg')}}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_sim" value="S" {{ old('possui_rg') == "S" || old('possui_rg') == "" ? 'checked' : '' }} {{ $usuario->possui_rg == "S" ? 'checked' : '' }} onclick="habilitaRGDados()">
+              <label class="form-check-label" for="sim">
+                Sim
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_nao" value="N" {{ old('possui_rg') == "N" ? 'checked' : '' }} {{ $usuario->possui_rg == "N" ? 'checked' : '' }} onclick="desabilitaRGDados()">
+              <label class="form-check-label" for="nao">
+                Não
+              </label>
             </div>
           </div>
 
@@ -123,6 +122,37 @@
               {{$errors->first('data_nascimento')}}
             </div>
           </div>
+        </div> {{-- fecha form-row --}}
+ 
+        <div class="form-row">
+          {{-- uf do local de nascimento --}}
+          @inject('estados', 'App\Estado')
+          <div class="form-group col-md-3">
+            <label for="nascimento_uf">Estado de nascimento</label>
+            <select class="custom-select {{ $errors->has('nascimento_uf') ? 'is-invalid' : '' }}" name="nascimento_uf" id="nascimento_uf">
+              <option selected value="">Selecione</option>
+              @foreach($estados->all() as $estado)
+              <option value="{{ $estado->sigla }}" @if(old('nascimento_uf', $usuario->endereco->nascimento_uf ?? '') == $estado->sigla)
+                selected
+                @endif>
+
+                {{ $estado->sigla }}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">
+              {{$errors->first('nascimento_uf')}}
+            </div>
+          </div> {{-- fecha form-group --}}
+
+          {{-- municipio do local de nascimento --}}
+          <div class="form-group col-md-6">
+            <label for="nascimento_municipio">Município de nascimento</label>
+            <input type="text" class="form-control {{ $errors->has('nascimento_municipio') ? 'is-invalid' : '' }}" id="nascimento_municipio" maxlength="60" value="{{ old('nascimento_municipio', $usuario->nascimento_municipio ?? '') }}" name="nascimento_municipio">
+            <div class="invalid-feedback">
+              {{$errors->first('nascimento_municipio')}}
+            </div>
+          </div> 
         </div> {{-- fecha form-row --}}
       </div> {{-- fecha form-group --}}
     </div> {{-- fecha container --}}
@@ -456,3 +486,121 @@
   </div>{{-- fecha card-body --}}
 </div>{{-- fecha card --}}
 {{-- @endcan --}}
+
+@section('page-level-scripts')
+    <!-- JavaScript para Mask Input -->
+    <script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#cpf').mask('000.000.000-00');
+            $('#cep').mask('00000-000');
+            $('#telefone_celular').mask('00000-0000');
+            $('#telefone_residencial').mask('0000-0000');
+            $('#data_inicio_nl').mask('00/0000');
+        });
+    </script>
+
+    <!-- Javascript para buscar os dados do endereço após preencher o CEP -->
+    <script type="text/javascript" >
+        function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep
+            document.getElementById('endereco').value=("");
+            document.getElementById('bairro').value=("");
+            document.getElementById('municipio').value=("");
+            document.getElementById('uf').value=("");
+            document.getElementById('data').value=("");
+        }
+
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('endereco').value=(conteudo.logradouro);
+                document.getElementById('bairro').value=(conteudo.bairro);
+                document.getElementById('municipio').value=(conteudo.localidade);
+                document.getElementById('uf').value=(conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+            
+        function pesquisacep(valor) {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('endereco').value="...";
+                    document.getElementById('bairro').value="...";
+                    document.getElementById('municipio').value="...";
+                    document.getElementById('uf').value="...";
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
+
+        function desabilitaCPFNumero()
+        {  
+            if(document.getElementById("possui_cpf_nao").checked == true)
+            {  
+                document.getElementById("cpf").disabled = true;  
+                document.getElementById("cpf").value = "";  
+            }
+        }  
+        function habilitaCPFNumero()
+        {  
+            if (document.getElementById("possui_cpf_sim").checked == true)
+            {
+                document.getElementById("cpf").disabled = false;
+            }  
+        }  
+
+        function desabilitaRGDados()
+        {  
+            if(document.getElementById("possui_rg_nao").checked == true)
+            {  
+                document.getElementById("rg_numero").disabled = true;  
+                document.getElementById("rg_numero").value = "";  
+                document.getElementById("rg_uf").disabled = true;  
+            }
+        }  
+        function habilitaRGDados()
+        {  
+            if (document.getElementById("possui_rg_sim").checked == true)
+            {
+                document.getElementById("rg_numero").disabled = false;
+                document.getElementById("rg_uf").disabled = false;
+            }  
+        }  
+    </script>
+@endsection

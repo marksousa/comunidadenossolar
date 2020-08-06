@@ -15,12 +15,14 @@ class CreateUsuariosTable extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->increments('id')->start_from(10001);
+            $table->string('nome',80);
             $table->string('possui_cpf',1)->comment('Possui CPF próprio?');
             $table->string('cpf',14)->nullable();
             $table->string('possui_rg',1)->comment('Possui RG próprio?');
             $table->string('rg_numero',15);
             $table->string('rg_uf',2);
-            $table->string('nome',80);
+            $table->string('nascimento_uf',2);
+            $table->string('nascimento_municipio',60);
             $table->integer('genero_id')->unsigned();
             $table->foreign('genero_id')->references('id')->on('generos');
             $table->date('data_nascimento')->nullable();
