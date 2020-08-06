@@ -14,8 +14,12 @@ class CreateUsuariosTable extends Migration
     public function up()
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->increments('id')->start_from(10000);
+            $table->increments('id')->start_from(10001);
+            $table->string('possui_cpf',1)->comment('Possui CPF próprio?');
             $table->string('cpf',14)->nullable();
+            $table->string('possui_rg',1)->comment('Possui RG próprio?');
+            $table->string('rg_numero',15);
+            $table->string('rg_uf',2);
             $table->string('nome',80);
             $table->integer('genero_id')->unsigned();
             $table->foreign('genero_id')->references('id')->on('generos');

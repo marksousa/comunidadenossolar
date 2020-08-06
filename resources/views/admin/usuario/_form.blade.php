@@ -7,15 +7,6 @@
     <div class="container">
       <div class="form-group">
         <div class="form-row">
-          {{-- cpf --}}
-          <div class="form-group col-md-3">
-            <label id="lbl_cpf" for="cpf">CPF</label>
-            <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" maxlength="14" value="{{ old('cpf', $usuario->cpf ?? '') }}" name="cpf" {{ $bloquearEdicao ?? '' }}>
-            <div class="invalid-feedback">
-              {{$errors->first('cpf')}}
-            </div>
-          </div>
-
           {{-- nome --}}
           <div class="form-group col-md-9">
             <label for="nome">Nome Completo <span class="text-danger"><strong>*</strong></span></label>
@@ -27,7 +18,84 @@
         </div> {{-- fecha form-row --}}
 
         <div class="form-row">
+          {{-- possui cpf? --}}
+          <div class="form-group col-md-4">
+            <label for="lbl_possui_cpf">Possui CPF próprio? <span class="text-danger"><strong>*</strong></span></label>
+            <select class="custom-select {{ $errors->has('possui_cpf') ? 'is-invalid' : '' }}" name="possui_cpf" id="possui_cpf">
+              <option selected value="">Selecione</option>
+              <option value ="S">Sim</option>
+              <option value ="N">Não</option>
+              {{--<option value="{{ $genero->id }}" @if(old('genero_id', $usuario->genero_id) == $genero->id)
+                selected
+                @endif>
+                {{ $genero->nome }}
+              </option>--}}
+            </select>
+            <div class="invalid-feedback">
+              {{$errors->first('possui_cpf')}}
+            </div>
+          </div>
 
+          {{-- cpf --}}
+          <div class="form-group col-md-5">
+            <label id="lbl_cpf" for="cpf">Número do CPF</label>
+            <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}" id="cpf" maxlength="14" value="{{ old('cpf', $usuario->cpf ?? '') }}" name="cpf" {{ $bloquearEdicao ?? '' }}>
+            <div class="invalid-feedback">
+              {{$errors->first('cpf')}}
+            </div>
+          </div>
+        </div> {{-- fecha form-row --}}
+
+        <div class="form-row">
+          {{-- possui RG? --}}
+          <div class="form-group col-md-4">
+            <label for="lbl_possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
+            <select class="custom-select {{ $errors->has('possui_rg') ? 'is-invalid' : '' }}" name="possui_rg" id="possui_rg">
+              <option selected value="">Selecione</option>
+              {{--<option value="{{ $estado->sigla }}" @if(old('uf', $usuario->endereco->uf ?? '') == $estado->sigla)
+                selected
+                @endif>
+              </option>--}}
+              <option value ="S">Sim</option>
+              <option value ="N">Não</option>
+            </select>
+            <div class="invalid-feedback">
+              {{$errors->first('possui_rg')}}
+            </div>
+          </div>
+
+          {{-- RG --}}
+          <div class="form-group col-md-5">
+            <label id="lbl_rg_numero" for="rg_numero">Número do documento de identidade</label>
+            <input type="text" class="form-control {{ $errors->has('rg_numero') ? 'is-invalid' : '' }}" id="rg_numero" maxlength="14" value="{{ old('rg_numero', $usuario->rg_numero ?? '') }}" name="rg_numero">
+            <div class="invalid-feedback">
+              {{$errors->first('rg_numero')}}
+            </div>
+          </div>
+
+          {{-- uf do RG --}}
+          @inject('estados', 'App\Estado')
+          <div class="form-group col-md-3">
+            <label for="rg_uf">Estado do documento de identidade</label>
+            <select class="custom-select {{ $errors->has('rg_uf') ? 'is-invalid' : '' }}" name="rg_uf" id="rg_uf">
+              <option selected value="">Selecione</option>
+              @foreach($estados->all() as $estado)
+              <option value="{{ $estado->sigla }}" @if(old('rg_uf', $usuario->endereco->rg_uf ?? '') == $estado->sigla)
+                selected
+                @endif>
+
+                {{ $estado->sigla }}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">
+              {{$errors->first('rg_uf')}}
+            </div>
+          </div>
+
+        </div> {{-- fecha form-row --}}
+
+        <div class="form-row">
           {{-- genero --}}
           @inject('generos', 'App\Genero')
           <div class="form-group col-md-5">
@@ -64,7 +132,7 @@
 <!-- Endereço -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Endereço (Preencha o CEP, número e complemento se necessário. As outras informações serão completadas automaticamente)</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Endereço atual (Preencha o CEP, número e complemento se necessário. As outras informações serão completadas automaticamente)</h6>
   </div>
   <div class="card-body">
     <div class="container">

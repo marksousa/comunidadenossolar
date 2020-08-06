@@ -27,8 +27,12 @@ class UsuarioSanitizedRequest extends FormRequest
   public function rules()
   {
     return [
-      'cpf' => 'nullable|unique:usuarios|string|max:14',
       'nome' => 'required|string|max:80',
+      'possui_cpf' => 'required|string|max:1',
+      'cpf' => 'nullable|unique:usuarios|string|max:14',
+      'possui_rg' => 'required|string|max:1',
+      'rg_numero' => 'nullable|string|max:15',
+      'rg_uf' => 'nullable|string|size:2',
       'genero_id' => 'required|integer',
       'data_nascimento' => 'nullable|date',
       'endereco' => 'nullable|string|max:60',
@@ -77,8 +81,11 @@ class UsuarioSanitizedRequest extends FormRequest
   public function filters()
   {
     return [
-      'cpf' => 'digit',
       'nome' => 'trim|capitalize',
+      'possui_cpf' => 'trim',
+      'cpf' => 'digit',
+      'possui_rg' => 'trim',
+      'rg' => 'trim|capitalize',
       'endereco' => 'trim|capitalize',
       'numero' => 'trim|capitalize',
       'complemento' => 'trim|capitalize',
