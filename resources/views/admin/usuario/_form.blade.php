@@ -22,13 +22,13 @@
           <div class="form-group col-md-4">
             <label for="lbl_possui_cpf">Possui CPF próprio? <span class="text-danger"><strong>*</strong></span></label>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_sim" value="S" {{ old('possui_cpf') == "S" || old('possui_cpf') == "" ? 'checked' : '' }} {{ $usuario->possui_cpf == "S" ? 'checked' : '' }} onclick="habilitaCPFNumero()">
+              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_sim" value="S" {{ old('possui_cpf') == "S" || old('possui_cpf') == "" ? 'checked' : '' }} {{ $usuario->possui_cpf == "S" ? 'checked' : '' }} onclick="habilitaCPFNumero()" {{ $bloquearEdicao == 'readonly' ? 'disabled' : ''}}>
               <label class="form-check-label" for="sim">
                 Sim
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_nao" value="N" {{ old('possui_cpf') == "N" ? 'checked' : '' }} {{ $usuario->possui_cpf == "N" ? 'checked' : '' }} onclick="desabilitaCPFNumero()">
+              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_nao" value="N" {{ old('possui_cpf') == "N" ? 'checked' : '' }} {{ $usuario->possui_cpf == "N" ? 'checked' : '' }} onclick="desabilitaCPFNumero()" {{ $bloquearEdicao == 'readonly' ? 'disabled' : ''}}>
               <label class="form-check-label" for="nao">
                 Não
               </label>
@@ -123,7 +123,7 @@
             </div>
           </div>
         </div> {{-- fecha form-row --}}
- 
+
         <div class="form-row">
           {{-- uf do local de nascimento --}}
           @inject('estados', 'App\Estado')
@@ -152,7 +152,7 @@
             <div class="invalid-feedback">
               {{$errors->first('nascimento_municipio')}}
             </div>
-          </div> 
+          </div>
         </div> {{-- fecha form-row --}}
       </div> {{-- fecha form-group --}}
     </div> {{-- fecha container --}}
@@ -488,22 +488,22 @@
 {{-- @endcan --}}
 
 @section('page-level-scripts')
-    <!-- JavaScript para Mask Input -->
-    <script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
+<!-- JavaScript para Mask Input -->
+<script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
+<script type="text/javascript">
+  $(document).ready(function(){
             $('#cpf').mask('000.000.000-00');
             $('#cep').mask('00000-000');
             $('#telefone_celular').mask('00000-0000');
             $('#telefone_residencial').mask('0000-0000');
             $('#data_inicio_nl').mask('00/0000');
         });
-    </script>
+</script>
 
-    <!-- Javascript para buscar os dados do endereço após preencher o CEP -->
-    <script type="text/javascript" >
-        function limpa_formulário_cep() {
+<!-- Javascript para buscar os dados do endereço após preencher o CEP -->
+<script type="text/javascript">
+  function limpa_formulário_cep() {
             //Limpa valores do formulário de cep
             document.getElementById('endereco').value=("");
             document.getElementById('bairro').value=("");
@@ -602,5 +602,5 @@
                 document.getElementById("rg_uf").disabled = false;
             }  
         }  
-    </script>
+</script>
 @endsection
