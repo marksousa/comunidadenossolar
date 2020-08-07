@@ -480,7 +480,6 @@
 </div>{{-- fecha card --}}
 {{-- @endcan --}}
 
-@section('page-level-scripts')
 <!-- JavaScript para Mask Input -->
 <script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
 
@@ -566,7 +565,7 @@
         {  
             if(document.getElementById("possui_cpf_nao").checked == true)
             {  
-                document.getElementById("cpf").disabled = true;  
+                document.getElementById("cpf").readOnly = true;  
                 document.getElementById("cpf").value = "";  
             }
         }  
@@ -574,7 +573,7 @@
         {  
             if (document.getElementById("possui_cpf_sim").checked == true)
             {
-                document.getElementById("cpf").disabled = false;
+                document.getElementById("cpf").readOnly = false;
             }  
         }  
 
@@ -582,22 +581,22 @@
         {  
             if(document.getElementById("possui_rg_nao").checked == true)
             {  
-                document.getElementById("rg_numero").disabled = true;  
+                document.getElementById("rg_numero").readOnly = true;  
                 document.getElementById("rg_numero").value = "";  
-                document.getElementById("rg_uf").disabled = true;  
+                document.getElementById("rg_uf").readOnly = true;  
             }
         }  
         function habilitaRGDados()
         {  
             if (document.getElementById("possui_rg_sim").checked == true)
             {
-                document.getElementById("rg_numero").disabled = false;
-                document.getElementById("rg_uf").disabled = false;
+                document.getElementById("rg_numero").readOnly = false;
+                document.getElementById("rg_uf").readOnly = false;
             }  
         }  
 </script>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
   $(document).ready(function () {
     $.getJSON('../../vendor/estados-cidades/estados_cidades.json', function (data) {
       var items = [];
@@ -624,4 +623,3 @@
     });
   });
 </script>
-@endsection

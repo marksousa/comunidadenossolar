@@ -96,16 +96,23 @@ class UsuarioController extends Controller
 
     // Dados Pessoais
     $usuario->nome = $validated["nome"];
-    $usuario->possui_cpf = $validated["possui_cpf"];
+
+    if ($request->assistido == 1) {
+      $usuario->possui_cpf = $validated["possui_cpf"];
+      $usuario->possui_rg = $validated["possui_rg"];
+      $usuario->nascimento_uf = $validated["nascimento_uf"];
+      $usuario->nascimento_municipio = $validated["nascimento_municipio"];
+    } else {
+      $usuario->possui_cpf = 'S';
+      $usuario->possui_rg = 'S';
+    }
+
     $usuario->cpf = $validated["cpf"];
-    $usuario->possui_rg = $validated["possui_rg"];
     $usuario->rg_numero = $validated["rg_numero"];
     $usuario->rg_uf = $validated["rg_uf"];
     $usuario->genero_id = $validated["genero_id"];
     $usuario->data_nascimento = $validated["data_nascimento"];
-    $usuario->nascimento_uf = $validated["nascimento_uf"];
-    $usuario->nascimento_municipio = $validated["nascimento_municipio"];
-    
+
     //Termo de adesão que vai para 
     $usuario->termo_adesao = $validated["termo_adesao"];
 

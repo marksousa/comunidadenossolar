@@ -21,8 +21,10 @@
 
     @if($assistido)
     @include('admin.usuario._form_assistido')
+    <input type="hidden" name="assistido" value="1">
     @else
     @include('admin.usuario._form')
+    <input type="hidden" name="assistido" value="0">
     @endif
 
     <div class="form-group text-center">
