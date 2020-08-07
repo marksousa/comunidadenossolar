@@ -100,6 +100,9 @@ class UsuarioController extends Controller
     $usuario->rg_uf = $validated["rg_uf"];
     $usuario->genero_id = $validated["genero_id"];
     $usuario->data_nascimento = $validated["data_nascimento"];
+    $usuario->nascimento_uf = $validated["nascimento_uf"];
+    $usuario->nascimento_municipio = $validated["nascimento_municipio"];
+    
     //Termo de adesão que vai para 
     $usuario->termo_adesao = $validated["termo_adesao"];
 
@@ -234,6 +237,8 @@ class UsuarioController extends Controller
     $usuario->rg_uf = $validated["rg_uf"];
     $usuario->genero_id = $validated["genero_id"];
     $usuario->data_nascimento = $validated["data_nascimento"];
+    $usuario->nascimento_uf = $validated["nascimento_uf"];
+    $usuario->nascimento_municipio = $validated["nascimento_municipio"];
 
     // Endereço
     $usuario->endereco->endereco = $validated["endereco"];

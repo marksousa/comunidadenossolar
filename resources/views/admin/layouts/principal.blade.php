@@ -26,6 +26,8 @@
 
   <link rel="icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon" />
 
+  <!-- Bootstrap core JavaScript-->
+  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 </head>
 
 <body id="page-top">
@@ -432,7 +434,6 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
   <!-- Core plugin JavaScript-->

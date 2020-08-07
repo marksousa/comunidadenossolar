@@ -22,13 +22,13 @@
           <div class="form-group col-md-4">
             <label for="lbl_possui_cpf">Possui CPF próprio? <span class="text-danger"><strong>*</strong></span></label>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_sim" value="S" {{ old('possui_cpf') == "S" || old('possui_cpf') == "" ? 'checked' : '' }} {{ $usuario->possui_cpf == "S" ? 'checked' : '' }} onclick="habilitaCPFNumero()" {{ $bloquearEdicao == 'readonly' ? 'disabled' : ''}}>
+              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_sim" value="S" {{ old('possui_cpf') == "S" || old('possui_cpf') == "" ? 'checked' : '' }} {{ $usuario->possui_cpf == "S" ? 'checked' : '' }} onclick="habilitaCPFNumero()">
               <label class="form-check-label" for="sim">
                 Sim
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_nao" value="N" {{ old('possui_cpf') == "N" ? 'checked' : '' }} {{ $usuario->possui_cpf == "N" ? 'checked' : '' }} onclick="desabilitaCPFNumero()" {{ $bloquearEdicao == 'readonly' ? 'disabled' : ''}}>
+              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_nao" value="N" {{ old('possui_cpf') == "N" ? 'checked' : '' }} {{ $usuario->possui_cpf == "N" ? 'checked' : '' }} onclick="desabilitaCPFNumero()">
               <label class="form-check-label" for="nao">
                 Não
               </label>
@@ -126,19 +126,10 @@
 
         <div class="form-row">
           {{-- uf do local de nascimento --}}
-          @inject('estados', 'App\Estado')
           <div class="form-group col-md-3">
-            <label for="nascimento_uf">Estado de nascimento</label>
-            <select class="custom-select {{ $errors->has('nascimento_uf') ? 'is-invalid' : '' }}" name="nascimento_uf" id="nascimento_uf">
+            <label for="nascimento_uf">Estado de nascimento <span class="text-danger"><strong>*</strong></span></label>
+            <select class="custom-select {{ $errors->has('nascimento_uf') ? 'is-invalid' : '' }}" name="nascimento_uf" id="nascimento_uf" required>
               <option selected value="">Selecione</option>
-              @foreach($estados->all() as $estado)
-              <option value="{{ $estado->sigla }}" @if(old('nascimento_uf', $usuario->endereco->nascimento_uf ?? '') == $estado->sigla)
-                selected
-                @endif>
-
-                {{ $estado->sigla }}
-              </option>
-              @endforeach
             </select>
             <div class="invalid-feedback">
               {{$errors->first('nascimento_uf')}}
@@ -147,8 +138,10 @@
 
           {{-- municipio do local de nascimento --}}
           <div class="form-group col-md-6">
-            <label for="nascimento_municipio">Município de nascimento</label>
-            <input type="text" class="form-control {{ $errors->has('nascimento_municipio') ? 'is-invalid' : '' }}" id="nascimento_municipio" maxlength="60" value="{{ old('nascimento_municipio', $usuario->nascimento_municipio ?? '') }}" name="nascimento_municipio">
+            <label for="nascimento_municipio">Município de nascimento <span class="text-danger"><strong>*</strong></span> (primeiro selecione o estado, depois o município)</label>
+            <select class="custom-select {{ $errors->has('nascimento_municipio') ? 'is-invalid' : '' }}" name="nascimento_municipio" id="nascimento_municipio" required>
+              <option selected value="">Selecione</option>
+            </select>
             <div class="invalid-feedback">
               {{$errors->first('nascimento_municipio')}}
             </div>
@@ -602,5 +595,33 @@
                 document.getElementById("rg_uf").disabled = false;
             }  
         }  
+</script>
+
+<script type="text/javascript"> 
+  $(document).ready(function () {
+    $.getJSON('../../vendor/estados-cidades/estados_cidades.json', function (data) {
+      var items = [];
+      var options = '<option value="">Selecione</option>';  
+      $.each(data, function (key, val) {
+        options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+      });         
+      $("#nascimento_uf").html(options);        
+      $("#nascimento_uf").change(function () {        
+        var options_cidades = '';
+        var str = "";         
+        $("#nascimento_uf option:selected").each(function () {
+          str += $(this).text();
+        });
+        $.each(data, function (key, val) {
+          if(val.nome == str) {             
+            $.each(val.cidades, function (key_city, val_city) {
+              options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+            });             
+          }
+        });
+        $("#nascimento_municipio").html(options_cidades);
+      }).change();    
+    });
+  });
 </script>
 @endsection
