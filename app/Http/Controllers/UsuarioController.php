@@ -68,9 +68,12 @@ class UsuarioController extends Controller
       $usuario->nome = Auth::user()->name;
       $usuario->email = Auth::user()->email;
       $bloquearEdicao = 'readonly';
+      $assistido = false;
+    } else {
+      $assistido = true;
     }
 
-    return view('admin.usuario.adicionar', compact('bloquearEdicao', 'usuario'));
+    return view('admin.usuario.adicionar', compact('assistido', 'bloquearEdicao', 'usuario'));
   }
 
   /**
@@ -199,7 +202,15 @@ class UsuarioController extends Controller
       $bloquearEdicao = 'readonly';
     }
 
-    return view('admin.usuario.editar', compact('bloquearEdicao', 'usuario'));
+    $user = User::where('usuario_id', $usuario->id)->get();
+
+    if ($user->isEmpty()) {
+      $assistido = true;
+    } else {
+      $assistido = false;
+    }
+
+    return view('admin.usuario.editar', compact('assistido', 'bloquearEdicao', 'usuario'));
   }
 
   /**
