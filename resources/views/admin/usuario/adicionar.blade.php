@@ -3,11 +3,11 @@
 @section('conteudo')
 
     {{-- Comentar esse if quando estiver em produção --}}
-    @if ($errors->any())
+    {{--@if ($errors->any())
         <div class="container-fluid">
             <div class="alert alert-danger">Verifique os erros no formulário <br> {{ dump($errors) }}</div>
         </div>
-    @endif
+    @endif--}}
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
