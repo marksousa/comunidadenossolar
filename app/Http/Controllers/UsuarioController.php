@@ -97,15 +97,15 @@ class UsuarioController extends Controller
     // Dados Pessoais
     $usuario->nome = $validated["nome"];
 
-    if ($request->assistido == 1) {
+    //if ($request->assistido == 1) {
       $usuario->possui_cpf = $validated["possui_cpf"];
       $usuario->possui_rg = $validated["possui_rg"];
       $usuario->nascimento_uf = $validated["nascimento_uf"];
       $usuario->nascimento_municipio = $validated["nascimento_municipio"];
-    } else {
-      $usuario->possui_cpf = 'S';
-      $usuario->possui_rg = 'S';
-    }
+    //} else {
+      //$usuario->possui_cpf = 'S';
+      //$usuario->possui_rg = 'S';
+    //}
 
     $usuario->cpf = $validated["cpf"];
     $usuario->rg_numero = $validated["rg_numero"];
@@ -138,6 +138,7 @@ class UsuarioController extends Controller
     $perfil->data_inicio_nl = $validated["data_inicio_nl"];
     $perfil->pilar_id = $validated["pilar_id"];
     $perfil->observacao = $validated["observacao"];
+    $perfil->religiao_id = $validated["formacao_religiosa"];
 
     // verifica se o usuario possui um user associado para atualizar o id de usuario na tabela users tb
     $user = User::where('cpf', $usuario->cpf)->first();
@@ -280,7 +281,8 @@ class UsuarioController extends Controller
     $usuario->perfil->data_inicio_nl = $validated["data_inicio_nl"];
     $usuario->perfil->pilar_id = $validated["pilar_id"];
     $usuario->perfil->observacao = $validated["observacao"];
-
+    $perfil->religiao_id = $validated["formacao_religiosa"];
+    
     // verifica se o usuario possui um user associado para atualiza na tabela users tb
     $user = User::where('cpf', $cpfAux)->first();
 

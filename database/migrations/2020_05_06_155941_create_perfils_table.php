@@ -22,6 +22,8 @@ class CreatePerfilsTable extends Migration
             $table->integer('pilar_id')->unsigned();
             $table->foreign('pilar_id')->references('id')->on('pilares');
             $table->mediumText('observacao')->nullable()->comment('Observacao');
+            $table->integer('religiao_id')->unsigned();
+            $table->foreign('religiao_id')->references('id')->on('religioes');
             $table->string('foto_path')->nullable()->comment('path da foto de perfil');
             $table->timestamps();
         });

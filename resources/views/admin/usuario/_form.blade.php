@@ -7,6 +7,9 @@
     <div class="container">
       <div class="form-group">
         <div class="form-row">
+          {{-- O campo possui_cpf é obrigatório. Como todo trabalhador precisa ter esse documento, ele vai com valor = "S" --}}
+          <input type="hidden" id="possui_cpf" name="possui_cpf" value="S">
+
           {{-- cpf --}}
           <div class="form-group col-md-3">
             <label id="lbl_cpf" for="cpf">CPF</label>
@@ -22,6 +25,54 @@
             <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="80" value="{{ old('nome', $usuario->nome ?? '') }}" name="nome" required {{ $bloquearEdicao ?? '' }}>
             <div class="invalid-feedback">
               {{$errors->first('nome')}}
+            </div>
+          </div>
+        </div> {{-- fecha form-row --}}
+
+        <div class="form-row">
+          {{-- possui RG? --}}
+          <div class="form-group col-md-4">
+            <label for="lbl_possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_sim" value="S" {{ old('possui_rg') == "S" || old('possui_rg') == "" ? 'checked' : '' }} {{ $usuario->possui_rg == "S" ? 'checked' : '' }} onclick="habilitaRGDados()">
+              <label class="form-check-label" for="sim">
+                Sim
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_nao" value="N" {{ old('possui_rg') == "N" ? 'checked' : '' }} {{ $usuario->possui_rg == "N" ? 'checked' : '' }} onclick="desabilitaRGDados()">
+              <label class="form-check-label" for="nao">
+                Não
+              </label>
+            </div>
+          </div>
+
+          {{-- RG --}}
+          <div class="form-group col-md-5">
+            <label id="lbl_rg_numero" for="rg_numero">Número do documento de identidade</label>
+            <input type="text" class="form-control {{ $errors->has('rg_numero') ? 'is-invalid' : '' }}" id="rg_numero" maxlength="14" value="{{ old('rg_numero', $usuario->rg_numero ?? '') }}" name="rg_numero">
+            <div class="invalid-feedback">
+              {{$errors->first('rg_numero')}}
+            </div>
+          </div>
+
+          {{-- uf do RG --}}
+          @inject('estados', 'App\Estado')
+          <div class="form-group col-md-3">
+            <label for="rg_uf">Estado do documento de identidade</label>
+            <select class="custom-select {{ $errors->has('rg_uf') ? 'is-invalid' : '' }}" name="rg_uf" id="rg_uf">
+              <option selected value="">Selecione</option>
+              @foreach($estados->all() as $estado)
+              <option value="{{ $estado->sigla }}" @if(old('rg_uf', $usuario->endereco->rg_uf ?? '') == $estado->sigla)
+                selected
+                @endif>
+
+                {{ $estado->sigla }}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">
+              {{$errors->first('rg_uf')}}
             </div>
           </div>
         </div> {{-- fecha form-row --}}
@@ -79,38 +130,6 @@
               </div>
             </div>
           </div> {{-- fecha form-row --}}
-
-          <div class="form-row">
-            {{-- RG --}}
-            <div class="form-group col-md-5">
-              <label id="lbl_rg_numero" for="rg_numero">Número do documento de identidade</label>
-              <input type="text" class="form-control {{ $errors->has('rg_numero') ? 'is-invalid' : '' }}" id="rg_numero" maxlength="14" value="{{ old('rg_numero', $usuario->rg_numero ?? '') }}" name="rg_numero">
-              <div class="invalid-feedback">
-                {{$errors->first('rg_numero')}}
-              </div>
-            </div>
-
-            {{-- uf do RG --}}
-            @inject('estados', 'App\Estado')
-            <div class="form-group col-md-3">
-              <label for="rg_uf">Estado do documento de identidade</label>
-              <select class="custom-select {{ $errors->has('rg_uf') ? 'is-invalid' : '' }}" name="rg_uf" id="rg_uf">
-                <option selected value="">Selecione</option>
-                @foreach($estados->all() as $estado)
-                <option value="{{ $estado->sigla }}" @if(old('rg_uf', $usuario->endereco->rg_uf ?? '') == $estado->sigla)
-                  selected
-                  @endif>
-
-                  {{ $estado->sigla }}
-                </option>
-                @endforeach
-              </select>
-              <div class="invalid-feedback">
-                {{$errors->first('rg_uf')}}
-              </div>
-            </div>
-          </div>{{-- fecha form-row --}}
-
         </div> {{-- fecha form-group --}}
       </div> {{-- fecha container --}}
     </div>{{-- fecha card-body --}}
@@ -395,6 +414,28 @@
               <textarea class="form-control" id="observacao" rows="3" name="observacao">{{ old('observacao', $usuario->perfil->observacao ?? '') }}</textarea>
             </div>
           </div> {{-- fecha form-row --}}
+
+          <div class="form-row">
+            {{-- Pesquisa de formação religiosa --}}
+            @inject('religioes', 'App\Religiao')
+            <div class="form-group col-md-5">
+              <label for="formacao_religiosa">Pesquisa: Qual a sua formação religiosa? <span class="text-danger"><strong>*</strong></span></label>
+              <select class="custom-select {{ $errors->has('formacao_religiosa') ? 'is-invalid' : '' }}" name="formacao_religiosa" id="formacao_religiosa">
+                <option selected value="">Selecione</option>
+                @foreach($religioes->all() as $religiao)
+                <option value="{{ $religiao->id }}" @if(old('formacao_religiosa', $usuario->perfil->religiao_id ?? '') == $religiao->id)
+                  selected
+                  @endif>
+                  {{ $religiao->nome }}
+                </option>
+                @endforeach
+              </select>
+              <div class="invalid-feedback">
+                {{$errors->first('formacao_religiosa')}}
+              </div>
+            </div>
+
+          </div> {{-- fecha form-row --}}
         </div> {{-- fecha form-group --}}
       </div> {{-- fecha container --}}
     </div>{{-- fecha card-body --}}
@@ -524,7 +565,7 @@
                 limpa_formulário_cep();
             }
         };
-
+        /*
         function desabilitaCPFNumero()
         {  
             if(document.getElementById("possui_cpf_nao").checked == true)
@@ -540,14 +581,14 @@
                 document.getElementById("cpf").readOnly = false;
             }  
         }  
-
+        */
         function desabilitaRGDados()
         {  
             if(document.getElementById("possui_rg_nao").checked == true)
             {  
                 document.getElementById("rg_numero").readOnly = true;  
                 document.getElementById("rg_numero").value = "";  
-                document.getElementById("rg_uf").readOnly = true;  
+                document.getElementById("rg_uf").disabled = true;  
             }
         }  
         function habilitaRGDados()

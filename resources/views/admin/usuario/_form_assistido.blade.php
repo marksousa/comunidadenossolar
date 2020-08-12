@@ -91,7 +91,6 @@
               {{$errors->first('rg_uf')}}
             </div>
           </div>
-
         </div> {{-- fecha form-row --}}
 
         <div class="form-row">
@@ -137,7 +136,7 @@
           </div> {{-- fecha form-group --}}
 
           {{-- municipio do local de nascimento --}}
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-9">
             <label for="nascimento_municipio">Município de nascimento <span class="text-danger"><strong>*</strong></span> (primeiro selecione o estado, depois o município)</label>
             <select class="custom-select {{ $errors->has('nascimento_municipio') ? 'is-invalid' : '' }}" name="nascimento_municipio" id="nascimento_municipio" required>
               <option selected value="">Selecione</option>
@@ -431,6 +430,27 @@
             <textarea class="form-control" id="observacao" rows="3" name="observacao">{{ old('observacao', $usuario->perfil->observacao ?? '') }}</textarea>
           </div>
         </div> {{-- fecha form-row --}}
+
+        <div class="form-row">
+          {{-- Pesquisa de formação religiosa --}}
+          @inject('religioes', 'App\Religiao')
+          <div class="form-group col-md-5">
+            <label for="formacao_religiosa">Pesquisa: Qual a sua formação religiosa? <span class="text-danger"><strong>*</strong></span></label>
+            <select class="custom-select {{ $errors->has('formacao_religiosa') ? 'is-invalid' : '' }}" name="formacao_religiosa" id="formacao_religiosa">
+              <option selected value="">Selecione</option>
+              @foreach($religioes->all() as $religiao)
+              <option value="{{ $religiao->id }}" @if(old('formacao_religiosa', $usuario->perfil->religiao_id ?? '') == $religiao->id)
+                selected
+                @endif>
+                {{ $religiao->nome }}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">
+              {{$errors->first('formacao_religiosa')}}
+            </div>
+          </div>
+
       </div> {{-- fecha form-group --}}
     </div> {{-- fecha container --}}
   </div>{{-- fecha card-body --}}
@@ -438,6 +458,7 @@
 
 {{-- @can('inabilitado-visualizar-termo-de-adesao') --}}
 <!-- Termo de Adesão -->
+<!--
 <div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Termo de Adesão Ao Serviço Voluntário</h6>
@@ -478,7 +499,10 @@
     </div> {{-- fecha container --}}
   </div>{{-- fecha card-body --}}
 </div>{{-- fecha card --}}
+-->
 {{-- @endcan --}}
+{{-- O campo termo adesão irá via hidden com valor = "N" --}}
+<input type="hidden" id="termo_adesao" name="termo_adesao" value="N">
 
 <!-- JavaScript para Mask Input -->
 <script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
@@ -583,7 +607,7 @@
             {  
                 document.getElementById("rg_numero").readOnly = true;  
                 document.getElementById("rg_numero").value = "";  
-                document.getElementById("rg_uf").readOnly = true;  
+                document.getElementById("rg_uf").disabled = true;  
             }
         }  
         function habilitaRGDados()

@@ -21,8 +21,8 @@ class CreateUsuariosTable extends Migration
       $table->string('possui_rg', 1)->comment('Possui RG próprio?');
       $table->string('rg_numero', 15)->nullable();
       $table->string('rg_uf', 2)->nullable();
-      $table->string('nascimento_uf', 2)->nullable();
-      $table->string('nascimento_municipio', 60)->nullable();
+      $table->string('nascimento_uf', 2);
+      $table->string('nascimento_municipio', 60);
       $table->integer('genero_id')->unsigned();
       $table->foreign('genero_id')->references('id')->on('generos');
       $table->date('data_nascimento')->nullable();
@@ -35,7 +35,7 @@ class CreateUsuariosTable extends Migration
       $table->timestamps();
     });
 
-    \DB::statement('ALTER TABLE usuarios AUTO_INCREMENT = 10000;');
+    DB::statement('ALTER TABLE usuarios AUTO_INCREMENT = 10001;');
   }
 
   /**

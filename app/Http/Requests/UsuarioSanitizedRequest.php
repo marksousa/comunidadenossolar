@@ -54,6 +54,7 @@ class UsuarioSanitizedRequest extends FormRequest
       'data_inicio_nl' => 'nullable|string|max:7',
       'pilar_id' => 'required|integer',
       'observacao' => 'nullable|string',
+      'formacao_religiosa' => 'required|string',
       'termo_adesao' => 'required|string|max:1'
     ];
   }

@@ -28,4 +28,9 @@ class Perfil extends Model
   {
     return $this->belongsTo('App\Motivo');
   }
+
+  public function religiao()
+  {
+    return $this->belongsTo('App\Religiao');
+  }
 }
