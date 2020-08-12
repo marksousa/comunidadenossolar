@@ -21,4 +21,3 @@ class ReligiaoSeeder extends Seeder
         Religiao::firstOrCreate(['nome' =>'Prefere não responder']);
     }
 }
-

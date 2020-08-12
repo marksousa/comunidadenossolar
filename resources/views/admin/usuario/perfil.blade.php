@@ -76,34 +76,83 @@
                 <div class="row py-3">
                   <div class="container">
                     <div class="form-group">
-                        <div class="form-row">
-                            {{-- cpf --}}
-                            @if (!empty($usuario->cpf))
-                              <div class="form-group col-md-3">
-                                  <label id="lbl_cpf" for="cpf"><small>CPF</small></label>
-                                  <input type="text" class="form-control" id="cpf" data-mask="000.000.000-00" maxlength="14" value="{{ $usuario->cpf }}" name="cpf" readonly>
-                              </div>
-                            @endif
-                            {{-- nome --}}
-                            <div class="form-group col-md-9">
-                                <label for="nome"><small>Nome Completo</small></label>
-                                <input type="text" class="form-control text-capitalize" id="nome" maxlength="80" value="{{ $usuario->nome }}" name="nome" readonly>
-                            </div>
-                        </div> {{-- fecha form-row --}}
+                      <div class="form-row">
+                        {{-- nome --}}
+                        <div class="form-group col-md-8">
+                          <label for="nome"><small>Nome Completo</small></label>
+                          <input type="text" class="form-control text-capitalize" id="nome" maxlength="80" value="{{ $usuario->nome }}" name="nome" readonly>
+                        </div>
+                        {{-- genero --}}
+                        <div class="form-group col-md-4">
+                          <label for="genero"><small>Gênero</small></label>
+                          <input type="text" class="form-control" id="genero" maxlength="80" value="{{ $usuario->genero->nome }}" name="genero" readonly>
+                      </div>
+                      </div> {{-- fecha form-row --}}
+                      <div class="form-row">
+                         {{-- possui cpf --}}
+                         <?php
+                          if ($usuario->possui_cpf == 'S')
+                           $usuario->possui_cpf = "Sim";                                                      
+                          else
+                           $usuario->possui_cpf = "Não";                                                   
+                        ?>
+                        <div class="form-group col-md-2">
+                          <label id="lbl_possui_cpf" for="possui_cpf"><small>Possui CPF</small></label>
+                          <input type="text" class="form-control" id="possui_cpf" value="{{ $usuario->possui_cpf }}" name="possui_cpf" readonly>
+                        </div>
+                        {{-- cpf --}}
+                        @if (!empty($usuario->cpf))
+                          <div class="form-group col-md-5">
+                            <label id="lbl_cpf" for="cpf"><small>CPF</small></label>
+                            <input type="text" class="form-control" id="cpf" value="{{ $usuario->cpf }}" name="cpf" readonly>
+                          </div>
+                        @endif
+                        {{-- possui rg --}}
+                        @php
+                          if ($usuario->possui_rg == 'S')
+                            $usuario->possui_rg = "Sim";                                                      
+                          else
+                            $usuario->possui_rg = "Não";                                                   
+                        @endphp
+                      </div> {{-- fecha form-row --}}
 
-                        <div class="form-row">
-                            {{-- genero --}}
-                            <div class="form-group col-md-6">
-                                <label for="genero"><small>Gênero</small></label>
-                                <input type="text" class="form-control" id="genero" maxlength="80" value="{{ $usuario->genero->nome }}" name="genero" readonly>
+                      <div class="form-row">
+                        <div class="form-group col-md-2">
+                          <label id="lbl_possui_rg" for="possui_rg"><small>Possui RG</small></label>
+                          <input type="text" class="form-control" id="possui_rg" value="{{ $usuario->possui_rg }}" name="possui_rg" readonly>
+                        </div>
+                        {{-- rg --}}
+                        @if (!empty($usuario->rg_numero))
+                          <div class="form-group col-md-5">
+                            <label id="lbl_rg" for="rg"><small>RG</small></label>
+                            <input type="text" class="form-control" id="rg"  value="{{ $usuario->rg_numero }}" name="rg" readonly>
+                          </div>
+                          {{-- rg estado --}}
+                          <div class="form-group col-md-2">
+                            <label id="lbl_rg_uf" for="rg_uf"><small>Estado</small></label>
+                            <input type="text" class="form-control" id="rg_uf"  value="{{ $usuario->rg_uf }}" name="rg_uf" readonly>
+                          </div>
+                        @endif
+                      </div> {{-- fecha form-row --}}
+
+                        <div class="form-row">  
+                          {{-- data_nascimento --}}
+                          @if (!empty($usuario->data_nascimento))
+                            <div class="form-group col-md-3">
+                                <label for="data_nascimento"><small>Data de Nascimento</small></label>
+                                <input type="text" class="form-control" id="data_nascimento" maxlength="80" value="{{ Carbon::parse($usuario->data_nascimento)->format('d/m/Y') }}" name="data_nascimento" readonly>
                             </div>
-                            {{-- data_nascimento --}}
-                            @if (!empty($usuario->data_nascimento))
-                              <div class="form-group col-md-6">
-                                  <label for="data_nascimento"><small>Data de Nascimento</small></label>
-                                  <input type="text" class="form-control" id="data_nascimento" maxlength="80" value="{{ Carbon::parse($usuario->data_nascimento)->format('d/m/Y') }}" name="data_nascimento" readonly>
-                              </div>
-                            @endif
+                            {{-- municipio de nascimento --}}
+                            <div class="form-group col-md-7">
+                              <label for="nascimento_municipio"><small>Município de Nascimento</small></label>
+                              <input type="text" class="form-control" id="nascimento_municipio" maxlength="80" value="{{ $usuario->nascimento_municipio }}" name="nascimento_municipio" readonly>
+                            </div>
+                            {{-- uf de nascimento --}}
+                            <div class="form-group col-md-2">
+                              <label for="nascimento_uf"><small>Estado</small></label>
+                              <input type="text" class="form-control" id="nascimento_uf" maxlength="80" value="{{ $usuario->nascimento_uf }}" name="nascimento_uf" readonly>
+                            </div>
+                          @endif
                         </div>  {{-- fecha form-row --}}
                     </div>  {{-- fecha form-group --}}
                   </div>  {{-- fecha container --}}
@@ -256,6 +305,13 @@
                           </div> 
                         @endif
                       </div>  {{-- fecha form-row --}}
+                      <div class="form-row">
+                      {{-- Religião --}}
+                      <div class="form-group col-md-12">
+                        <label for="religiao"><small>Formação Religiosa</small></label>
+                        <input type="text" class="form-control text-capitalize" id="religiao" value="{{ $usuario->perfil->religiao->nome }}" name="religiao" readonly>
+                      </div> 
+                      </div>  {{-- fecha form-row --}}
                     </div>  {{-- fecha form-group --}}
                   </div>  {{-- fecha container --}}
                 </div>  
@@ -279,4 +335,18 @@
 
   <!-- Page level custom scripts -->
   <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
+
+  <!-- JavaScript para Mask Input -->
+<script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+            $('#cpf').mask('000.000.000-00');
+            $('#rg').mask('00.000.000-00');
+            $('#cep').mask('00000-000');
+            $('#telefone_celular').mask('00000-0000');
+            $('#telefone_residencial').mask('0000-0000');
+            $('#data_inicio_nl').mask('00/0000');
+        });
+</script>
 @endsection
