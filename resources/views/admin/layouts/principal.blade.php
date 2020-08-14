@@ -128,6 +128,8 @@
       </li>
       @endcan
 
+      @can('saude-resources')
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -154,6 +156,8 @@
           </div>
         </div>
       </li>
+
+      @endcan
 
       {{-- <!-- Nav Item - Charts -->
       <li class="nav-item">

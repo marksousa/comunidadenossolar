@@ -17,7 +17,7 @@ class CreateUsuariosTable extends Migration
       $table->increments('id')->start_from(10001);
       $table->string('nome', 80);
       $table->string('possui_cpf', 1)->comment('Possui CPF próprio?');
-      $table->string('cpf', 14)->nullable();
+      $table->string('cpf', 14)->unique()->nullable();
       $table->string('possui_rg', 1)->comment('Possui RG próprio?');
       $table->string('rg_numero', 15)->nullable();
       $table->string('rg_uf', 2)->nullable();

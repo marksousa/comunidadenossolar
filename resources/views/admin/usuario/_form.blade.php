@@ -3,6 +3,7 @@
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Informações Pessoais</h6>
   </div>
+  <input type="hidden" name="usuario_id" value="{{ $usuario->id ?? ''}}">
   <div class="card-body">
     <div class="container">
       <div class="form-group">
@@ -624,13 +625,13 @@
     $(document).ready(function () {
     $.getJSON('{{ asset('vendor/estados-cidades/estados_cidades.json') }}', function (data) {
       var items = [];
-      var options = '<option value="{{ $usuario->nascimento_uf ?? '' }}">{{ $usuario->nascimento_uf ?? '' }}</option>';  
+      var options = '<option value="{{ old('nascimento_uf', $usuario->nascimento_uf ?? '') }}">{{ old('nascimento_uf', $usuario->nascimento_uf ?? '') }}</option>';  
       $.each(data, function (key, val) {
         options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
       });         
       $("#nascimento_uf").html(options);        
       $("#nascimento_uf").change(function () {
-        var options_cidades = '<option value="{{ $usuario->nascimento_municipio ?? '' }}">{{ $usuario->nascimento_municipio ?? '' }}</option>';
+        var options_cidades = '<option value="{{ old('nascimento_municipio', $usuario->nascimento_municipio ?? '') }}">{{ old('nascimento_municipio', $usuario->nascimento_municipio ?? '') }}</option>';;
         var str = "";         
         $("#nascimento_uf option:selected").each(function () {
           str += $(this).text();

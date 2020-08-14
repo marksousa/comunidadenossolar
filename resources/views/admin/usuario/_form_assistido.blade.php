@@ -3,6 +3,7 @@
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Informações Pessoais</h6>
   </div>
+  <input type="hidden" name="usuario_id" value="{{ $usuario->id ?? ''}}">
   <div class="card-body">
     <div class="container">
       <div class="form-group">
