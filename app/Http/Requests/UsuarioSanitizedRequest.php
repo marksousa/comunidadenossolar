@@ -72,7 +72,9 @@ class UsuarioSanitizedRequest extends FormRequest
       'min' => 'mínimo :min caracteres',
       'size' => 'Preencha com :size caracteres.',
       'cpf' => 'CPF incorreto',
-      'cpf.unique' => 'Esse CPF já foi cadastrado no sistema'
+      'cpf.unique' => 'Esse CPF já foi cadastrado no sistema',
+      'possui_cpf.required_if' => 'Campo Possui CPF próprio é Obrigatório!',
+      'possui_rg.required_if' => 'Campo Possui RG é Obrigatório!'
     ];
   }
 

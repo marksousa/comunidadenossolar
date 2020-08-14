@@ -22,17 +22,20 @@
 
           {{-- possui cpf? --}}
           <div class="form-group col-md-3">
-            <label for="possui_cpf">Possui CPF próprio?<span class="text-danger"><strong>*</strong></span></label>
+            <label for="possui_cpf">Possui CPF próprio? <span class="text-danger"><strong>*</strong></span></label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="possui_cpf_sim" name="possui_cpf" class="custom-control-input" value="S" {{ old('possui_cpf', $usuario->possui_cpf) == "S" ? 'checked' : '' }}>
+            <input type="radio" id="possui_cpf_sim" name="possui_cpf" class="custom-control-input {{ $errors->has('possui_cpf') ? 'is-invalid' : '' }}" value="S" {{ old('possui_cpf', $usuario->possui_cpf) == "S" ? 'checked' : '' }}>
             <label class="custom-control-label" for="possui_cpf_sim">Sim</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="possui_cpf_nao" name="possui_cpf" class="custom-control-input" value="N" {{ old('possui_cpf', $usuario->possui_cpf) == "N" ? 'checked' : '' }}>
+            <input type="radio" id="possui_cpf_nao" name="possui_cpf" class="custom-control-input {{ $errors->has('possui_cpf') ? 'is-invalid' : '' }}" value="N" {{ old('possui_cpf', $usuario->possui_cpf) == "N" ? 'checked' : '' }}>
             <label class="custom-control-label" for="possui_cpf_nao">Não</label>
+            <div class="invalid-feedback">
+              &nbsp;
+              {{$errors->first('possui_cpf')}}
+            </div>
           </div>
-
         </div>
 
         {{-- Linha do CPF --}}
@@ -71,12 +74,16 @@
             <label for="possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="possui_rg_sim" name="possui_rg" class="custom-control-input" value="S" {{ old('possui_rg', $usuario->possui_rg) == "S" ? 'checked' : '' }}>
+            <input type="radio" id="possui_rg_sim" name="possui_rg" class="custom-control-input {{ $errors->has('possui_rg') ? 'is-invalid' : '' }}" value="S" {{ old('possui_rg', $usuario->possui_rg) == "S" ? 'checked' : '' }}>
             <label class="custom-control-label" for="possui_rg_sim">Sim</label>
           </div>
           <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="possui_rg_nao" name="possui_rg" class="custom-control-input" value="N" {{ old('possui_rg', $usuario->possui_rg) == "N" ? 'checked' : '' }}>
+            <input type="radio" id="possui_rg_nao" name="possui_rg" class="custom-control-input {{ $errors->has('possui_rg') ? 'is-invalid' : '' }}" value="N" {{ old('possui_rg', $usuario->possui_rg) == "N" ? 'checked' : '' }}>
             <label class="custom-control-label" for="possui_rg_nao">Não</label>
+            <div class="invalid-feedback">
+              &nbsp;
+              {{$errors->first('possui_rg')}}
+            </div>
           </div>
         </div>
 
