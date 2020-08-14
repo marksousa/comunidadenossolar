@@ -11,6 +11,10 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
+  @if(Session::has('mensagem'))
+  @component('components.alerta', ['tipo' => Session::get('tipo', 'info'), 'mensagem' => Session::get('mensagem')])
+  @endcomponent
+  @endif
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Edição das Informações do Usuário (campos marcados com <span class="text-danger"><strong>*</strong></span> são obrigatórios)</h1>
   <h3>{{ $usuario->nome }}</h3>

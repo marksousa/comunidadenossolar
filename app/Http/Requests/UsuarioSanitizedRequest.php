@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Waavi\Sanitizer\Laravel\SanitizesInput;
+use Request;
 
 class UsuarioSanitizedRequest extends FormRequest
 {
@@ -29,7 +30,7 @@ class UsuarioSanitizedRequest extends FormRequest
     return [
       'nome' => 'required|string|max:80',
       'possui_cpf' => 'required_if:assistido,==,1|string|max:1',
-      'cpf' => 'nullable|cpf|max:14',
+      'cpf' => 'nullable|cpf|max:14|unique:usuarios,id,:' . Request::get('usuario_id'),
       'possui_rg' => 'required_if:assistido,==,1|string|max:1',
       'rg_numero' => 'nullable|string|max:15',
       'rg_uf' => 'nullable|string|size:2',
@@ -73,8 +74,8 @@ class UsuarioSanitizedRequest extends FormRequest
       'size' => 'Preencha com :size caracteres.',
       'cpf' => 'CPF incorreto',
       'cpf.unique' => 'Esse CPF já foi cadastrado no sistema',
-      'possui_cpf.required_if' => 'Campo Possui CPF próprio é Obrigatório!',
-      'possui_rg.required_if' => 'Campo Possui RG é Obrigatório!'
+      'possui_cpf.required_if' => 'Campo Possui CPF é Obrigatório!',
+      'possui_rg.required_if' => 'Campo Possui RG é Obrigatório!',
     ];
   }
 

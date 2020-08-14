@@ -9,6 +9,7 @@ use App\Perfil;
 
 use App\Http\Requests\UsuarioSanitizedRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Gate;
 use Session;
 use Auth;
@@ -239,7 +240,6 @@ class UsuarioController extends Controller
     // e informa o erro através da variável $errors (na view)
     // dd($validated);
 
-
     try {
       $usuario = Usuario::findOrFail($id);
     } catch (ModelNotFoundException $exception) {
@@ -299,10 +299,15 @@ class UsuarioController extends Controller
       }
       Session::flash('tipo', 'success');
       Session::flash('mensagem', 'Cadastro Atualizado com Sucesso!');
-    } catch (\Exception $e) {
+    } catch (QueryException $e) {
       info($e);
-      Session::flash('tipo', 'danger');
-      Session::flash('mensagem', 'Ocorreu um erro na atualização do Cadastro. Tente novamente!');
+      if ($e->errorInfo[1] == '1062') {
+        Session::flash('tipo', 'danger');
+        Session::flash('mensagem', 'Já existe um usuário com esse CPF! Verifique se está correto ou se já existe algum cadastro com esse cpf.');
+      } else {
+        Session::flash('tipo', 'danger');
+        Session::flash('mensagem', 'Ocorreu um erro na atualização do Cadastro. Tente novamente!');
+      }
       return redirect()->back()->withInput();
     }
     return redirect()->route('UsuarioShow', ['id' => $usuario->id]);
