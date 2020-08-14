@@ -31,24 +31,24 @@
 
         <div class="form-row">
           {{-- possui RG? --}}
-          <div class="form-group col-md-4">
-            <label for="lbl_possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_sim" value="S" {{ old('possui_rg') == "S" || old('possui_rg') == "" ? 'checked' : '' }} {{ $usuario->possui_rg == "S" ? 'checked' : '' }} onclick="habilitaRGDados()">
-              <label class="form-check-label" for="sim">
-                Sim
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_nao" value="N" {{ old('possui_rg') == "N" ? 'checked' : '' }} {{ $usuario->possui_rg == "N" ? 'checked' : '' }} onclick="desabilitaRGDados()">
-              <label class="form-check-label" for="nao">
-                Não
-              </label>
-            </div>
+          <div class="form-group col-md-5">
+            <label for="possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
           </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="possui_rg_sim" name="possui_rg" class="custom-control-input" value="S" {{ old('possui_rg') == "S" || old('possui_rg') == "" ? 'checked' : '' }} {{ $usuario->possui_rg == "S" ? 'checked' : '' }}>
+            <label class="custom-control-label" for="possui_rg_sim">Sim</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="possui_rg_nao" name="possui_rg" class="custom-control-input" value="N" {{ old('possui_rg') == "N" ? 'checked' : '' }} {{ $usuario->possui_rg == "N" ? 'checked' : '' }}>
+            <label class="custom-control-label" for="possui_rg_nao">Não</label>
+          </div>
+        </div>
+
+        {{-- Linha do RG --}}
+        <div class="form-row" id="rg-row">
 
           {{-- RG --}}
-          <div class="form-group col-md-5">
+          <div class="form-group col-md-6">
             <label id="lbl_rg_numero" for="rg_numero">Número do documento de identidade</label>
             <input type="text" class="form-control {{ $errors->has('rg_numero') ? 'is-invalid' : '' }}" id="rg_numero" maxlength="14" value="{{ old('rg_numero', $usuario->rg_numero ?? '') }}" name="rg_numero">
             <div class="invalid-feedback">
@@ -58,12 +58,12 @@
 
           {{-- uf do RG --}}
           @inject('estados', 'App\Estado')
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-4">
             <label for="rg_uf">Estado do documento de identidade</label>
             <select class="custom-select {{ $errors->has('rg_uf') ? 'is-invalid' : '' }}" name="rg_uf" id="rg_uf">
               <option selected value="">Selecione</option>
               @foreach($estados->all() as $estado)
-              <option value="{{ $estado->sigla }}" @if(old('rg_uf', $usuario->endereco->rg_uf ?? '') == $estado->sigla)
+              <option value="{{ $estado->sigla }}" @if(old('rg_uf', $usuario->rg_uf ?? '') == $estado->sigla)
                 selected
                 @endif>
 
@@ -76,6 +76,25 @@
             </div>
           </div>
         </div> {{-- fecha form-row --}}
+
+        {{-- script para ocultar o campo de RG caso não possua --}}
+        <script>
+          if ($('input[name="possui_rg"]:checked').val() === "S") {
+            $('#rg-row').show();
+          } else {
+            $('#rg-row').hide();
+          }
+
+          $('input[name="possui_rg"]').change(function () {
+            if ($('input[name="possui_rg"]:checked').val() === "S") {
+              $('#rg-row').show();
+            } else {
+              $('#rg-row').hide();
+              document.getElementById('rg_numero').value = '';
+              document.getElementById('rg_uf').value = '';
+            }
+          });
+        </script>
 
         <div class="form-row">
 
@@ -582,42 +601,42 @@
             }  
         }  
         */
-        function desabilitaRGDados()
-        {  
-            if(document.getElementById("possui_rg_nao").checked == true)
-            {  
-                document.getElementById("rg_numero").readOnly = true;  
-                document.getElementById("rg_numero").value = "";  
-                document.getElementById("rg_uf").disabled = true;  
-            }
-        }  
-        function habilitaRGDados()
-        {  
-            if (document.getElementById("possui_rg_sim").checked == true)
-            {
-                document.getElementById("rg_numero").readOnly = false;
-                document.getElementById("rg_uf").readOnly = false;
-            }  
-        }  
+        // function desabilitaRGDados()
+        // {  
+        //     if(document.getElementById("possui_rg_nao").checked == true)
+        //     {  
+        //         document.getElementById("rg_numero").readOnly = true;  
+        //         document.getElementById("rg_numero").value = "";  
+        //         document.getElementById("rg_uf").disabled = true;  
+        //     }
+        // }  
+        // function habilitaRGDados()
+        // {  
+        //     if (document.getElementById("possui_rg_sim").checked == true)
+        //     {
+        //         document.getElementById("rg_numero").readOnly = false;
+        //         document.getElementById("rg_uf").readOnly = false;
+        //     }  
+        // }  
   </script>
 
   <script type="text/javascript">
     $(document).ready(function () {
-    $.getJSON('../../vendor/estados-cidades/estados_cidades.json', function (data) {
+    $.getJSON('{{ asset('vendor/estados-cidades/estados_cidades.json') }}', function (data) {
       var items = [];
-      var options = '<option value="">Selecione</option>';  
+      var options = '<option value="{{ $usuario->nascimento_uf ?? '' }}">{{ $usuario->nascimento_uf ?? '' }}</option>';  
       $.each(data, function (key, val) {
-        options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+        options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
       });         
       $("#nascimento_uf").html(options);        
-      $("#nascimento_uf").change(function () {        
-        var options_cidades = '';
+      $("#nascimento_uf").change(function () {
+        var options_cidades = '<option value="{{ $usuario->nascimento_municipio ?? '' }}">{{ $usuario->nascimento_municipio ?? '' }}</option>';
         var str = "";         
         $("#nascimento_uf option:selected").each(function () {
           str += $(this).text();
         });
         $.each(data, function (key, val) {
-          if(val.nome == str) {             
+          if(val.sigla == str) {             
             $.each(val.cidades, function (key_city, val_city) {
               options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
             });             

@@ -29,7 +29,7 @@ class UsuarioSanitizedRequest extends FormRequest
     return [
       'nome' => 'required|string|max:80',
       'possui_cpf' => 'required_if:assistido,==,1|string|max:1',
-      'cpf' => 'required_if:assistido,==,0|unique:usuarios|string|max:14',
+      'cpf' => 'nullable|cpf|max:14',
       'possui_rg' => 'required_if:assistido,==,1|string|max:1',
       'rg_numero' => 'nullable|string|max:15',
       'rg_uf' => 'nullable|string|size:2',

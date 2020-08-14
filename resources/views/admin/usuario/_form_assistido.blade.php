@@ -7,8 +7,9 @@
     <div class="container">
       <div class="form-group">
         <div class="form-row">
+
           {{-- nome --}}
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-12">
             <label for="nome">Nome Completo <span class="text-danger"><strong>*</strong></span></label>
             <input type="text" class="form-control {{ $errors->has('nome') ? 'is-invalid' : '' }}" id="nome" maxlength="80" value="{{ old('nome', $usuario->nome ?? '') }}" name="nome" required {{ $bloquearEdicao ?? '' }}>
             <div class="invalid-feedback">
@@ -18,23 +19,24 @@
         </div> {{-- fecha form-row --}}
 
         <div class="form-row">
+
           {{-- possui cpf? --}}
-          <div class="form-group col-md-4">
-            <label for="lbl_possui_cpf">Possui CPF próprio? <span class="text-danger"><strong>*</strong></span></label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_sim" value="S" {{ old('possui_cpf') == "S" || old('possui_cpf') == "" ? 'checked' : '' }} {{ $usuario->possui_cpf == "S" ? 'checked' : '' }} onclick="habilitaCPFNumero()">
-              <label class="form-check-label" for="sim">
-                Sim
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_cpf" id="possui_cpf_nao" value="N" {{ old('possui_cpf') == "N" ? 'checked' : '' }} {{ $usuario->possui_cpf == "N" ? 'checked' : '' }} onclick="desabilitaCPFNumero()">
-              <label class="form-check-label" for="nao">
-                Não
-              </label>
-            </div>
+          <div class="form-group col-md-3">
+            <label for="possui_cpf">Possui CPF próprio?<span class="text-danger"><strong>*</strong></span></label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="possui_cpf_sim" name="possui_cpf" class="custom-control-input" value="S" {{ old('possui_cpf', $usuario->possui_cpf) == "S" ? 'checked' : '' }}>
+            <label class="custom-control-label" for="possui_cpf_sim">Sim</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="possui_cpf_nao" name="possui_cpf" class="custom-control-input" value="N" {{ old('possui_cpf', $usuario->possui_cpf) == "N" ? 'checked' : '' }}>
+            <label class="custom-control-label" for="possui_cpf_nao">Não</label>
           </div>
 
+        </div>
+
+        {{-- Linha do CPF --}}
+        <div class="form-row" id="cpf-row">
           {{-- cpf --}}
           <div class="form-group col-md-5">
             <label id="lbl_cpf" for="cpf">Número do CPF</label>
@@ -45,26 +47,44 @@
           </div>
         </div> {{-- fecha form-row --}}
 
+        {{-- script para ocultar o campo de cpf caso não possua --}}
+        <script>
+          if ($('input[name="possui_cpf"]:checked').val() === "S") {
+            $('#cpf-row').show();
+          } else {
+            $('#cpf-row').hide();
+          }
+
+          $('input[name="possui_cpf"]').change(function () {
+            if ($('input[name="possui_cpf"]:checked').val() === "S") {
+              $('#cpf-row').show();
+            } else {
+              $('#cpf-row').hide();
+              document.getElementById('cpf').value = '';
+            }
+          });
+        </script>
+
         <div class="form-row">
           {{-- possui RG? --}}
-          <div class="form-group col-md-4">
-            <label for="lbl_possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_sim" value="S" {{ old('possui_rg') == "S" || old('possui_rg') == "" ? 'checked' : '' }} {{ $usuario->possui_rg == "S" ? 'checked' : '' }} onclick="habilitaRGDados()">
-              <label class="form-check-label" for="sim">
-                Sim
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="possui_rg" id="possui_rg_nao" value="N" {{ old('possui_rg') == "N" ? 'checked' : '' }} {{ $usuario->possui_rg == "N" ? 'checked' : '' }} onclick="desabilitaRGDados()">
-              <label class="form-check-label" for="nao">
-                Não
-              </label>
-            </div>
+          <div class="form-group col-md-5">
+            <label for="possui_rg">Possui documento de identidade próprio? <span class="text-danger"><strong>*</strong></span></label>
           </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="possui_rg_sim" name="possui_rg" class="custom-control-input" value="S" {{ old('possui_rg', $usuario->possui_rg) == "S" ? 'checked' : '' }}>
+            <label class="custom-control-label" for="possui_rg_sim">Sim</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="possui_rg_nao" name="possui_rg" class="custom-control-input" value="N" {{ old('possui_rg', $usuario->possui_rg) == "N" ? 'checked' : '' }}>
+            <label class="custom-control-label" for="possui_rg_nao">Não</label>
+          </div>
+        </div>
+
+        {{-- Linha do RG --}}
+        <div class="form-row" id="rg-row">
 
           {{-- RG --}}
-          <div class="form-group col-md-5">
+          <div class="form-group col-md-6">
             <label id="lbl_rg_numero" for="rg_numero">Número do documento de identidade</label>
             <input type="text" class="form-control {{ $errors->has('rg_numero') ? 'is-invalid' : '' }}" id="rg_numero" maxlength="14" value="{{ old('rg_numero', $usuario->rg_numero ?? '') }}" name="rg_numero">
             <div class="invalid-feedback">
@@ -74,12 +94,12 @@
 
           {{-- uf do RG --}}
           @inject('estados', 'App\Estado')
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-4">
             <label for="rg_uf">Estado do documento de identidade</label>
             <select class="custom-select {{ $errors->has('rg_uf') ? 'is-invalid' : '' }}" name="rg_uf" id="rg_uf">
               <option selected value="">Selecione</option>
               @foreach($estados->all() as $estado)
-              <option value="{{ $estado->sigla }}" @if(old('rg_uf', $usuario->endereco->rg_uf ?? '') == $estado->sigla)
+              <option value="{{ $estado->sigla }}" @if(old('rg_uf', $usuario->rg_uf ?? '') == $estado->sigla)
                 selected
                 @endif>
 
@@ -92,6 +112,26 @@
             </div>
           </div>
         </div> {{-- fecha form-row --}}
+
+        {{-- script para ocultar o campo de RG caso não possua --}}
+        <script>
+          if ($('input[name="possui_rg"]:checked').val() === "S") {
+            $('#rg-row').show();
+          } else {
+            $('#rg-row').hide();
+          }
+
+          $('input[name="possui_rg"]').change(function () {
+            if ($('input[name="possui_rg"]:checked').val() === "S") {
+              $('#rg-row').show();
+            } else {
+              $('#rg-row').hide();
+              document.getElementById('rg_numero').value = '';
+              document.getElementById('rg_uf').value = '';
+            }
+          });
+        </script>
+
 
         <div class="form-row">
           {{-- genero --}}
@@ -286,21 +326,7 @@
             </div>
           </div>
         </div>
-        <?php
-                  /*
-                  {{-- whatsapp --}}
-                  <div class="form-group col-md-2">
-                      <div class="custom-control custom-checkbox mb-3">
-                          <input type="checkbox" class="custom-control-input" id="whatsapp" name="whatsapp"
-                          @if(old('whatsapp') == 'on') 
-                          "checked"
-                          @endif
-                          >
-                          <label class="custom-control-label" for="whatsapp"><strong>Celular com Whatsapp?</strong></label>
-                      </div>
-                  </div>
-                  */
-                  ?>
+
         <div class="form-row">
           {{-- telefone_residencial_ddd --}}
           <div class="form-group col-md-1">
@@ -451,75 +477,30 @@
             </div>
           </div>
 
-      </div> {{-- fecha form-group --}}
-    </div> {{-- fecha container --}}
-  </div>{{-- fecha card-body --}}
-</div>{{-- fecha card --}}
+        </div> {{-- fecha form-group --}}
+      </div> {{-- fecha container --}}
+    </div>{{-- fecha card-body --}}
+  </div>{{-- fecha card --}}
 
-{{-- @can('inabilitado-visualizar-termo-de-adesao') --}}
-<!-- Termo de Adesão -->
-<!--
-<div class="card shadow mb-4">
-  <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Termo de Adesão Ao Serviço Voluntário</h6>
-  </div>
-  <div class="card-body">
-    <div class="container">
-      <div class="form-group">
-        <div class="form-row">
-          {{-- termo de adesão --}}
-          <div class="form-group col-md-12 text-center">
-            <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#termo_adesao_contrato">Clique para ler o Termo de Adesão</button>
-            <hr>
-            <div id="termo_adesao_contrato" class="collapse">
-              <p><strong>DO OBJETO</strong></p>
-              <p class="text-justify"><strong>Cláusula 1a.</strong> O presente contrato tem como objeto a prestação de serviço voluntário, a ser prestado à Associação Espirita Nosso Lar, de acordo com as necessidades da Casa, com trabalhos internos e externos realizados pela mesma, a exemplo de atendimento psicológico, jurídico, de saúde, visitas em hospitais, asilos, orfanatos, reforço escolar, confecção e distribuição de alimentos, realização de passes na Associação e em domicílio, serviço de limpeza, cozinha, manutenção, informática, entre outros.</p>
-              <p><strong>DAS CONDIÇÕES DO EXERCÍCIO </strong></p>
-              <p class="text-justify"><strong>Cláusula 2a.</strong> O voluntário (a) fica comprometido (a) a prestar ao Nosso Lar os serviços voluntários de acordo com sua conveniência e necessidade da Associação.</p>
-              <p class="text-justify"><strong>Cláusula 3a.</strong> A associação Espírita Nosso Lar garantirá ao voluntário (a), na medida do possível, todas as condições para o desenvolvimento das atividades para ele designadas.</p>
-              <p><strong>DA RESCISÃO</strong></p>
-              <p class="text-justify"><strong>Cláusula 4a.</strong> O presente instrumento poderá ser rescindido a qualquer tempo, por inciativa de qualquer uma das partes, o que não irá acarretar em qualquer tipo de indenização entre o voluntário (a) e a associação Espírita Nosso Lar.</p>
-              <p><strong>DO PRAZO</strong></p>
-              <p class="text-justify"><strong>Cláusula 5a.</strong> O presente Termo terá o prazo de 1 (um) ano, renovável automaticamente, caso seja de interesse de ambas as partes.</p>
-              <p><strong>DO FORO</strong></p>
-              <p class="text-justify"><strong>Cláusula 6a.</strong> Para dirimir quaisquer controvérsias oriundas do Termo de Adesão de Serviço Voluntário, as partes alegam o foro da comarca de Maceió/AL.</p>
-              <p class="text-justify"><strong>Pelo presente Termo de Adesão, decido espontaneamente realizar atividade voluntária nesta Associação, ciente da Lei no 9.608, de 18/02/1998, que declara que o mesmo não é atividade remunerada, não representa vínculo empregatício nem gera obrigações de natureza trabalhista, previdenciária ou afim.</strong></p>
-            </div>
-            <p>&nbsp;</p>
-            <div class="custom-control custom-checkbox mb-3">
-              <input type="checkbox" class="custom-control-input {{ $errors->has('termo_adesao') ? 'is-invalid' : '' }}" id="termo_adesao" name="termo_adesao" value="S" required {{ old('termo_adesao') == "S" ? 'checked' : '' }} {{ $usuario->termo_adesao == "S" ? 'checked' : '' }}>
-              <label class="custom-control-label" for="termo_adesao"><strong>Aceito os termos para finalizar meu cadastro</strong></label>
-              <div class="invalid-feedback">
-                {{$errors->first('termo_adesao')}}
-              </div>
-            </div>
-          </div> {{-- fecha form-group col-md-12--}}
-        </div> {{-- fecha form-row --}}
-      </div> {{-- fecha form-group --}}
-    </div> {{-- fecha container --}}
-  </div>{{-- fecha card-body --}}
-</div>{{-- fecha card --}}
--->
-{{-- @endcan --}}
-{{-- O campo termo adesão irá via hidden com valor = "N" --}}
-<input type="hidden" id="termo_adesao" name="termo_adesao" value="N">
+  {{-- O campo termo adesão irá via hidden com valor = "N" --}}
+  <input type="hidden" id="termo_adesao" name="termo_adesao" value="N">
 
-<!-- JavaScript para Mask Input -->
-<script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
+  <!-- JavaScript para Mask Input -->
+  <script src="{{asset('vendor/jquery-mask/jquery.mask.js')}}"></script>
 
-<script type="text/javascript">
-  $(document).ready(function(){
+  <script type="text/javascript">
+    $(document).ready(function(){
             $('#cpf').mask('000.000.000-00');
             $('#cep').mask('00000-000');
             $('#telefone_celular').mask('00000-0000');
             $('#telefone_residencial').mask('0000-0000');
             $('#data_inicio_nl').mask('00/0000');
         });
-</script>
+  </script>
 
-<!-- Javascript para buscar os dados do endereço após preencher o CEP -->
-<script type="text/javascript">
-  function limpa_formulário_cep() {
+  <!-- Javascript para buscar os dados do endereço após preencher o CEP -->
+  <script type="text/javascript">
+    function limpa_formulário_cep() {
             //Limpa valores do formulário de cep
             document.getElementById('endereco').value=("");
             document.getElementById('bairro').value=("");
@@ -584,59 +565,25 @@
                 limpa_formulário_cep();
             }
         };
+  </script>
 
-        function desabilitaCPFNumero()
-        {  
-            if(document.getElementById("possui_cpf_nao").checked == true)
-            {  
-                document.getElementById("cpf").readOnly = true;  
-                document.getElementById("cpf").value = "";  
-            }
-        }  
-        function habilitaCPFNumero()
-        {  
-            if (document.getElementById("possui_cpf_sim").checked == true)
-            {
-                document.getElementById("cpf").readOnly = false;
-            }  
-        }  
-
-        function desabilitaRGDados()
-        {  
-            if(document.getElementById("possui_rg_nao").checked == true)
-            {  
-                document.getElementById("rg_numero").readOnly = true;  
-                document.getElementById("rg_numero").value = "";  
-                document.getElementById("rg_uf").disabled = true;  
-            }
-        }  
-        function habilitaRGDados()
-        {  
-            if (document.getElementById("possui_rg_sim").checked == true)
-            {
-                document.getElementById("rg_numero").readOnly = false;
-                document.getElementById("rg_uf").readOnly = false;
-            }  
-        }  
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function () {
-    $.getJSON('../../vendor/estados-cidades/estados_cidades.json', function (data) {
+  <script type="text/javascript">
+    $(document).ready(function () {
+    $.getJSON('{{ asset('vendor/estados-cidades/estados_cidades.json') }}', function (data) {
       var items = [];
-      var options = '<option value="">Selecione</option>';  
+      var options = '<option value="{{ old('nascimento_uf', $usuario->nascimento_uf ?? '') }}">{{ old('nascimento_uf', $usuario->nascimento_uf ?? '') }}</option>';  
       $.each(data, function (key, val) {
-        options += '<option value="' + val.sigla + '">' + val.nome + '</option>';
+        options += '<option value="' + val.sigla + '">' + val.sigla + '</option>';
       });         
       $("#nascimento_uf").html(options);        
       $("#nascimento_uf").change(function () {        
-        var options_cidades = '';
+        var options_cidades = '<option value="{{ old('nascimento_municipio', $usuario->nascimento_municipio ?? '') }}">{{ old('nascimento_municipio', $usuario->nascimento_municipio ?? '') }}</option>';;
         var str = "";         
         $("#nascimento_uf option:selected").each(function () {
           str += $(this).text();
         });
         $.each(data, function (key, val) {
-          if(val.nome == str) {             
+          if(val.sigla == str) {             
             $.each(val.cidades, function (key_city, val_city) {
               options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
             });             
@@ -646,4 +593,4 @@
       }).change();    
     });
   });
-</script>
+  </script>

@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
    * @var array
    */
   protected $policies = [
-      // 'App\Model' => 'App\Policies\ModelPolicy',
+    // 'App\Model' => 'App\Policies\ModelPolicy',
   ];
 
   /**
@@ -27,8 +27,8 @@ class AuthServiceProvider extends ServiceProvider
   {
     $this->registerPolicies();
 
-    foreach($this->listaPermissoes() as $permissao){
-      Gate::define($permissao->nome, function($user) use($permissao){
+    foreach ($this->listaPermissoes() as $permissao) {
+      Gate::define($permissao->nome, function ($user) use ($permissao) {
         return $user->temUmPapelDestes($permissao->papeis) || $user->eAdmin();
       });
     }
@@ -39,7 +39,8 @@ class AuthServiceProvider extends ServiceProvider
    *
    * @return object
    */
-  public function listaPermissoes(){
+  public function listaPermissoes()
+  {
     // o método with traz os papeis junto com as pemissões
     return Permissao::with('papeis')->get();
   }

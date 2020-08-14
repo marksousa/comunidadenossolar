@@ -98,13 +98,13 @@ class UsuarioController extends Controller
     $usuario->nome = $validated["nome"];
 
     //if ($request->assistido == 1) {
-      $usuario->possui_cpf = $validated["possui_cpf"];
-      $usuario->possui_rg = $validated["possui_rg"];
-      $usuario->nascimento_uf = $validated["nascimento_uf"];
-      $usuario->nascimento_municipio = $validated["nascimento_municipio"];
+    $usuario->possui_cpf = $validated["possui_cpf"];
+    $usuario->possui_rg = $validated["possui_rg"];
+    $usuario->nascimento_uf = $validated["nascimento_uf"];
+    $usuario->nascimento_municipio = $validated["nascimento_municipio"];
     //} else {
-      //$usuario->possui_cpf = 'S';
-      //$usuario->possui_rg = 'S';
+    //$usuario->possui_cpf = 'S';
+    //$usuario->possui_rg = 'S';
     //}
 
     $usuario->cpf = $validated["cpf"];
@@ -239,6 +239,7 @@ class UsuarioController extends Controller
     // e informa o erro através da variável $errors (na view)
     // dd($validated);
 
+
     try {
       $usuario = Usuario::findOrFail($id);
     } catch (ModelNotFoundException $exception) {
@@ -281,8 +282,8 @@ class UsuarioController extends Controller
     $usuario->perfil->data_inicio_nl = $validated["data_inicio_nl"];
     $usuario->perfil->pilar_id = $validated["pilar_id"];
     $usuario->perfil->observacao = $validated["observacao"];
-    $perfil->religiao_id = $validated["formacao_religiosa"];
-    
+    $usuario->perfil->religiao_id = $validated["formacao_religiosa"];
+
     // verifica se o usuario possui um user associado para atualiza na tabela users tb
     $user = User::where('cpf', $cpfAux)->first();
 
