@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Register Controller
     |--------------------------------------------------------------------------
@@ -22,58 +22,70 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+  use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::USUARIONOVO;
+  /**
+   * Where to redirect users after registration.
+   *
+   * @var string
+   */
+  protected $redirectTo = RouteServiceProvider::USUARIONOVO;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('guest');
+  }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'cpf' => ['required', 'string', 'max:11'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+  /**
+   * Get a validator for an incoming registration request.
+   *
+   * @param  array  $data
+   * @return \Illuminate\Contracts\Validation\Validator
+   */
+  protected function validator(array $data)
+  {
+    return Validator::make($data, [
+      'name' => ['required', 'string', 'max:255'],
+      'cpf' => ['required', 'string', 'unique:users', 'max:11'],
+      'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+      'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ]);
+  }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        $user = User::create([
-            'name' => $data['name'],
-            'cpf' => $data['cpf'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        
-        $user->adicionaPapel('inabilitado');
+  /**
+   * Get the error messages for the defined validation rules.
+   *
+   * @return array
+   */
+  public function messages()
+  {
+    return [
+      'cpf.unique' => 'Esse CPF já tem cadastro nesse sistema. Recupere sua senha na tela de login.',
+    ];
+  }
 
-        return $user;
-    }
+  /**
+   * Create a new user instance after a valid registration.
+   *
+   * @param  array  $data
+   * @return \App\User
+   */
+  protected function create(array $data)
+  {
+    $user = User::create([
+      'name' => $data['name'],
+      'cpf' => $data['cpf'],
+      'email' => $data['email'],
+      'password' => Hash::make($data['password']),
+    ]);
+
+    $user->adicionaPapel('inabilitado');
+
+    return $user;
+  }
 }
