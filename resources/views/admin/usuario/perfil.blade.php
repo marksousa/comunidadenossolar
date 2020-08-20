@@ -4,7 +4,21 @@
 <!-- Custom styles for this page -->
 <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
-
+<style>
+  .jumbotron {
+    background-image: url("{{ asset('img/nuvens.jpg') }}");
+    background-size: cover;
+    background-attachment: scroll;
+    background-position: center center;
+    color: white;
+    text-shadow: 2px 2px 8px black;
+    width: auto;
+    margin-bottom: 100px;
+    position: relative;
+    display: block;
+    font-family: FontAwesome;
+  }
+</style>
 @section('conteudo')
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -16,8 +30,8 @@
 
   <!-- Page Heading -->
   <div class="jumbotron">
-    <h1 class="display-5">Usuário <span class="text-primary">{{ $usuario->nome }}</span></h1>
-    <p class="lead">Aqui você encontra informações do cadastro, contatos, perfil e foto.</p>
+    <h1 class="display-5"><span class="font-weight-bolder text-white">CNL{{ $usuario->id }} - {{ $usuario->nome }}</span></h1>
+    <p class=" lead">Aqui você encontra informações do cadastro, contatos, perfil e foto.</p>
   </div>
 
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -31,11 +45,11 @@
       <!-- Nav Example -->
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">{{ $usuario->nome }}</h6>
+          <h6 class="m-0 font-weight-bold text-primary">CNL{{ $usuario->id }} - {{ $usuario->nome }}</h6>
         </div>
         <div class="card-body">
           <div class="row py-3">
-            <div class="py-1">
+            <div class="py-1 text-center">
               @empty($usuario->perfil->foto_path)
               <img src="{{ asset('img/logo.png') }}" alt="Foto de Cadastro Não Enviada" width="80%" class="mx-auto d-block">
               <hr class="py-1">
@@ -102,17 +116,10 @@
                         <input type="text" class="form-control" id="cpf" value="{{ $usuario->cpf }}" name="cpf" readonly>
                       </div>
                       @endif
-                      {{-- possui rg --}}
-                      {{--  Cinthia, retirei esse trecho para adicionar o operador ternario abaixo. Veja a economia de linhas que conseguimos fazer. --}}
-                      {{-- @php
-                      if ($usuario->possui_rg == 'S')
-                      $usuario->possui_rg = "Sim";
-                      else
-                      $usuario->possui_rg = "Não";
-                      @endphp --}}
                     </div> {{-- fecha form-row --}}
 
                     <div class="form-row">
+                      {{-- possui rg --}}
                       <div class="form-group col-md-2">
                         <label id="lbl_possui_rg" for="possui_rg"><small>Possui RG</small></label>
                         <input type="text" class="form-control" id="possui_rg" value="{{ $usuario->possui_rg == 'S' ? 'Sim' : 'Não' }}" name="possui_rg" readonly>
