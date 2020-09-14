@@ -316,11 +316,28 @@ class UsuarioController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Usuario  $usuario
+   * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy(Usuario $usuario)
+  public function destroy($id)
   {
-    //
+    if (Gate::denies('usuarios-delete')) {
+      abort(403, "Não autorizado!");
+    }
+
+    try {
+      $usuario = Usuario::findOrFail($id);
+    } catch (ModelNotFoundException $exception) {
+      abort(404, 'Usuário Não Encontrado!');
+    }
+
+    $usuario->endereco()->delete();
+    $usuario->perfil()->delete();
+    $usuario->delete();
+
+    Session::flash('tipo', 'warning');
+    Session::flash('mensagem', 'Usuário Excluído com Sucesso!');
+
+    return redirect()->route('UsuarioIndex');
   }
 }
