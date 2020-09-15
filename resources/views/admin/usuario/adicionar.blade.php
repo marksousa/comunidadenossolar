@@ -16,7 +16,8 @@
   @endcomponent
   @endif
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Cadastro de novo usuário (campos marcados com <span class="text-danger"><strong>*</strong></span> são obrigatórios)</h1>
+  <h1 class="h3 mb-2 text-gray-800">Cadastro de novo voluntário (campos marcados com <span class="text-danger"><strong>*</strong></span> são obrigatórios)</h1>
+  <h1 class="h4 mb-2 text-gray-800 text-justify">Garantindo o respeito à privacidade, seus dados serão armazenados em nosso banco de dados e você poderá alterá-los pelo sistema quando desejar.</h1>
 
   <form method="POST" action="{{ route('UsuarioStore') }}" id="formCadastroUsuario" novalidate>
     @csrf

@@ -5,7 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }} como voluntário da Comunidade Nosso Lar<span class="text-danger"> (preencha todos os campos abaixo)</span></div>
+                {{-- <div class="card-header">{{ __('Register') }} como voluntário da Comunidade Nosso Lar<span class="text-danger"> (preencha todos os campos abaixo)</span></div> --}}
+                <div class="card-header text-justify">Se você ainda não se cadastrou no sistema, preencha os campos abaixo. Você deverá preencher outro formulário para finalizar seu cadastro como voluntário da Comunidade Nosso Lar<span class="text-danger"> (preencha todos os campos abaixo)</span></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

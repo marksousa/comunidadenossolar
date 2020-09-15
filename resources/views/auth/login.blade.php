@@ -5,7 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header text-center">{{ __('Login') }} na sua área de voluntário da Comunidade Nosso Lar<span class="text-danger"> (preencha todos os campos abaixo)</span></div>
+                {{-- <div class="card-header text-center">{{ __('Login') }} na sua área de voluntário da Comunidade Nosso Lar<span class="text-danger"> (preencha todos os campos abaixo)</span></div> --}}
+                <div class="card-header text-justify">Se você já se cadastrou no sistema, preencha os campos abaixo para entrar na sua área de voluntário da Comunidade Nosso Lar<span class="text-danger"> (preencha todos os campos abaixo)</span></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
