@@ -140,6 +140,16 @@
           });
         </script>
 
+        <div class="form-row">
+          {{-- NIS --}}
+          <div class="form-group col-md-5">
+            <label id="lbl_nis" for="nis">NIS (Número de Identificação Social)</label>
+            <input type="text" class="form-control {{ $errors->has('nis') ? 'is-invalid' : '' }}" id="nis" maxlength="11" value="{{ old('nis', $usuario->nis ?? '') }}" name="nis">
+            <div class="invalid-feedback">
+              {{$errors->first('nis')}}
+            </div>
+          </div>
+        </div> {{-- fecha form-row --}}
 
         <div class="form-row">
           {{-- genero --}}

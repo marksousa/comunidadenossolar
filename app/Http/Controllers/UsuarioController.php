@@ -111,6 +111,7 @@ class UsuarioController extends Controller
     $usuario->cpf = $validated["cpf"];
     $usuario->rg_numero = $validated["rg_numero"];
     $usuario->rg_uf = $validated["rg_uf"];
+    $usuario->nis = $validated["nis"];
     $usuario->genero_id = $validated["genero_id"];
     $usuario->data_nascimento = $validated["data_nascimento"];
 
@@ -255,6 +256,7 @@ class UsuarioController extends Controller
     $usuario->possui_rg = $validated["possui_rg"];
     $usuario->rg_numero = $validated["rg_numero"];
     $usuario->rg_uf = $validated["rg_uf"];
+    $usuario->nis = $validated["nis"];
     $usuario->genero_id = $validated["genero_id"];
     $usuario->data_nascimento = $validated["data_nascimento"];
     $usuario->nascimento_uf = $validated["nascimento_uf"];

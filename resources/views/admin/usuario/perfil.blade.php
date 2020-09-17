@@ -139,6 +139,16 @@
                     </div> {{-- fecha form-row --}}
 
                     <div class="form-row">
+                      {{-- NIS --}}
+                      @if (!empty($usuario->nis))
+                      <div class="form-group col-md-5">
+                        <label id="lbl_nis" for="nis"><small>NIS (Número de Identificação Social)</small></label>
+                        <input type="text" class="form-control" id="nis" value="{{ $usuario->nis }}" name="nis" readonly>
+                      </div>
+                      @endif
+                    </div> {{-- fecha form-row --}}
+
+                    <div class="form-row">
                       {{-- data_nascimento --}}
                       @if (!empty($usuario->data_nascimento))
                       <div class="form-group col-md-3">

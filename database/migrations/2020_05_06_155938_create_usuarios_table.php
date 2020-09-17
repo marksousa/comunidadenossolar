@@ -23,6 +23,7 @@ class CreateUsuariosTable extends Migration
       $table->string('rg_uf', 2)->nullable();
       $table->string('nascimento_uf', 2);
       $table->string('nascimento_municipio', 60);
+      $table->string('nis', 11)->nullable();
       $table->integer('genero_id')->unsigned();
       $table->foreign('genero_id')->references('id')->on('generos');
       $table->date('data_nascimento')->nullable();
