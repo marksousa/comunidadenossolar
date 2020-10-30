@@ -108,7 +108,21 @@ class UsuarioController extends Controller
     //$usuario->possui_rg = 'S';
     //}
 
-    $usuario->cpf = $validated["cpf"];
+    // $usuario->cpf = $validated["cpf"];
+    // CPF (se for branco substitua por nulo)
+    $usuario->cpf = ($validated["cpf"] == "" ?  null : $validated["cpf"]);
+
+    if ($usuarioJaCadastrado = Usuario::where('cpf', $usuario->cpf)->first()) {
+      Session::flash('tipo', 'warning');
+      if (is_null($usuarioJaCadastrado->perfil->foto_path)) {
+        Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema. Você pode enviar a foto dele para o sistema.');
+        return redirect()->route('FotoCreate', ['id' => $usuarioJaCadastrado->id]);
+      } else {
+        Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema.');
+        return redirect()->route('admin-home');
+      }
+    }
+
     $usuario->rg_numero = $validated["rg_numero"];
     $usuario->rg_uf = $validated["rg_uf"];
     $usuario->nis = $validated["nis"];
@@ -147,14 +161,51 @@ class UsuarioController extends Controller
 
     try {
       $usuario->save();
+    } catch (QueryException $ex) {
+      if ($ex->errorInfo[1] == '1062') {
+        info($ex);
+        Session::flash('tipo', 'danger');
+        Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema.');
+        return redirect()->back()->withInput();
+      } else {
+        info($ex);
+        abort(404, "Ocorreu um erro ao salvar no banco de dados. Tente novamente.");
+      }
+    }
+
+    try {
       $endereco->usuario_id = $usuario->id;
       $endereco->save();
+    } catch (QueryException $ex) {
+      if ($ex->errorInfo[1] == '1062') {
+        info($ex);
+        Session::flash('tipo', 'danger');
+        Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema.');
+        return redirect()->back()->withInput();
+      } else {
+        info($ex);
+        abort(404, "Ocorreu um erro ao salvar no banco de dados. Tente novamente.");
+      }
+    }
+
+    try {
       $perfil->usuario_id = $usuario->id;
       $perfil->save();
-      if (!empty($user)) {
-        $user->usuario_id = $usuario->id;
-        $user->save();
+    } catch (QueryException $ex) {
+      if ($ex->errorInfo[1] == '1062') {
+        info($ex);
+        Session::flash('tipo', 'danger');
+        Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema.');
+        return redirect()->back()->withInput();
+      } else {
+        info($ex);
+        abort(404, "Ocorreu um erro ao salvar no banco de dados. Tente novamente.");
       }
+    }
+
+    if (!empty($user)) {
+      $user->usuario_id = $usuario->id;
+      $user->save();
 
       if ($this->papelInativo()) {
         Auth::user()->removePapel('inabilitado');
@@ -163,11 +214,6 @@ class UsuarioController extends Controller
 
       Session::flash('tipo', 'success');
       Session::flash('mensagem', 'Cadastro realizado com Sucesso!');
-    } catch (\Exception $e) {
-      info($e);
-      Session::flash('tipo', 'danger');
-      Session::flash('mensagem', 'Ocorreu um erro ao salvar o novo usuário. Tente Novamente.');
-      return redirect()->back()->withInput();
     }
 
     return redirect()->route('FotoCreate', ['id' => $usuario->id]);
