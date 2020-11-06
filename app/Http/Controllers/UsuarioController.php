@@ -112,14 +112,16 @@ class UsuarioController extends Controller
     // CPF (se for branco substitua por nulo)
     $usuario->cpf = ($validated["cpf"] == "" ?  null : $validated["cpf"]);
 
-    if ($usuarioJaCadastrado = Usuario::where('cpf', $usuario->cpf)->first()) {
-      Session::flash('tipo', 'warning');
-      if (is_null($usuarioJaCadastrado->perfil->foto_path)) {
-        Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema. Você pode enviar a foto dele para o sistema.');
-        return redirect()->route('FotoCreate', ['id' => $usuarioJaCadastrado->id]);
-      } else {
-        Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema.');
-        return redirect()->route('admin-home');
+    if ($usuario->cpf !== null) {
+      if ($usuarioJaCadastrado = Usuario::where('cpf', $usuario->cpf)->first()) {
+        Session::flash('tipo', 'warning');
+        if (is_null($usuarioJaCadastrado->perfil->foto_path)) {
+          Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema. Você pode enviar a foto dele para o sistema.');
+          return redirect()->route('FotoCreate', ['id' => $usuarioJaCadastrado->id]);
+        } else {
+          Session::flash('mensagem', 'Esse CPF já foi possui cadastro no sistema.');
+          return redirect()->route('admin-home');
+        }
       }
     }
 
