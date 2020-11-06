@@ -39,6 +39,8 @@ class UsuarioSanitizedRequest extends FormRequest
       'data_nascimento' => 'nullable|date',
       'nascimento_uf' => 'required|string|max:2',
       'nascimento_municipio' => 'required|string|max:60',
+      'nome_mae' => 'nullable|string|max:80',
+      'nome_pai' => 'nullable|string|max:80',
       'endereco' => 'nullable|string|max:60',
       'numero' => 'nullable|string|max:10',
       'complemento' => 'nullable|string|max:40',

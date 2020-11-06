@@ -28,6 +28,8 @@ class CreateUsuariosTable extends Migration
       $table->foreign('genero_id')->references('id')->on('generos');
       $table->date('data_nascimento')->nullable();
       $table->string('email', 60)->nullable();
+      $table->string('nome_mae', 80)->nullable();
+      $table->string('nome_pai', 80)->nullable();
       $table->string('telefone_residencial_ddd', 2)->nullable()->comment('DDD do telefone residencial');
       $table->string('telefone_residencial', 9)->nullable()->comment('Telefone residencial');
       $table->string('telefone_celular_ddd', 2)->nullable()->comment('DDD do telefone celular');

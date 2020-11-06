@@ -209,6 +209,40 @@
   </div>{{-- fecha card-body --}}
 </div>{{-- fecha card --}}
 
+<!-- Filiação -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Filiação</h6>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="form-group">
+        <div class="form-row">
+          {{-- nome_mae --}}
+          <div class="form-group col-md-9">
+            <label for="nome_mae">Nome da Mãe completo</label>
+            <input type="text" class="form-control {{ $errors->has('nome_mae') ? 'is-invalid' : '' }}" id="nome_mae" maxlength="80" value="{{ old('nome_mae', $usuario->nome_mae ?? '') }}" name="nome_mae">
+            <div class="invalid-feedback">
+              {{$errors->first('nome_mae')}}
+            </div>
+          </div>
+        </div> {{-- fecha form-row --}}
+
+        <div class="form-row">
+          {{-- nome_pai --}}
+          <div class="form-group col-md-9">
+            <label for="nome_pai">Nome do Pai completo</label>
+            <input type="text" class="form-control {{ $errors->has('nome_pai') ? 'is-invalid' : '' }}" id="nome_pai" maxlength="80" value="{{ old('nome_pai', $usuario->nome_pai ?? '') }}" name="nome_pai">
+            <div class="invalid-feedback">
+              {{$errors->first('nome_pai')}}
+            </div>
+          </div>
+        </div> {{-- fecha form-row --}}
+      </div> {{-- fecha form-group --}}
+    </div> {{-- fecha container --}}
+  </div>{{-- fecha card-body --}}
+</div>{{-- fecha card --}}
+
 <!-- Endereço -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
