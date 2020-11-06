@@ -355,7 +355,8 @@
                       @if (!empty($usuario->perfil->observacao))
                         <div class="form-group col-md-12">
                           <label for="observacao"><small>Observação</small></label>
-                          <p class="text-justify">{{ $usuario->perfil->observacao }}</p>
+                          <input type="text" class="form-control text-capitalize" id="observacao" value="{{ $usuario->perfil->observacao }}" name="observacao" readonly>
+                          {{-- <p class="text-justify">{{ $usuario->perfil->observacao }}</p> --}}
                         </div>
                       @endif
                     </div> {{-- fecha form-row --}}
